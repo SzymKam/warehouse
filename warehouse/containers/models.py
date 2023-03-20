@@ -1,44 +1,28 @@
 from django.db import models
-
-MEDICAL_EQUIPMENT_CONTAINER_CHOICES = []
-MEDICAL_EQUIPMENT_NAME_CHOICES = []
-MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = []
-
-CONTAINER_NAME_CHOICES = []
-
-DRUG_ACTIVE_SUBSTANCES = []
-DRUG_DOSAGE_FORM = []
-
-FLUID_VOLUME = []
-
-CANNULA_SIZE = []
-
-NEEDLE_VOLUME = []
-
-SYRINGE_SIZE = []
-
-BIG_SIZE = []
-
-LT_TUBE_SIZE = []
-
-GLOVES_SIZE = []
-
-STERILE_GLOVES_SIZE = []
-
-GAUZE_SIZE = []
-
-NPA_TUBE_SIZE = []
-
-OPA_TUBE_SIZE = []
-
-ET_TUBE_SIZE = []
-
-BLADE_SIZE = []
-
-O2_MASK_TYPE = []
-O2_MASK_SIZE = []
-
-VENTILATION_MASK_SIZE = []
+from .constants import (
+    VENTILATION_MASK_SIZE,
+    O2_MASK_SIZE,
+    O2_MASK_TYPE,
+    BLADE_SIZE,
+    ET_TUBE_SIZE,
+    OPA_TUBE_SIZE,
+    NPA_TUBE_SIZE,
+    GAUZE_SIZE,
+    STERILE_GLOVES_SIZE,
+    GLOVES_SIZE,
+    LT_TUBE_SIZE,
+    BIG_SIZE,
+    SYRINGE_VOLUME,
+    NEEDLE_SIZE,
+    CANNULA_SIZE,
+    FLUID_VOLUME,
+    DRUG_DOSAGE_FORM,
+    DRUG_ACTIVE_SUBSTANCES,
+    CONTAINER_NAME_CHOICES,
+    MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
+    MEDICAL_EQUIPMENT_NAME_CHOICES,
+    MEDICAL_EQUIPMENT_CONTAINER_CHOICES,
+)
 
 
 class Container(models.Model):
@@ -87,11 +71,11 @@ class Cannula(MedicalEquipment):
 
 
 class Needle(MedicalEquipment):
-    volume = models.CharField(choices=NEEDLE_VOLUME)
+    size = models.CharField(choices=NEEDLE_SIZE)
 
 
 class Syringe(MedicalEquipment):
-    size = models.CharField(choices=SYRINGE_SIZE)
+    volume = models.CharField(choices=SYRINGE_VOLUME)
 
 
 class BIG(MedicalEquipment):
