@@ -1,15 +1,93 @@
-MEDICAL_EQUIPMENT_CONTAINER_CHOICES = []
 MEDICAL_EQUIPMENT_NAME_CHOICES = []
-MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = []
+MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = [
+    ("Durable", "Durable"),
+    ("Disposable", "Disposable"),
+    ("Electronic", "Electronic"),
+]
 
-CONTAINER_NAME_CHOICES = []
+CONTAINER_NAME_CHOICES = [
+    ("Main warehouse", "Main warehouse"),
+    ("Trauma Wall - ALS", "Trauma Wall - ALS"),
+    ("Trauma Wall - hospital", "Trauma Wall - hospital"),
+    ("Backpack - ALS", "Backpack - ALS"),
+    ("Backpack - ALS Ampoule", "Backpack - ALS Ampoule"),
+    ("Backpack - R1", "Backpack - R1"),
+    ("Bag - R1", "Bag - R1"),
+    ("Trunk - ALS", "Trunk - ALS"),
+    ("Trunk - ALS Ampoule", "Trunk - ALS Ampoule"),
+    ("Storage Drawer - hospital", "Storage Drawer - hospital"),
+]
 
-DRUG_ACTIVE_SUBSTANCES = []
+DRUG_ACTIVE_SUBSTANCES = [
+    ("Acidum acetylsalicylicum", "Acidum acetylsalicylicum"),
+    ("Ketoprofenum", "Ketoprofenum"),
+    ("Ibuprofenum", "Ibuprofenum"),
+    ("Metamizolum natricum", "Metamizolum natricum"),
+    ("Paracetamolum", "Paracetamolum"),
+    ("Morphini sulfas", "Morphini sulfas"),
+    ("Fentanylum", "Fentanylum"),
+    ("Naloxoni hydrochloridum", "Naloxoni hydrochloridum"),
+    ("Budesonidum", "Budesonidum"),
+    ("Hydrocortisonum", "Hydrocortisonum"),
+    # 10
+    ("Dexamethasoni phosphas", "Dexamethasoni phosphas"),
+    ("Diazepamum", "Diazepamum"),
+    ("Clonazepam", "Clonazepam"),
+    ("Midazolamum", "Midazolamum"),
+    ("Flumazenilum", "Flumazenilum"),
+    ("Atropini sulfas", "Atropini sulfas"),
+    ("Adenosinum", "Adenosinum"),
+    ("Amiodaroni hydrochloridum", "Amiodaroni hydrochloridum"),
+    ("Lidocaini hydrochloridum", "Lidocaini hydrochloridum"),
+    ("Epinephrinum", "Epinephrinum"),
+    # 20
+    ("Salbutamolum", "Salbutamolum"),
+    ("Urapidilum", "Urapidilum"),
+    ("Metoprololi tartras", "Metoprololi tartras"),
+    ("Drotaverini hydrochloridum ", "Drotaverini hydrochloridum "),
+    ("Glyceroli trinitras", "Glyceroli trinitras"),
+    ("Clopidogrelum", "Clopidogrelum"),
+    ("Ticagrelor", "Ticagrelor"),
+    ("Hepariunum natricum", "Hepariunum natricum"),
+    ("Thiethylperazinum", "Thiethylperazinum"),
+    ("Metoclopramidum", "Metoclopramidum"),
+    # 30
+    ("Furosemidum", "Furosemidum"),
+    ("Mannitolum", "Mannitolum"),
+    ("Hydroxyzinum", "Hydroxyzinum"),
+    ("Magnesii sulfas", "Magnesii sulfas"),
+    ("Clemastinum", "Clemastinum"),
+    ("Natrii hydrogenocarbonas 8,4%", "Natrii hydrogenocarbonas 8,4%"),
+    ("Captoprilum", "Captoprilum"),
+    ("Glucagoni hydrochloridum", "Glucagoni hydrochloridum"),
+    ("Glukoza 20%", "Glukoza 20%"),
+    ("Glukoza 40%", "Glukoza 40%"),
+    # 40
+    ("Glukoza 5%", "Glukoza 5%"),
+    ("Natrii chloridum 0,9%", "Natrii chloridum 0,9%"),
+    ("Optilyte", "Optilyte"),
+    ("Solutio Ringeri", "Solutio Ringeri"),
+    ("Plasmalyte", "Plasmalyte"),
+    ("Acidum tranexamicum", "Acidum tranexamicum"),
+    ("Polstigminum", "Polstigminum"),
+    ("Ondansetronum", "Ondansetronum"),
+    ("Hyoscini butylbromidum", "Hyoscini butylbromidum"),
+    ("Suxamethonii chloridum", "Suxamethonii chloridum"),
+    # 50
+    ("Calcii chloridum dihydricum", "Calcii chloridum dihydricum"),
+    ("Propofolum", "Propofolum"),
+    ("Pantoprazolum", "Pantoprazolum"),
+    ("Aqua pro injectione", "Aqua pro injectione"),
+    ("Nitrendipinum", "Nitrendipinum"),
+    ("Rocuronium", "Rocuronium"),
+]
 DRUG_DOSAGE_FORM = [
     ("Pills", "Pills"),
     ("Nebulizer", "Nebulizer"),
     ("Injection", "Injection"),
     ("Ointment", "Ointment"),
+    ("Areosol", "Areosol"),
+    ("Rectal enema", "Rectal enema"),
 ]
 
 FLUID_VOLUME = [
