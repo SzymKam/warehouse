@@ -21,7 +21,6 @@ from .constants import (
     CONTAINER_NAME_CHOICES,
     MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
     MEDICAL_EQUIPMENT_NAME_CHOICES,
-    MEDICAL_EQUIPMENT_CONTAINER_CHOICES,
 )
 
 
@@ -40,7 +39,6 @@ class MedicalEquipment(models.Model):
         blank=True,
         null=True,
         on_delete=models.DO_NOTHING,
-        choices=MEDICAL_EQUIPMENT_CONTAINER_CHOICES,
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
@@ -57,67 +55,69 @@ class MedicalEquipment(models.Model):
 
 
 class Drug(MedicalEquipment):
-    active_substance = models.CharField(choices=DRUG_ACTIVE_SUBSTANCES)
-    psychotropic_or_narcotic = models.BooleanField()
-    dosage_form = models.CharField(choices=DRUG_DOSAGE_FORM, blank=True, null=True)
+    active_substance = models.CharField(choices=DRUG_ACTIVE_SUBSTANCES, max_length=20)
+    psychotropic_or_narcotic = models.BooleanField(default=False)
+    dosage_form = models.CharField(
+        choices=DRUG_DOSAGE_FORM, blank=True, null=True, max_length=20
+    )
 
 
 class Fluid(MedicalEquipment):
-    volume = models.CharField(choices=FLUID_VOLUME)
+    volume = models.CharField(choices=FLUID_VOLUME, max_length=20)
 
 
 class Cannula(MedicalEquipment):
-    size = models.CharField(choices=CANNULA_SIZE)
+    size = models.CharField(choices=CANNULA_SIZE, max_length=20)
 
 
 class Needle(MedicalEquipment):
-    size = models.CharField(choices=NEEDLE_SIZE)
+    size = models.CharField(choices=NEEDLE_SIZE, max_length=20)
 
 
 class Syringe(MedicalEquipment):
-    volume = models.CharField(choices=SYRINGE_VOLUME)
+    volume = models.CharField(choices=SYRINGE_VOLUME, max_length=20)
 
 
 class BIG(MedicalEquipment):
-    size = models.CharField(choices=BIG_SIZE)
+    size = models.CharField(choices=BIG_SIZE, max_length=20)
 
 
 class LTTube(MedicalEquipment):
-    size = models.CharField(choices=LT_TUBE_SIZE)
+    size = models.CharField(choices=LT_TUBE_SIZE, max_length=20)
 
 
 class Gloves(MedicalEquipment):
-    size = models.CharField(choices=GLOVES_SIZE)
+    size = models.CharField(choices=GLOVES_SIZE, max_length=20)
 
 
 class SterileGloves(MedicalEquipment):
-    size = models.CharField(choices=STERILE_GLOVES_SIZE)
+    size = models.CharField(choices=STERILE_GLOVES_SIZE, max_length=20)
 
 
 class Gauze(MedicalEquipment):
-    size = models.CharField(choices=GAUZE_SIZE)
+    size = models.CharField(choices=GAUZE_SIZE, max_length=20)
 
 
 class NasopharyngealTube(MedicalEquipment):
-    size = models.CharField(choices=NPA_TUBE_SIZE)
+    size = models.CharField(choices=NPA_TUBE_SIZE, max_length=20)
 
 
 class OropharyngealTube(MedicalEquipment):
-    size = models.CharField(choices=OPA_TUBE_SIZE)
+    size = models.CharField(choices=OPA_TUBE_SIZE, max_length=20)
 
 
 class EndotrachealTube(MedicalEquipment):
-    size = models.CharField(choices=ET_TUBE_SIZE)
+    size = models.CharField(choices=ET_TUBE_SIZE, max_length=20)
 
 
 class LaryngoscopeBlade(MedicalEquipment):
-    size = models.CharField(choices=BLADE_SIZE)
+    size = models.CharField(choices=BLADE_SIZE, max_length=20)
 
 
 class OxygenMask(MedicalEquipment):
-    type = models.CharField(choices=O2_MASK_TYPE)
-    size = models.CharField(choices=O2_MASK_SIZE)
+    type = models.CharField(choices=O2_MASK_TYPE, max_length=20)
+    size = models.CharField(choices=O2_MASK_SIZE, max_length=20)
 
 
 class VentilationMask(MedicalEquipment):
-    size = models.CharField(choices=VENTILATION_MASK_SIZE)
+    size = models.CharField(choices=VENTILATION_MASK_SIZE, max_length=20)
