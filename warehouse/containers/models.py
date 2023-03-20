@@ -29,6 +29,9 @@ class Container(models.Model):
     description = models.TextField(blank=True, null=True)
     # have_container = models.ForeignKey(Container, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class MedicalEquipment(models.Model):
     """class for basic and basic with expiration date medical equipment"""
@@ -55,7 +58,7 @@ class MedicalEquipment(models.Model):
 
 
 class Drug(MedicalEquipment):
-    active_substance = models.CharField(choices=DRUG_ACTIVE_SUBSTANCES, max_length=20)
+    active_substance = models.CharField(choices=DRUG_ACTIVE_SUBSTANCES, max_length=30)
     psychotropic_or_narcotic = models.BooleanField(default=False)
     dosage_form = models.CharField(
         choices=DRUG_DOSAGE_FORM, blank=True, null=True, max_length=20
