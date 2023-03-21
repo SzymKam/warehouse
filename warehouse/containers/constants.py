@@ -1,4 +1,4 @@
-MEDICAL_EQUIPMENT_NAME_CHOICES = sorted(
+DRUGS = sorted(
     [
         ("Adrenalin", "Adrenalin"),
         ("ASA", "ASA"),
@@ -21,7 +21,6 @@ MEDICAL_EQUIPMENT_NAME_CHOICES = sorted(
         ("Adenosine", "Adenosine"),
         ("Amiodarone", "Amiodarone"),
         ("Lidocaine", "Lidocaine"),
-        # 20
         ("Salbutamol", "Salbutamol"),
         ("Urapidil", "Urapidil"),
         ("Betaloc", "Betaloc"),
@@ -61,6 +60,66 @@ MEDICAL_EQUIPMENT_NAME_CHOICES = sorted(
         ("Rocuronium", "Rocuronium"),
     ]
 )
+
+DISPOSABLE_EQUIPMENT = [
+    ("Cannula", "Cannula"),
+    ("BIG", "BIG"),
+    ("3-way stopcock", "3-way stopcock"),
+    ("Cannula fixation tape", "Cannula fixation tape"),
+    ("Skin disinfectant", "Skin disinfectant"),
+    ("Sharps disposal containers", "Sharps disposal containers"),
+    ("Needle", "Needle"),
+    ("Syringe", "Syringe"),
+    ("Glucometer strips", "Glucometer strips"),
+    ("Infusion set", "Infusion set"),
+    ("Quicktrach", "Quicktrach"),
+    ("Decompression Needle", "Decompression Needle"),
+    ("NPA tube", "NPA tube"),
+    ("Spatula", "Spatula"),
+    ("OPA tube", "OPA tube"),
+    ("LT Syringe", "LT Syringe"),
+    ("Tracheolife", "Tracheolife"),
+    ("LT tube", "LT tube"),
+    ("Intubation stylet", "Intubation stylet"),
+    ("ET stabilizer", "ET stabilizer"),
+    ("ET tube", "ET tube"),
+    ("Oxygen drain", "Oxygen drain"),
+    ("Resuscitator", "Resuscitator"),
+    ("Filter", "Filter"),
+]
+
+DRESSING_EQUIPMENT = [
+    ("Gauze - single", "Gauze - single"),
+    ("Chest seal", "Chest seal"),
+    ("Hydrogel", "Hydrogel"),
+    ("Gauze", "Gauze"),
+    ("Elastic bandage", "Elastic bandage"),
+    ("Knitted bandage", "Knitted bandage"),
+    ("Plaster for wound", "Plaster for wound"),
+    ("Adhesive tape", "Adhesive tape"),
+]
+
+REUSABLE_EQUIPMENT = [
+    ("Medical tourniquet", "Medical tourniquet"),
+    ("Stethoscope", "Stethoscope"),
+    ("Pressure gauge", "Pressure gauge"),
+    ("Pulse oximeter", "Pulse oximeter"),
+    ("Thermometer", "Thermometer"),
+    ("Diagnostic flashlight", "Diagnostic flashlight"),
+    ("Glucometer", "Glucometer"),
+    ("Laryngoscope", "Laryngoscope"),
+    ("Laryngoscope blade", "Laryngoscope blade"),
+    ("Protection glasses", "Protection glasses"),
+    ("Magill forceps", "Magill forceps"),
+]
+
+MEDICAL_EQUIPMENT_NAME_CHOICES = [
+    ("Drugs", DRUGS),
+    ("Disposable", DISPOSABLE_EQUIPMENT),
+    ("Reusable", REUSABLE_EQUIPMENT),
+    ("Dressing", DRESSING_EQUIPMENT),
+]
+
 MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = [
     ("Durable", "Durable"),
     ("Disposable", "Disposable"),
