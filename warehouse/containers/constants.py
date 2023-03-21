@@ -84,8 +84,21 @@ DISPOSABLE_EQUIPMENT = [
     ("ET stabilizer", "ET stabilizer"),
     ("ET tube", "ET tube"),
     ("Oxygen drain", "Oxygen drain"),
-    ("Resuscitator", "Resuscitator"),
     ("Filter", "Filter"),
+    ("Ventilation mask", "Ventilation mask"),
+    ("Dead space", "Dead space"),
+    ("Suction catheters", "Suction catheters"),
+    ("Newborn set", "Newborn set"),
+    ("Oxygen mask", "Oxygen mask"),
+    ("Face mask", "Face mask"),
+    ("FFP2/3 face mask", "FFP2/3 face mask"),
+    ("Spike", "Spike"),
+    ("Sterile gloves", "Sterile gloves"),
+    ("Surgical suture", "Surgical suture"),
+    ("Bladder catheterization set", "Bladder catheterization set"),
+    ("Gastric lavage set", "Gastric lavage set"),
+    ("Waste bags", "Waste bags"),
+    ("Alcohol swabs", "Alcohol swabs"),
 ]
 
 DRESSING_EQUIPMENT = [
@@ -97,6 +110,8 @@ DRESSING_EQUIPMENT = [
     ("Knitted bandage", "Knitted bandage"),
     ("Plaster for wound", "Plaster for wound"),
     ("Adhesive tape", "Adhesive tape"),
+    ("Triangular bandage", "Triangular bandage"),
+    ("Codofix", "Codofix"),
 ]
 
 REUSABLE_EQUIPMENT = [
@@ -111,6 +126,22 @@ REUSABLE_EQUIPMENT = [
     ("Laryngoscope blade", "Laryngoscope blade"),
     ("Protection glasses", "Protection glasses"),
     ("Magill forceps", "Magill forceps"),
+    ("Electric suction", "Electric suction"),
+    ("Manual suction", "Manual suction"),
+    ("Oxygen tank", "Oxygen tank"),
+    ("Oxygen reducer", "Oxygen reducer"),
+    ("PEEP valve", "PEEP valve"),
+    ("Resuscitator", "Resuscitator"),
+    ("Respirator", "Respirator"),
+    ("Document pad", "Document pad"),
+    ("MCR card", "MCR card"),
+    ("Paramedic card", "Paramedic card"),
+    ("Heart monitor", "Heart monitor"),
+    ("Forceps", "Forceps"),
+    ("Defibrillator", "Defibrillator"),
+    ("AED", "AED"),
+    ("Capnometer", "Capnometer"),
+    ("Scissors", "Scissors"),
 ]
 
 MEDICAL_EQUIPMENT_NAME_CHOICES = [
