@@ -77,7 +77,8 @@ DISPOSABLE_EQUIPMENT = [
     ("NPA tube", "NPA tube"),
     ("Spatula", "Spatula"),
     ("OPA tube", "OPA tube"),
-    ("LT Syringe", "LT Syringe"),
+    ("LT syringe", "LT syringe"),
+    ("LT stabilizer", "LT stabilizer"),
     ("Tracheolife", "Tracheolife"),
     ("LT tube", "LT tube"),
     ("Intubation stylet", "Intubation stylet"),
@@ -99,6 +100,10 @@ DISPOSABLE_EQUIPMENT = [
     ("Gastric lavage set", "Gastric lavage set"),
     ("Waste bags", "Waste bags"),
     ("Alcohol swabs", "Alcohol swabs"),
+    ("Emergency Blanket NRC", "Emergency Blanket NRC"),
+    ("Tactical tourniquet", "Tactical tourniquet"),
+    ("Cervical collar", "Cervical collar"),
+    ("SAM Splint", "SAM Splint"),
 ]
 
 DRESSING_EQUIPMENT = [
