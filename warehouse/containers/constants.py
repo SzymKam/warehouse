@@ -58,103 +58,168 @@ DRUGS = sorted(
         ("Aqua", "Aqua"),
         ("Nitrendipine", "Nitrendipine"),
         ("Rocuronium", "Rocuronium"),
+        ("Aspargin", "Aspargin"),
+    ]
+)
+AIRWAYS = sorted(
+    [
+        ("Quicktrach", "Quicktrach"),
+        ("NPA tube", "NPA tube"),
+        ("Spatula", "Spatula"),
+        ("OPA tube", "OPA tube"),
+        ("LT syringe", "LT syringe"),
+        ("LT stabilizer", "LT stabilizer"),
+        ("LT tube", "LT tube"),
+        ("Intubation stylet", "Intubation stylet"),
+        ("ET stabilizer", "ET stabilizer"),
+        ("ET tube", "ET tube"),
+        ("Suction catheters", "Suction catheters"),
+        ("Magill forceps", "Magill forceps"),
+        ("Electric suction", "Electric suction"),
+        ("Manual suction", "Manual suction"),
+        ("Laryngoscope", "Laryngoscope"),
+        ("Laryngoscope blade", "Laryngoscope blade"),
     ]
 )
 
-DISPOSABLE_EQUIPMENT = [
-    ("Cannula", "Cannula"),
-    ("BIG", "BIG"),
-    ("3-way stopcock", "3-way stopcock"),
-    ("Cannula fixation tape", "Cannula fixation tape"),
-    ("Skin disinfectant", "Skin disinfectant"),
-    ("Sharps disposal containers", "Sharps disposal containers"),
-    ("Needle", "Needle"),
-    ("Syringe", "Syringe"),
-    ("Glucometer strips", "Glucometer strips"),
-    ("Infusion set", "Infusion set"),
-    ("Quicktrach", "Quicktrach"),
-    ("Decompression Needle", "Decompression Needle"),
-    ("NPA tube", "NPA tube"),
-    ("Spatula", "Spatula"),
-    ("OPA tube", "OPA tube"),
-    ("LT syringe", "LT syringe"),
-    ("LT stabilizer", "LT stabilizer"),
-    ("Tracheolife", "Tracheolife"),
-    ("LT tube", "LT tube"),
-    ("Intubation stylet", "Intubation stylet"),
-    ("ET stabilizer", "ET stabilizer"),
-    ("ET tube", "ET tube"),
-    ("Oxygen drain", "Oxygen drain"),
-    ("Filter", "Filter"),
-    ("Ventilation mask", "Ventilation mask"),
-    ("Dead space", "Dead space"),
-    ("Suction catheters", "Suction catheters"),
-    ("Newborn set", "Newborn set"),
-    ("Oxygen mask", "Oxygen mask"),
-    ("Face mask", "Face mask"),
-    ("FFP2/3 face mask", "FFP2/3 face mask"),
-    ("Spike", "Spike"),
-    ("Sterile gloves", "Sterile gloves"),
-    ("Surgical suture", "Surgical suture"),
-    ("Bladder catheterization set", "Bladder catheterization set"),
-    ("Gastric lavage set", "Gastric lavage set"),
-    ("Waste bags", "Waste bags"),
-    ("Alcohol swabs", "Alcohol swabs"),
-    ("Emergency Blanket NRC", "Emergency Blanket NRC"),
-    ("Tactical tourniquet", "Tactical tourniquet"),
-    ("Cervical collar", "Cervical collar"),
-    ("SAM Splint", "SAM Splint"),
-]
+BREATHING = sorted(
+    [
+        ("Decompression Needle", "Decompression Needle"),
+        ("Oxygen drain", "Oxygen drain"),
+        ("Filter", "Filter"),
+        ("Ventilation mask", "Ventilation mask"),
+        ("Dead space", "Dead space"),
+        ("Oxygen mask", "Oxygen mask"),
+        ("Tracheolife", "Tracheolife"),
+        ("Oxygen tank", "Oxygen tank"),
+        ("Oxygen reducer", "Oxygen reducer"),
+        ("PEEP valve", "PEEP valve"),
+        ("Resuscitator", "Resuscitator"),
+        ("Respirator", "Respirator"),
+    ]
+)
 
-DRESSING_EQUIPMENT = [
-    ("Gauze - single", "Gauze - single"),
-    ("Chest seal", "Chest seal"),
-    ("Hydrogel", "Hydrogel"),
-    ("Gauze", "Gauze"),
-    ("Elastic bandage", "Elastic bandage"),
-    ("Knitted bandage", "Knitted bandage"),
-    ("Plaster for wound", "Plaster for wound"),
-    ("Adhesive tape", "Adhesive tape"),
-    ("Triangular bandage", "Triangular bandage"),
-    ("Codofix", "Codofix"),
-]
+CIRCULATION_AND_DRESSING = sorted(
+    [
+        ("Non-sterile swabs", "Non-sterile swabs"),
+        ("Surgical suture", "Surgical suture"),
+        ("Alcohol swabs", "Alcohol swabs"),
+        ("Tactical tourniquet", "Tactical tourniquet"),
+        ("Emergency Blanket NRC", "Emergency Blanket NRC"),
+        ("Gauze - single", "Gauze - single"),
+        ("Chest seal", "Chest seal"),
+        ("Hydrogel", "Hydrogel"),
+        ("Gauze", "Gauze"),
+        ("Elastic bandage", "Elastic bandage"),
+        ("Knitted bandage", "Knitted bandage"),
+        ("Plaster for wound", "Plaster for wound"),
+        ("Adhesive tape", "Adhesive tape"),
+        ("Triangular bandage", "Triangular bandage"),
+        ("Codofix", "Codofix"),
+        ("Forceps", "Forceps"),
+        ("Scissors", "Scissors"),
+    ]
+)
 
-REUSABLE_EQUIPMENT = [
-    ("Medical tourniquet", "Medical tourniquet"),
-    ("Stethoscope", "Stethoscope"),
-    ("Pressure gauge", "Pressure gauge"),
-    ("Pulse oximeter", "Pulse oximeter"),
-    ("Thermometer", "Thermometer"),
-    ("Diagnostic flashlight", "Diagnostic flashlight"),
-    ("Glucometer", "Glucometer"),
-    ("Laryngoscope", "Laryngoscope"),
-    ("Laryngoscope blade", "Laryngoscope blade"),
-    ("Protection glasses", "Protection glasses"),
-    ("Magill forceps", "Magill forceps"),
-    ("Electric suction", "Electric suction"),
-    ("Manual suction", "Manual suction"),
-    ("Oxygen tank", "Oxygen tank"),
-    ("Oxygen reducer", "Oxygen reducer"),
-    ("PEEP valve", "PEEP valve"),
-    ("Resuscitator", "Resuscitator"),
-    ("Respirator", "Respirator"),
-    ("Document pad", "Document pad"),
-    ("MCR card", "MCR card"),
-    ("Paramedic card", "Paramedic card"),
-    ("Heart monitor", "Heart monitor"),
-    ("Forceps", "Forceps"),
-    ("Defibrillator", "Defibrillator"),
-    ("AED", "AED"),
-    ("Capnometer", "Capnometer"),
-    ("Scissors", "Scissors"),
-]
+DRUG_ADMINISTRATION = sorted(
+    [
+        ("Cannula", "Cannula"),
+        ("BIG", "BIG"),
+        ("3-way stopcock", "3-way stopcock"),
+        ("Cannula fixation tape", "Cannula fixation tape"),
+        ("Skin disinfectant", "Skin disinfectant"),
+        ("Sharps disposal containers", "Sharps disposal containers"),
+        ("Needle", "Needle"),
+        ("Syringe", "Syringe"),
+        ("Octenisept", "Octenisept"),
+        ("Infusion set", "Infusion set"),
+        ("Spike", "Spike"),
+        ("Medical tourniquet", "Medical tourniquet"),
+    ]
+)
 
-MEDICAL_EQUIPMENT_NAME_CHOICES = [
-    ("Drugs", DRUGS),
-    ("Disposable", DISPOSABLE_EQUIPMENT),
-    ("Reusable", REUSABLE_EQUIPMENT),
-    ("Dressing", DRESSING_EQUIPMENT),
-]
+OINTMENTS_AND_SPRAYS = sorted(
+    [
+        ("Fenistil", "Fenistil"),
+        ("Altacet", "Altacet"),
+        ("Icemix", "Icemix"),
+        ("Pantenol", "Pantenol"),
+    ]
+)
+
+DIAGNOSTIC_EQUIPMENT = sorted(
+    [
+        ("Glucometer strips", "Glucometer strips"),
+        ("Stethoscope", "Stethoscope"),
+        ("Pressure gauge", "Pressure gauge"),
+        ("Pulse oximeter", "Pulse oximeter"),
+        ("Thermometer", "Thermometer"),
+        ("Diagnostic flashlight", "Diagnostic flashlight"),
+        ("Glucometer", "Glucometer"),
+        ("Heart monitor", "Heart monitor"),
+        ("Defibrillator", "Defibrillator"),
+        ("AED", "AED"),
+        ("Capnometer", "Capnometer"),
+        ("CPR Meter", "CPR Meter"),
+        ("Reflex hammer", "Reflex hammer"),
+        ("Triage set", "Triage set"),
+        ("USG", "USG"),
+    ]
+)
+
+SAFETY = sorted(
+    [
+        ("Face mask", "Face mask"),
+        ("FFP2/3 face mask", "FFP2/3 face mask"),
+        ("Sterile gloves", "Sterile gloves"),
+        ("Waste bags", "Waste bags"),
+        ("Protection glasses", "Protection glasses"),
+        ("Gloves", "Gloves"),
+    ]
+)
+SETS = sorted(
+    [
+        ("Newborn set", "Newborn set"),
+        ("Bladder catheterization set", "Bladder catheterization set"),
+        ("Gastric lavage set", "Gastric lavage set"),
+    ]
+)
+IMMOBILIZATION = sorted(
+    [
+        ("Cervical collar", "Cervical collar"),
+        ("SAM Splint", "SAM Splint"),
+        ("Spine board", "Spine board"),
+        ("KED", "KED"),
+        ("Pediatric spine board", "Pediatric spine board"),
+        ("Scoop stretcher", "Scoop stretcher"),
+        ("Vacuum mattress", "Vacuum mattress"),
+        ("Kramer splint set", "Kramer splint set"),
+    ]
+)
+DOCUMENTATION = sorted(
+    [
+        ("Document pad", "Document pad"),
+        ("MCR card", "MCR card"),
+        ("Paramedic card", "Paramedic card"),
+        ("KPP card", "KPP card"),
+    ]
+)
+
+MEDICAL_EQUIPMENT_NAME_CHOICES = sorted(
+    [
+        ("Drugs", DRUGS),
+        ("Airways", AIRWAYS),
+        ("Breathing", BREATHING),
+        ("Circulation and dressing", CIRCULATION_AND_DRESSING),
+        ("Drug administration", DRUG_ADMINISTRATION),
+        ("Ointments and sprays", OINTMENTS_AND_SPRAYS),
+        ("Diagnostic equipment", DIAGNOSTIC_EQUIPMENT),
+        ("Safety", SAFETY),
+        ("Sets", SETS),
+        ("Immobilization", IMMOBILIZATION),
+        ("Documentation", DOCUMENTATION),
+    ]
+)
 
 MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = [
     ("Durable", "Durable"),
