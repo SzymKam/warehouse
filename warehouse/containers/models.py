@@ -30,7 +30,7 @@ class Container(models.Model):
     # have_container = models.ForeignKey(Container, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.description}"
 
 
 class MedicalEquipment(models.Model):
@@ -52,6 +52,9 @@ class MedicalEquipment(models.Model):
         choices=MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
     )
     description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.description}"
 
 
 """classes below, are classes for special medical equipment, requires special field/s"""
