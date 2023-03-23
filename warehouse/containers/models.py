@@ -42,6 +42,7 @@ class MedicalEquipment(models.Model):
         blank=True,
         null=True,
         on_delete=models.DO_NOTHING,
+        related_name="equipment",
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
