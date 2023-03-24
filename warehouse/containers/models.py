@@ -30,7 +30,7 @@ class Container(models.Model):
     # have_container = models.ForeignKey(Container, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name} - {self.description}"
+        return f"{self.name}"
 
 
 class MedicalEquipment(models.Model):
@@ -41,8 +41,9 @@ class MedicalEquipment(models.Model):
         Container,
         blank=True,
         null=True,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_DEFAULT,
         related_name="equipment",
+        default="Main warehouse",
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
@@ -55,7 +56,7 @@ class MedicalEquipment(models.Model):
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name} - {self.description}"
+        return f"{self.name}"
 
 
 """classes below, are classes for special medical equipment, requires special field/s"""

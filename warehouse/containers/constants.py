@@ -227,18 +227,21 @@ MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = [
     ("Electronic", "Electronic"),
 ]
 
-CONTAINER_NAME_CHOICES = [
-    ("Main warehouse", "Main warehouse"),
-    ("Trauma Wall - ALS", "Trauma Wall - ALS"),
-    ("Trauma Wall - hospital", "Trauma Wall - hospital"),
-    ("Backpack - ALS", "Backpack - ALS"),
-    ("Backpack - ALS Ampoule", "Backpack - ALS Ampoule"),
-    ("Backpack - R1", "Backpack - R1"),
-    ("Bag - R1", "Bag - R1"),
-    ("Trunk - ALS", "Trunk - ALS"),
-    ("Trunk - ALS Ampoule", "Trunk - ALS Ampoule"),
-    ("Storage Drawer - hospital", "Storage Drawer - hospital"),
-]
+CONTAINER_NAME_CHOICES = sorted(
+    [
+        ("Main warehouse", "Main warehouse"),
+        ("Trauma Wall - ALS", "Trauma Wall - ALS"),
+        ("Trauma Wall - hospital", "Trauma Wall - hospital"),
+        ("Backpack - ALS", "Backpack - ALS"),
+        ("Backpack - ALS Ampoule", "Backpack - ALS Ampoule"),
+        ("Backpack - R1", "Backpack - R1"),
+        ("Bag - R1", "Bag - R1"),
+        ("Trunk - ALS", "Trunk - ALS"),
+        ("Trunk - ALS Ampoule", "Trunk - ALS Ampoule"),
+        ("Storage Drawer - hospital", "Storage Drawer - hospital"),
+        ("Special / Other", "Special / Other"),
+    ]
+)
 
 DRUG_ACTIVE_SUBSTANCES = sorted(
     [

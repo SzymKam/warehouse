@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail</title>
-</head>
-<body>
-<h1>{{ object.name }}</h1>
-<p>{{ object.equipment }}</p>
-<!--<p>Date: {{ now|date }}</p>-->
+{% extends 'containers/base.html' %}
+    {% block content %}
 
-</body>
-</html>
+    <nav>
+        <h2> {{ title }}</h2>
+        <ul>
+            <li><a href={% url "containers-home" %}>Containers</a></li>
+            <li><a href={% url "warehouse-main" %}>Main warehouse page</a></li>
+        </ul>
+    </nav>
+
+
+    <main>
+    {% for element in container %}
+        <h1>{{ element.name }}</h1>
+        <h2>{{ element.description }}</h2>
+    {% endfor %}
+
+    <h3>Equipment list</h3>
+    <ul>
+        {% for element in equipment %}
+        <li>{{ element.name }} {{ element.container }} {{ element.amount }} {{ element.expiration_date }}
+        {{ element.equipment_type }} {{ element.description }}
+        </li>
+        {% endfor %}
+    </ul>
+    </main>
+    {% endblock %}

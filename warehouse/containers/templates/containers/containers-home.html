@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Containers</title>
-</head>
-<body>
-<h2>Containers</h2>
+{% extends 'containers/base.html' %}
+    {% block content %}
+     <nav>
+         <h2>Containers</h2>
+        <ul>
+            <li><a href={% url "warehouse-main" %}>Main warehouse page</a></li>
+            <li><a href={% url "containers-create" %}>Add new container</a></li>
+        </ul>
+    </nav>
+
+    <main>
+    <h1>Containers list</h1>
     <ul>
         {% for container in containers %}
-        <li><a href="{{ container.id }}">{{ container.name }}{{ container.id }}</a></li>
+        <li><a href="{{ container.id }}">{{ container.name }}</a>
+            <p>{{ container.description }}</p>
+        </li>
         {% endfor %}
     </ul>
+    </main>
 
-</body>
-</html>
+    {% endblock %}
