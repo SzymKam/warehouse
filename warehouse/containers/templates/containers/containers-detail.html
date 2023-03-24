@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Detail</title>
+    <title>{{ title }}</title>
 </head>
 <body>
-<h1>{{ object.name }}</h1>
-<p>{{ object.equipment }}</p>
-<!--<p>Date: {{ now|date }}</p>-->
+    {% for element in container %}
+        <h1>{{ element.name }}</h1>
+        <h3>{{ element.description }}</h3>
+    {% endfor %}
+
+    <h2>Equipment list</h2>
+    <ul>
+        {% for element in equipment %}
+        <li>{{ element }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href={% url 'containers-home' %}>Containers</a>
 
 </body>
 </html>
