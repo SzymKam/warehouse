@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>Main warehouse page</h1>
-    <h3>Elements:</h3>
-    <ul>
-        <li><a href={% url "containers-home" %}>Containers</a></li>
-    </ul>
-
-</body>
-</html>
+{% extends 'containers/base.html' %}
+    {% block content %}
+    <nav>
+        <h2>Main warehouse page</h2>
+        <ul>
+            <li><a href={% url "containers-home" %}>Containers</a></li>
+        </ul>
+    </nav>
+    {% endblock %}

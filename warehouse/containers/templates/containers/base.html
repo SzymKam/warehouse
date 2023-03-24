@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>Containers</title>
+    {% endif %}
+</head>
+
+<body>
+  <header>
+        <a href={% url "warehouse-main" %}><img src="{% static 'containers/grm_logo.jpg' %}" alt="grm_logo"></a>
+        <h1>GRM PCK Wrocław</h1>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

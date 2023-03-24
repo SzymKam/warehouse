@@ -1,0 +1,18 @@
+{% extends 'containers/base.html' %}
+    {% block content %}
+
+    <nav>
+        <h2> {{ title }}</h2>
+        <ul>
+            <li><a href={% url "containers-home" %}>Containers</a></li>
+            <li><a href={% url "warehouse-main" %}>Main warehouse page</a></li>
+        </ul>
+    </nav>
+    <main>
+      <form action="" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit">
+      </form>
+    </main>
+    {% endblock %}
