@@ -12,9 +12,17 @@
 
 <body>
   <header>
-        <a href={% url "warehouse-main" %}><img src="{% static 'containers/grm_logo.jpg' %}" alt="grm_logo"></a>
+        <a href="{% url 'warehouse-main' %}"><img src="{% static 'containers/grm_logo.jpg' %}" alt="grm_logo"></a>
         <h1>GRM PCK Wrocław</h1>
   </header>
+  <div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{message.tags}}">{{message}}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
 
   {% block content %}
   {% endblock %}

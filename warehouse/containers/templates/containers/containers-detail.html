@@ -4,25 +4,31 @@
     <nav>
         <h2> {{ title }}</h2>
         <ul>
-            <li><a href={% url "containers-home" %}>Containers</a></li>
-            <li><a href={% url "warehouse-main" %}>Main warehouse page</a></li>
+            <li><a href="{% url 'containers-home' %}">Containers</a></li>
+            <li><a href="{% url 'warehouse-main' %}">Main warehouse page</a></li>
         </ul>
     </nav>
 
-
     <main>
-    {% for element in container %}
-        <h1>{{ element.name }}</h1>
-        <h2>{{ element.description }}</h2>
-    {% endfor %}
+        <div>
+        <h3>Container options</h3>
+        <ul>
+            <li><a href="{% url 'containers-update' id=container.id %} ">Update container</a></li>
+            <li><a href="{% url 'containers-delete' id=container.id %} ">Delete container</a></li>
+        </ul>
 
-    <h3>Equipment list</h3>
-    <ul>
-        {% for element in equipment %}
-        <li>{{ element.name }} {{ element.container }} {{ element.amount }} {{ element.expiration_date }}
-        {{ element.equipment_type }} {{ element.description }}
-        </li>
-        {% endfor %}
-    </ul>
+    </div>
+    <div>
+            <h1>{{ container.name }}</h1>
+            <h2>{{ container.description }}</h2>
+        <h3>Equipment list</h3>
+        <ul>
+            {% for element in equipment %}
+            <li>{{ element.name }} {{ element.container }} {{ element.amount }} {{ element.expiration_date }}
+            {{ element.equipment_type }} {{ element.description }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     </main>
     {% endblock %}

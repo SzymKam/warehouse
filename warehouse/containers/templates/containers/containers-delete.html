@@ -1,0 +1,12 @@
+{% extends 'containers/base.html' %}
+  {% load crispy_forms_tags %}
+    {% block content %}
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                <h4>Delete container {{ container.name }}</h4>
+                <button type="submit">Delete</button>
+            </form>
+                <button><a href="{% url 'containers-detail' id=container.id %} ">Cancel</a></button>
+        </div>
+    {% endblock %}
