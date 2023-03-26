@@ -9,14 +9,13 @@
     </nav>
 
     <main>
-    <h1>Containers list</h1>
+        <h1>Containers list </h1>
     <ul>
-        {% for container in containers %}
-        <li><a href="{% url 'containers-detail' id=container.id %} ">{{ container.name }}</a>
+        {% for container in object_list %}
+        <li><a href="{% url 'containers-detail' pk=container.id %} ">{{ container.name }}</a>
             <p>{{ container.description }}</p>
         </li>
         {% endfor %}
-    </ul>
     </main>
 
     {% endblock %}
