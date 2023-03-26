@@ -27,10 +27,13 @@ from .constants import (
 class Container(models.Model):
     name = models.CharField(max_length=50, choices=CONTAINER_NAME_CHOICES)
     description = models.TextField(blank=True, null=True)
-    # have_container = models.ForeignKey(Container, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name}"
+
+
+def get_main_container():
+    return Container.objects.get(name="Main warehouse")
 
 
 class MedicalEquipment(models.Model):
@@ -41,9 +44,8 @@ class MedicalEquipment(models.Model):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET_DEFAULT,
+        on_delete=models.SET(get_main_container),
         related_name="equipment",
-        default="Main warehouse",
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
