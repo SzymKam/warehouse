@@ -7,7 +7,7 @@ from django.views.generic import (
     CreateView,
 )
 from .models import Container, MedicalEquipment
-from .forms import ContainerForm
+from .forms import ContainerForm, MedicalEquipmentForm, DrugFormset
 from django.contrib import messages
 from django.urls import reverse_lazy
 
@@ -72,3 +72,51 @@ class ContainerDelete(BaseContainer, DeleteView):
     def form_valid(self, form):
         messages.warning(self.request, "Container deleted!")
         return super().form_valid(form)
+
+
+class MedicalEquipmentCreate(CreateView):
+    template_name = "equipment/equipment-create.html"
+    model = MedicalEquipment
+    queryset = MedicalEquipment.objects.all()
+    success_url = reverse_lazy("containers-home")
+    form_class = MedicalEquipmentForm
+
+    def form_valid(self, form):
+        messages.success(self.request, "Equipment added")
+        return super().form_valid(form)
+
+
+class MedicalEquipmentDelete(DeleteView):
+    model = MedicalEquipment
+    success_url = reverse_lazy("containers-home")
+    template_name = "equipment/equipment-delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["container"] = self.object.container
+        print(context["container"])
+        return context
+
+
+# def create_or_edit(request):
+#     base_model_form = MedicalEquipmentForm(request.POST or None)
+#     child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
+#
+#     if request.method == 'POST':
+#         print('post')
+#         if base_model_form.is_valid() and child_formset.is_valid():
+#             base_model = base_model_form.save()
+#             print('adult')
+#             child_formset.instance = base_model
+#             child_formset.save()
+#             print('saved')
+#             messages.info(request, 'Created')
+#         else:
+#             print('invalid')
+#             print(base_model_form.errors)
+#             print(child_formset.errors)
+#
+#     return render(request, 'equipment/equipment-create.html', {
+#         'child_formset': child_formset,
+#         'base_form': base_model_form,
+#     })
