@@ -11,12 +11,15 @@
 
     <main>
         <div>
-        <h3>Container options</h3>
-        <ul>
-            <li><a href="{% url 'containers-update' pk=container.id %} ">Update container</a></li>
-            <li><a href="{% url 'containers-delete' pk=container.id %} ">Delete container</a></li>
-        </ul>
-
+            {% if container.name == "Main warehouse" %}
+                <h3>You cannot delete Main container</h3>
+            {% else %}
+                <h3>Container options</h3>
+                <ul>
+                    <li><a href="{% url 'containers-update' pk=container.id %} ">Update container</a></li>
+                    <li><a href="{% url 'containers-delete' pk=container.id %} ">Delete container</a></li>
+                </ul>
+            {% endif %}
     </div>
     <div>
             <h1>{{ container.name }}</h1>
@@ -25,7 +28,7 @@
         <ul>
             {% for element in equipment %}
             <li>{{ element.name }} {{ element.container }} {{ element.amount }} {{ element.expiration_date }}
-            {{ element.equipment_type }} {{ element.description }}
+            {{ element.equipment_type }} {{ element.description }} <a href="{% url 'equipment-delete' pk=element.id %} ">Delete element</a>
             </li>
             {% endfor %}
         </ul>

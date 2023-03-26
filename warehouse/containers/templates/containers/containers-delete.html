@@ -7,6 +7,6 @@
                 <h4>Delete container {{ container.name }}</h4>
                 <button type="submit">Delete</button>
             </form>
-                <button><a href="{% url 'containers-detail' id=container.id %} ">Cancel</a></button>
+                <button><a href="{% url 'containers-detail' pk=container.id %} ">Cancel</a></button>
         </div>
     {% endblock %}
