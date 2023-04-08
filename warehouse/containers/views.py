@@ -8,9 +8,17 @@ from django.views.generic import (
     CreateView,
 )
 from .models import Container, MedicalEquipment
-from .forms import ContainerForm, MedicalEquipmentForm, DrugFormset
+from .forms import (
+    ContainerForm,
+    MedicalEquipmentForm,
+    DrugFormset,
+    FluidFormset,
+    CannulaFormset,
+    MedicalEquipmentName,
+)
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 
 
 def warehouse_main(request):
@@ -100,22 +108,35 @@ class MedicalEquipmentDelete(DeleteView):
 
 
 def create_or_edit(request):
-    base_model_form = MedicalEquipmentForm(request.POST or None)
-
-    child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
-
+    equipment_name_form = MedicalEquipmentName(request.POST or None)
     if request.method == "POST":
-        if base_model_form.is_valid() and child_formset.is_valid():
-            base_model = base_model_form.save()
-            child_formset.instance = base_model
-            child_formset.save()
-            messages.info(request, "Created")
+        name = request.POST.get("name")
 
+        return HttpResponse(f"{name}")
     return render(
         request,
         "equipment/equipment-create-2nd.html",
-        {
-            "child_formset": child_formset,
-            "base_form": base_model_form,
-        },
+        {"equipment_name_form": equipment_name_form},
     )
+
+    #
+    # base_model_form = MedicalEquipmentForm(request.POST or None)
+    #
+    #
+    # child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
+    #
+    # if request.method == "POST":
+    #     if base_model_form.is_valid() and child_formset.is_valid():
+    #         base_model = base_model_form.save()
+    #         child_formset.instance = base_model
+    #         child_formset.save()
+    #         messages.info(request, "Created")
+    #
+    # return render(
+    #     request,
+    #     "equipment/equipment-create-2nd.html",
+    #     {
+    #         "child_formset": child_formset,
+    #         "base_form": base_model_form,
+    #     },
+    # )

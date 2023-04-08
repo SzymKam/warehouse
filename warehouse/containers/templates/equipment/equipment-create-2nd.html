@@ -2,17 +2,38 @@
     {% load crispy_forms_tags %}
     {% block content %}
 
+<form method="post">
+    {% csrf_token %}
+    {{ equipment_name_form|crispy }}
+    <button type="submit">Choose</button>
+</form>
+
+
+
 <!--      <form action="" method="POST">-->
 <!--          {% csrf_token %}-->
 <!--          {{ form|crispy }}-->
 <!--          <input type="submit">-->
 <!--      </form>-->
 
+<!--{% if equipment_name %}-->
+<!--    <label for="equipment_name">Choose equipment to add:</label>-->
+<!--    <select name="equipment_name" id="equipment_name">-->
+<!--        {% for type in equipment_name %}-->
+<!--            {% for name in type  %}-->
+<!--                <option value={{name}}>{{name}}</option>-->
+<!--            {% endfor %}-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!--{% endif %}-->
 
-<form method="post">
-    {% csrf_token %}
-    {{ base_form|crispy }}
-    {{ child_formset|crispy }}
-    <button type="submit">Save</button>
-</form>
+
+
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{ base_form|crispy }}-->
+<!--    {{ child_formset|crispy }}-->
+<!--    <button type="submit">Save</button>-->
+<!--</form>-->
+
 {% endblock %}
