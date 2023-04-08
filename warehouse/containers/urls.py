@@ -7,6 +7,7 @@ from .views import (
     ContainerDetail,
     MedicalEquipmentCreate,
     MedicalEquipmentDelete,
+    create_or_edit,
 )
 from .views import warehouse_main
 
@@ -35,4 +36,5 @@ urlpatterns = [
         MedicalEquipmentDelete.as_view(),
         name="equipment-delete",
     ),
+    path("equpment/test", create_or_edit),
 ]

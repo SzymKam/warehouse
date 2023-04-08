@@ -1,0 +1,18 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+
+<!--      <form action="" method="POST">-->
+<!--          {% csrf_token %}-->
+<!--          {{ form|crispy }}-->
+<!--          <input type="submit">-->
+<!--      </form>-->
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ base_form|crispy }}
+    {{ child_formset|crispy }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

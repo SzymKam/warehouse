@@ -1,3 +1,4 @@
+from __future__ import annotations
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (
     ListView,
@@ -17,6 +18,11 @@ def warehouse_main(request):
     return render(
         request, "containers/warehouse-main.html", {"title": "Main Warehouse"}
     )
+
+
+class BaseContainer:
+    model = Container
+    success_url = reverse_lazy("containers-home")
 
 
 class ContainerView(ListView):
@@ -48,11 +54,6 @@ class ContainerUpdate(UpdateView):
     def form_valid(self, form):
         messages.info(self.request, "Container updated!")
         return super().form_valid(form)
-
-
-class BaseContainer:
-    model = Container
-    success_url = reverse_lazy("containers-home")
 
 
 class ContainerCreate(BaseContainer, CreateView):
@@ -98,25 +99,23 @@ class MedicalEquipmentDelete(DeleteView):
         return context
 
 
-# def create_or_edit(request):
-#     base_model_form = MedicalEquipmentForm(request.POST or None)
-#     child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
-#
-#     if request.method == 'POST':
-#         print('post')
-#         if base_model_form.is_valid() and child_formset.is_valid():
-#             base_model = base_model_form.save()
-#             print('adult')
-#             child_formset.instance = base_model
-#             child_formset.save()
-#             print('saved')
-#             messages.info(request, 'Created')
-#         else:
-#             print('invalid')
-#             print(base_model_form.errors)
-#             print(child_formset.errors)
-#
-#     return render(request, 'equipment/equipment-create.html', {
-#         'child_formset': child_formset,
-#         'base_form': base_model_form,
-#     })
+def create_or_edit(request):
+    base_model_form = MedicalEquipmentForm(request.POST or None)
+
+    child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
+
+    if request.method == "POST":
+        if base_model_form.is_valid() and child_formset.is_valid():
+            base_model = base_model_form.save()
+            child_formset.instance = base_model
+            child_formset.save()
+            messages.info(request, "Created")
+
+    return render(
+        request,
+        "equipment/equipment-create-2nd.html",
+        {
+            "child_formset": child_formset,
+            "base_form": base_model_form,
+        },
+    )
