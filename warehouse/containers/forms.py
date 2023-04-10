@@ -1,5 +1,5 @@
 from django.forms import ModelForm, inlineformset_factory
-from .models import Container, MedicalEquipment, Drug, Fluid, Cannula
+from .models import Container, BaseEquipment
 
 
 class ContainerForm(ModelForm):
@@ -18,16 +18,16 @@ class ContainerForm(ModelForm):
 
 class MedicalEquipmentForm(ModelForm):
     class Meta:
-        model = MedicalEquipment
+        model = BaseEquipment
         fields = "__all__"
 
 
-class MedicalEquipmentName(ModelForm):
-    class Meta:
-        model = MedicalEquipment
-        fields = ["name"]
-
-
-DrugFormset = inlineformset_factory(MedicalEquipment, Drug, fields="__all__")
-FluidFormset = inlineformset_factory(MedicalEquipment, Fluid, fields="__all__")
-CannulaFormset = inlineformset_factory(MedicalEquipment, Cannula, fields="__all__")
+# class MedicalEquipmentNameForm(ModelForm):
+#     class Meta:
+#         model = MedicalEquipment
+#         fields = ["name"]
+#
+#
+# BaseFormset = inlineformset_factory(MedicalEquipment, BaseEquipment, fields="__all__")
+# DrugFormset = inlineformset_factory(MedicalEquipment, Drug, fields="__all__")
+# FluidFormset = inlineformset_factory(MedicalEquipment, Fluid, fields="__all__")

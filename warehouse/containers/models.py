@@ -58,8 +58,17 @@ class MedicalEquipment(models.Model):
     )
     description = models.TextField(null=True, blank=True)
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return f"{self.name}"
+
+
+class BaseEquipment(MedicalEquipment):
+    """class for base / common equipment with no special fields"""
+
+    pass
 
 
 """classes below, are classes for special medical equipment, requires special field/s"""

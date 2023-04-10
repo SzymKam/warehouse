@@ -7,15 +7,8 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Container, MedicalEquipment
-from .forms import (
-    ContainerForm,
-    MedicalEquipmentForm,
-    DrugFormset,
-    FluidFormset,
-    CannulaFormset,
-    MedicalEquipmentName,
-)
+from .models import Container, BaseEquipment
+from .forms import ContainerForm, MedicalEquipmentForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -85,8 +78,8 @@ class ContainerDelete(BaseContainer, DeleteView):
 
 class MedicalEquipmentCreate(CreateView):
     template_name = "equipment/equipment-create.html"
-    model = MedicalEquipment
-    queryset = MedicalEquipment.objects.all()
+    model = BaseEquipment
+    queryset = BaseEquipment.objects.all()
     success_url = reverse_lazy("containers-home")
     form_class = MedicalEquipmentForm
 
@@ -96,7 +89,7 @@ class MedicalEquipmentCreate(CreateView):
 
 
 class MedicalEquipmentDelete(DeleteView):
-    model = MedicalEquipment
+    model = BaseEquipment
     success_url = reverse_lazy("containers-home")
     template_name = "equipment/equipment-delete.html"
 
@@ -108,35 +101,46 @@ class MedicalEquipmentDelete(DeleteView):
 
 
 def create_or_edit(request):
-    equipment_name_form = MedicalEquipmentName(request.POST or None)
-    if request.method == "POST":
-        name = request.POST.get("name")
+    pass
 
-        return HttpResponse(f"{name}")
-    return render(
-        request,
-        "equipment/equipment-create-2nd.html",
-        {"equipment_name_form": equipment_name_form},
-    )
 
-    #
-    # base_model_form = MedicalEquipmentForm(request.POST or None)
-    #
-    #
-    # child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
-    #
-    # if request.method == "POST":
-    #     if base_model_form.is_valid() and child_formset.is_valid():
-    #         base_model = base_model_form.save()
-    #         child_formset.instance = base_model
-    #         child_formset.save()
-    #         messages.info(request, "Created")
-    #
-    # return render(
-    #     request,
-    #     "equipment/equipment-create-2nd.html",
-    #     {
-    #         "child_formset": child_formset,
-    #         "base_form": base_model_form,
-    #     },
-    # )
+#     equipment_name_form = MedicalEquipmentNameForm(request.POST)
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         match name:
+#             case _:
+#                 full_equipment_form = MedicalEquipmentForm(request.POST)
+#                 # if request.method == "POST":
+#                 # if full_equipment_form.is_valid():
+#                 # #         # full_equipment_form.save()
+#                 #         return HttpResponse(name)
+#
+#                 return render(request, "equipment/equipment-create-2nd.html", {"full_equipment_form": full_equipment_form})
+#
+#     return render(
+#         request,
+#         "equipment/equipment-create-2nd.html",
+#         {"equipment_name_form": equipment_name_form},
+#     )
+#
+#
+#     # base_model_form = MedicalEquipmentForm(request.POST or None)
+#     #
+#
+# child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
+#
+# if request.method == "POST":
+#     if base_model_form.is_valid() and child_formset.is_valid():
+#         base_model = base_model_form.save()
+#         child_formset.instance = base_model
+#         child_formset.save()
+#         messages.info(request, "Created")
+#
+# return render(
+#     request,
+#     "equipment/equipment-create-2nd.html",
+#     {
+#         "child_formset": child_formset,
+#         "base_form": base_model_form,
+#     },
+# )

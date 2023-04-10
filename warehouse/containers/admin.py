@@ -22,7 +22,6 @@ from .models import (
 
 
 @admin.register(
-    MedicalEquipment,
     Drug,
     Cannula,
     EndotrachealTube,
