@@ -36,5 +36,5 @@ urlpatterns = [
         MedicalEquipmentDelete.as_view(),
         name="equipment-delete",
     ),
-    path("equpment/test", create_or_edit),
+    path("equipment/test", create_or_edit, name="test-create"),
 ]

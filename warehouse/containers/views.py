@@ -7,11 +7,18 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Container, BaseEquipment
-from .forms import ContainerForm, MedicalEquipmentForm
+from .models import Container, MedicalEquipment
+from .forms import (
+    ContainerForm,
+    MedicalEquipmentForm,
+    DrugFormset,
+    MedicalEquipmentFormset,
+    EquipmentNameForm,
+)
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from .constants import MEDICAL_EQUIPMENT_NAME_CHOICES
 
 
 def warehouse_main(request):
@@ -78,8 +85,8 @@ class ContainerDelete(BaseContainer, DeleteView):
 
 class MedicalEquipmentCreate(CreateView):
     template_name = "equipment/equipment-create.html"
-    model = BaseEquipment
-    queryset = BaseEquipment.objects.all()
+    model = MedicalEquipment
+    queryset = MedicalEquipment.objects.all()
     success_url = reverse_lazy("containers-home")
     form_class = MedicalEquipmentForm
 
@@ -89,7 +96,7 @@ class MedicalEquipmentCreate(CreateView):
 
 
 class MedicalEquipmentDelete(DeleteView):
-    model = BaseEquipment
+    model = MedicalEquipment
     success_url = reverse_lazy("containers-home")
     template_name = "equipment/equipment-delete.html"
 
@@ -101,46 +108,31 @@ class MedicalEquipmentDelete(DeleteView):
 
 
 def create_or_edit(request):
-    pass
+    return render(
+        request,
+        "equipment/equipment-create-2nd.html",
+        {"name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES},
+    )
 
 
-#     equipment_name_form = MedicalEquipmentNameForm(request.POST)
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         match name:
-#             case _:
-#                 full_equipment_form = MedicalEquipmentForm(request.POST)
-#                 # if request.method == "POST":
-#                 # if full_equipment_form.is_valid():
-#                 # #         # full_equipment_form.save()
-#                 #         return HttpResponse(name)
-#
-#                 return render(request, "equipment/equipment-create-2nd.html", {"full_equipment_form": full_equipment_form})
-#
-#     return render(
-#         request,
-#         "equipment/equipment-create-2nd.html",
-#         {"equipment_name_form": equipment_name_form},
-#     )
-#
-#
-#     # base_model_form = MedicalEquipmentForm(request.POST or None)
-#     #
-#
-# child_formset = DrugFormset(request.POST or None, instance=base_model_form.instance)
-#
+#     equipment_name_form = EquipmentNameForm(request.POST or None)
+#     name = request.POST.get("name")
+#     if name == "ASA":
+#         special_form = DrugFormset(request.POST or None)
+#         return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form,
+#                                                                        "special_form": special_form})
+#     return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form})
+
+# special_model_formset = DrugFormset(request.POST or None, instance=equipment_name_form.instance)
 # if request.method == "POST":
-#     if base_model_form.is_valid() and child_formset.is_valid():
-#         base_model = base_model_form.save()
-#         child_formset.instance = base_model
-#         child_formset.save()
-#         messages.info(request, "Created")
+#     if equipment_name_form.is_valid() and special_model_formset.is_valid():
+#         base = equipment_name_form.save()
+#         special_model_formset.instance = base
+#         special_model_formset.save()
+# return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form,
+#                                                                "special_model_formset": special_model_formset})
+
 #
-# return render(
-#     request,
-#     "equipment/equipment-create-2nd.html",
-#     {
-#         "child_formset": child_formset,
-#         "base_form": base_model_form,
-#     },
-# )
+
+#
+# child_model1_formset = ChildModel1Formset(request.POST or None, queryset=ChildModel1.objects.none())

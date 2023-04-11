@@ -2,18 +2,30 @@
     {% load crispy_forms_tags %}
     {% block content %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ equipment_name_form|crispy }}
-        <button type="submit">Choose</button>
-    </form>
 
-    {% if full_equipment_form %}
-        <form method="post">
-            {% csrf_token %}
-            {{ full_equipment_form|crispy }}
-            <button type="submit">Choose</button>
-        </form>
-    {% endif %}
+
+
+
+
+
+
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ equipment_name_form|crispy }}-->
+<!--        <button type="submit">Choose</button>-->
+<!--    </form>-->
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ special_form|crispy }}-->
+<!--        <button type="submit">Choose</button>-->
+<!--    </form>-->
+<!--    <h1>{{name}}</h1>-->
+<!--    {% if equipment_name_form %}-->
+<!--        <form method="post">-->
+<!--            {% csrf_token %}-->
+<!--            {{ equipment_name_form|crispy }}-->
+<!--            <button type="submit">Choose</button>-->
+<!--        </form>-->
+<!--    {% endif %}-->
 
 {% endblock %}

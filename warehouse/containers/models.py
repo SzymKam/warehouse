@@ -24,6 +24,12 @@ from .constants import (
 )
 
 
+class NameModel(models.Model):
+    """test for adding new model"""
+
+    name = models.CharField(max_length=50, choices=MEDICAL_EQUIPMENT_NAME_CHOICES)
+
+
 class Container(models.Model):
     name = models.CharField(max_length=50, choices=CONTAINER_NAME_CHOICES)
     description = models.TextField(blank=True, null=True)
@@ -36,8 +42,8 @@ def get_main_container():
     return Container.objects.get(name="Main warehouse")
 
 
-class MedicalEquipment(models.Model):
-    """class for basic and basic with expiration date medical equipment"""
+class BaseMedicalEquipment(models.Model):
+    """abstract class working as a base for other models"""
 
     name = models.CharField(max_length=50, choices=MEDICAL_EQUIPMENT_NAME_CHOICES)
     container = models.ForeignKey(
@@ -45,7 +51,7 @@ class MedicalEquipment(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET(get_main_container),
-        related_name="container",
+        related_name="base_medical_equipment",
         default=get_main_container,
     )
     amount = models.IntegerField(null=True, blank=True)
@@ -65,79 +71,214 @@ class MedicalEquipment(models.Model):
         return f"{self.name}"
 
 
-class BaseEquipment(MedicalEquipment):
+class MedicalEquipment(BaseMedicalEquipment):
     """class for base / common equipment with no special fields"""
 
-    pass
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="medical_equipment",
+        default=get_main_container,
+    )
 
 
 """classes below, are classes for special medical equipment, requires special field/s"""
 
 
-class Drug(MedicalEquipment):
+class Drug(BaseMedicalEquipment):
     active_substance = models.CharField(choices=DRUG_ACTIVE_SUBSTANCES, max_length=30)
     psychotropic_or_narcotic = models.BooleanField(default=False)
     dosage_form = models.CharField(
         choices=DRUG_DOSAGE_FORM, blank=True, null=True, max_length=20
     )
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="drug",
+        default=get_main_container,
+    )
 
 
-class Fluid(MedicalEquipment):
+class Fluid(BaseMedicalEquipment):
     volume = models.CharField(choices=FLUID_VOLUME, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="fluid",
+        default=get_main_container,
+    )
 
 
-class Cannula(MedicalEquipment):
+class Cannula(BaseMedicalEquipment):
     size = models.CharField(choices=CANNULA_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="cannula",
+        default=get_main_container,
+    )
 
 
-class Needle(MedicalEquipment):
+class Needle(BaseMedicalEquipment):
     size = models.CharField(choices=NEEDLE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="needle",
+        default=get_main_container,
+    )
 
 
-class Syringe(MedicalEquipment):
+class Syringe(BaseMedicalEquipment):
     volume = models.CharField(choices=SYRINGE_VOLUME, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="syringe",
+        default=get_main_container,
+    )
 
 
-class BIG(MedicalEquipment):
+class BIG(BaseMedicalEquipment):
     size = models.CharField(choices=BIG_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="big",
+        default=get_main_container,
+    )
 
 
-class LTTube(MedicalEquipment):
+class LtTube(BaseMedicalEquipment):
     size = models.CharField(choices=LT_TUBE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="lt_tube",
+        default=get_main_container,
+    )
 
 
-class Gloves(MedicalEquipment):
+class Gloves(BaseMedicalEquipment):
     size = models.CharField(choices=GLOVES_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="gloves",
+        default=get_main_container,
+    )
 
 
-class SterileGloves(MedicalEquipment):
+class SterileGloves(BaseMedicalEquipment):
     size = models.CharField(choices=STERILE_GLOVES_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="sterile_gloves",
+        default=get_main_container,
+    )
 
 
-class Gauze(MedicalEquipment):
+class Gauze(BaseMedicalEquipment):
     size = models.CharField(choices=GAUZE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="gauze",
+        default=get_main_container,
+    )
 
 
-class NasopharyngealTube(MedicalEquipment):
+class NasopharyngealTube(BaseMedicalEquipment):
     size = models.CharField(choices=NPA_TUBE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="nasopharyngeal_tube",
+        default=get_main_container,
+    )
 
 
-class OropharyngealTube(MedicalEquipment):
+class OropharyngealTube(BaseMedicalEquipment):
     size = models.CharField(choices=OPA_TUBE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="oropharyngeal_tube",
+        default=get_main_container,
+    )
 
 
-class EndotrachealTube(MedicalEquipment):
+class EndotrachealTube(BaseMedicalEquipment):
     size = models.CharField(choices=ET_TUBE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="endotracheal_tube",
+        default=get_main_container,
+    )
 
 
-class LaryngoscopeBlade(MedicalEquipment):
+class LaryngoscopeBlade(BaseMedicalEquipment):
     size = models.CharField(choices=BLADE_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="laryngoscope_blade",
+        default=get_main_container,
+    )
 
 
-class OxygenMask(MedicalEquipment):
+class OxygenMask(BaseMedicalEquipment):
     type = models.CharField(choices=O2_MASK_TYPE, max_length=20)
     size = models.CharField(choices=O2_MASK_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="oxygen_mask",
+        default=get_main_container,
+    )
 
 
-class VentilationMask(MedicalEquipment):
+class VentilationMask(BaseMedicalEquipment):
     size = models.CharField(choices=VENTILATION_MASK_SIZE, max_length=20)
+    container = models.ForeignKey(
+        Container,
+        blank=True,
+        null=True,
+        on_delete=models.SET(get_main_container),
+        related_name="ventilation_mask",
+        default=get_main_container,
+    )

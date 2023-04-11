@@ -14,7 +14,7 @@ from .models import (
     NasopharyngealTube,
     LaryngoscopeBlade,
     BIG,
-    LTTube,
+    LtTube,
     Needle,
     Syringe,
     SterileGloves,
@@ -22,6 +22,7 @@ from .models import (
 
 
 @admin.register(
+    MedicalEquipment,
     Drug,
     Cannula,
     EndotrachealTube,
@@ -34,7 +35,7 @@ from .models import (
     NasopharyngealTube,
     LaryngoscopeBlade,
     BIG,
-    LTTube,
+    LtTube,
     Needle,
     Syringe,
     SterileGloves,

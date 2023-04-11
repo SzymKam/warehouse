@@ -1,5 +1,5 @@
-from django.forms import ModelForm, inlineformset_factory
-from .models import Container, BaseEquipment
+from django.forms import ModelForm, inlineformset_factory, modelformset_factory
+from .models import Container, MedicalEquipment, Drug, BaseMedicalEquipment, NameModel
 
 
 class ContainerForm(ModelForm):
@@ -17,17 +17,28 @@ class ContainerForm(ModelForm):
 
 
 class MedicalEquipmentForm(ModelForm):
+    """simple way to add base equipment"""
+
     class Meta:
-        model = BaseEquipment
+        model = MedicalEquipment
         fields = "__all__"
 
 
-# class MedicalEquipmentNameForm(ModelForm):
-#     class Meta:
-#         model = MedicalEquipment
-#         fields = ["name"]
-#
-#
-# BaseFormset = inlineformset_factory(MedicalEquipment, BaseEquipment, fields="__all__")
-# DrugFormset = inlineformset_factory(MedicalEquipment, Drug, fields="__all__")
-# FluidFormset = inlineformset_factory(MedicalEquipment, Fluid, fields="__all__")
+# """here i want to create form to expand for specific models. Create base with only name, and formest with
+# additional information"""
+class EquipmentNameForm(ModelForm):
+    class Meta:
+        model = NameModel
+        fields = "__all__"
+
+
+class BaseMedicalEquipmentForm(ModelForm):
+    class Meta:
+        model = BaseMedicalEquipment
+        fields = "__all__"
+
+
+DrugFormset = modelformset_factory(Drug, fields="__all__", extra=1)
+MedicalEquipmentFormset = modelformset_factory(
+    MedicalEquipment, fields="__all__", extra=1
+)
