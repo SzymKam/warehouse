@@ -8,13 +8,7 @@ from django.views.generic import (
     CreateView,
 )
 from .models import Container, MedicalEquipment
-from .forms import (
-    ContainerForm,
-    MedicalEquipmentForm,
-    DrugFormset,
-    MedicalEquipmentFormset,
-    EquipmentNameForm,
-)
+from .forms import ContainerForm, MedicalEquipmentForm, DrugForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -107,7 +101,10 @@ class MedicalEquipmentDelete(DeleteView):
         return context
 
 
-def create_or_edit(request):
+def get_name(request):
+    if request.method == "POST":
+        name = request.POST["name"]
+        return render(request, "equipment/equipment-create-2nd.html", {"name": name})
     return render(
         request,
         "equipment/equipment-create-2nd.html",
@@ -115,24 +112,16 @@ def create_or_edit(request):
     )
 
 
-#     equipment_name_form = EquipmentNameForm(request.POST or None)
-#     name = request.POST.get("name")
-#     if name == "ASA":
-#         special_form = DrugFormset(request.POST or None)
-#         return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form,
-#                                                                        "special_form": special_form})
-#     return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form})
+from .constants import DRUGS
 
-# special_model_formset = DrugFormset(request.POST or None, instance=equipment_name_form.instance)
-# if request.method == "POST":
-#     if equipment_name_form.is_valid() and special_model_formset.is_valid():
-#         base = equipment_name_form.save()
-#         special_model_formset.instance = base
-#         special_model_formset.save()
-# return render(request, "equipment/equipment-create-2nd.html", {"equipment_name_form": equipment_name_form,
-#                                                                "special_model_formset": special_model_formset})
 
-#
+def select_object_to_create(request, name: str):
+    if name == "ASA":
+        form = DrugForm(request.POST, initial={"name": name})
+    else:
+        form = MedicalEquipmentForm(request.POST, initial={"name": name})
 
-#
-# child_model1_formset = ChildModel1Formset(request.POST or None, queryset=ChildModel1.objects.none())
+    if form.is_valid() and request.method == "POST":
+        print(form.data)
+        return HttpResponse("Object added")
+    return render(request, "equipment/equipment-create-2nd.html", {"form": form})

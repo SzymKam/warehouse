@@ -7,7 +7,8 @@ from .views import (
     ContainerDetail,
     MedicalEquipmentCreate,
     MedicalEquipmentDelete,
-    create_or_edit,
+    get_name,
+    select_object_to_create,
 )
 from .views import warehouse_main
 
@@ -36,5 +37,6 @@ urlpatterns = [
         MedicalEquipmentDelete.as_view(),
         name="equipment-delete",
     ),
-    path("equipment/test", create_or_edit, name="test-create"),
+    path("equipment/test", get_name, name="test-create"),
+    path("equipment/test/create", select_object_to_create, name="test-object-create"),
 ]

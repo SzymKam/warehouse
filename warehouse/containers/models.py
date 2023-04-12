@@ -24,12 +24,6 @@ from .constants import (
 )
 
 
-class NameModel(models.Model):
-    """test for adding new model"""
-
-    name = models.CharField(max_length=50, choices=MEDICAL_EQUIPMENT_NAME_CHOICES)
-
-
 class Container(models.Model):
     name = models.CharField(max_length=50, choices=CONTAINER_NAME_CHOICES)
     description = models.TextField(blank=True, null=True)

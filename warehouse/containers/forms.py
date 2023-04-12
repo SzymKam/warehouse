@@ -1,5 +1,5 @@
 from django.forms import ModelForm, inlineformset_factory, modelformset_factory
-from .models import Container, MedicalEquipment, Drug, BaseMedicalEquipment, NameModel
+from .models import Container, MedicalEquipment, Drug, BaseMedicalEquipment
 
 
 class ContainerForm(ModelForm):
@@ -24,21 +24,7 @@ class MedicalEquipmentForm(ModelForm):
         fields = "__all__"
 
 
-# """here i want to create form to expand for specific models. Create base with only name, and formest with
-# additional information"""
-class EquipmentNameForm(ModelForm):
+class DrugForm(ModelForm):
     class Meta:
-        model = NameModel
+        model = Drug
         fields = "__all__"
-
-
-class BaseMedicalEquipmentForm(ModelForm):
-    class Meta:
-        model = BaseMedicalEquipment
-        fields = "__all__"
-
-
-DrugFormset = modelformset_factory(Drug, fields="__all__", extra=1)
-MedicalEquipmentFormset = modelformset_factory(
-    MedicalEquipment, fields="__all__", extra=1
-)
