@@ -1,5 +1,7 @@
 from django.forms import ModelForm, inlineformset_factory, modelformset_factory
-from .models import Container, MedicalEquipment, Drug, BaseMedicalEquipment
+from django.forms import modelformset_factory
+import inspect
+from containers import models
 
 
 class ContainerForm(ModelForm):
@@ -12,19 +14,29 @@ class ContainerForm(ModelForm):
             self.fields["name"].choices = choices
 
     class Meta:
-        model = Container
+        model = models.Container
         fields = "__all__"
+
+
+def create_forms():
+    model_classes = [cls for name, cls in inspect.getmembers(models, inspect.isclass)]
+    forms = {}
+    for model_class in model_classes:
+        form_class = modelformset_factory(model_class, fields="__all__")
+        form_name = f"{model_class.__name__}Form"
+        forms[form_name] = form_class
+    return forms
 
 
 class MedicalEquipmentForm(ModelForm):
     """simple way to add base equipment"""
 
     class Meta:
-        model = MedicalEquipment
+        model = models.MedicalEquipment
         fields = "__all__"
 
 
 class DrugForm(ModelForm):
     class Meta:
-        model = Drug
+        model = models.Drug
         fields = "__all__"

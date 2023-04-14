@@ -5,10 +5,11 @@ from .views import (
     ContainerCreate,
     ContainerView,
     ContainerDetail,
-    MedicalEquipmentCreate,
+    # MedicalEquipmentCreate,
     MedicalEquipmentDelete,
     get_name,
     select_object_to_create,
+    RetrieveMedicalEquipment,
 )
 from .views import warehouse_main
 
@@ -31,12 +32,14 @@ urlpatterns = [
         name="containers-delete",
     ),
     # CRUD for equipment
-    path("equipment/create", MedicalEquipmentCreate.as_view(), name="equipment-create"),
+    path("equipment/create", get_name, name="equipment-create"),
+    path(
+        "equipment/create<str:name>", select_object_to_create, name="test-object-create"
+    ),
     path(
         "equipment/delete/<int:pk>",
         MedicalEquipmentDelete.as_view(),
         name="equipment-delete",
     ),
-    path("equipment/test", get_name, name="test-create"),
-    path("equipment/test/create", select_object_to_create, name="test-object-create"),
+    path("equipment/all", RetrieveMedicalEquipment.as_view(), name="equipment-all"),
 ]

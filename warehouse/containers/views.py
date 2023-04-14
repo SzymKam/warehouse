@@ -7,8 +7,8 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Container, MedicalEquipment
-from .forms import ContainerForm, MedicalEquipmentForm, DrugForm
+from .models import Container, MedicalEquipment, BaseMedicalEquipment
+from .forms import ContainerForm, create_forms, MedicalEquipmentForm, DrugForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -22,6 +22,7 @@ def warehouse_main(request):
     )
 
 
+# views for containers
 class BaseContainer:
     model = Container
     success_url = reverse_lazy("containers-home")
@@ -77,18 +78,7 @@ class ContainerDelete(BaseContainer, DeleteView):
         return super().form_valid(form)
 
 
-class MedicalEquipmentCreate(CreateView):
-    template_name = "equipment/equipment-create.html"
-    model = MedicalEquipment
-    queryset = MedicalEquipment.objects.all()
-    success_url = reverse_lazy("containers-home")
-    form_class = MedicalEquipmentForm
-
-    def form_valid(self, form):
-        messages.success(self.request, "Equipment added")
-        return super().form_valid(form)
-
-
+# views for medical equipment
 class MedicalEquipmentDelete(DeleteView):
     model = MedicalEquipment
     success_url = reverse_lazy("containers-home")
@@ -101,27 +91,67 @@ class MedicalEquipmentDelete(DeleteView):
         return context
 
 
+class RetrieveMedicalEquipment(ListView):
+    queryset = BaseMedicalEquipment
+    template_name = "equipment/equipment-list.html"
+
+
 def get_name(request):
     if request.method == "POST":
         name = request.POST["name"]
-        return render(request, "equipment/equipment-create-2nd.html", {"name": name})
+        return redirect("test-object-create", name=name)
     return render(
         request,
-        "equipment/equipment-create-2nd.html",
+        "equipment/equipment-create-1st.html",
         {"name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES},
     )
 
 
-from .constants import DRUGS
+from .constants import DRUGS, FLUIDS
 
 
-def select_object_to_create(request, name: str):
-    if name == "ASA":
-        form = DrugForm(request.POST, initial={"name": name})
+def select_object_to_create(request, name):
+    forms = create_forms()
+    print(forms)
+    initial = {"name": name}
+    if name in dict(DRUGS).keys():
+        form_obj = forms.get("DrugForm")
+    elif name in dict(FLUIDS).keys():
+        form_obj = forms.get("FluidForm")
+    elif name == "Cannula":
+        form_obj = forms.get("CannulaForm")
+    elif name == "Needle":
+        form_obj = forms.get("NeedleForm")
+    elif name == "Syringe":
+        form_obj = forms.get("SyringeForm")
+    elif name == "BIG":
+        form_obj = forms.get("BIGForm")
+    elif name == "LT tube":
+        form_obj = forms.get("LtTubeForm")
+    elif name == "Gauze":
+        form_obj = forms.get("GauzeForm")
+    elif name == "Sterile gloves":
+        form_obj = forms.get("SterileGlovesForm")
+    elif name == "Gloves":
+        form_obj = forms.get("GlovesForm")
+    elif name == "NPA tube":
+        form_obj = forms.get("NasopharyngealTubeForm")
+    elif name == "OPA tube":
+        form_obj = forms.get("OropharyngealTubeForm")
+    elif name == "ET tube":
+        form_obj = forms.get("EndotrachealTubeForm")
+    elif name == "Laryngoscope blade":
+        form_obj = forms.get("LaryngoscopeBladeForm")
+    elif name == "Oxygen mask":
+        form_obj = forms.get("OxygenMaskForm")
+    elif name == "Ventilation mask":
+        form_obj = forms.get("VentilationMaskForm")
     else:
-        form = MedicalEquipmentForm(request.POST, initial={"name": name})
+        form_obj = forms.get("MedicalEquipmentForm")
 
+    form = form_obj.form(request.POST or None, initial=initial)
     if form.is_valid() and request.method == "POST":
-        print(form.data)
-        return HttpResponse("Object added")
+        form.save()
+        messages.success(request, f"{name} created!")
+        return redirect("containers-home")
     return render(request, "equipment/equipment-create-2nd.html", {"form": form})

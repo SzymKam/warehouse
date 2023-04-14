@@ -2,28 +2,10 @@
     {% load crispy_forms_tags %}
     {% block content %}
 
-    {% if name_choices %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="name">Choose element to add:</label>
-        <select name="name" id="name">
-            {% for choice in name_choices %}
-                <optgroup label="{{choice.0}}">
-                    {% for element in choice.1 %}
-                    <option value="{{element.0}}">{{element.0}}</option>
-                    {% endfor %}
-                </optgroup>
-            {% endfor %}
-        </select>
-        <br><br>
-        <button type="submit">Choose</button>
-    </form>
-    {% endif %}
-
     {% if form %}
     <form method="post">
         {% csrf_token %}
-        {{ form|crispy }}
+        {{ form | crispy }}
         <button type="submit">Add equipment</button>
     </form>
     {% endif %}
