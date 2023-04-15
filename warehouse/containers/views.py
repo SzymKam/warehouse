@@ -7,8 +7,8 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from .models import Container, MedicalEquipment, BaseMedicalEquipment
-from .forms import ContainerForm, create_forms, MedicalEquipmentForm, DrugForm
+from .models import Container
+from .forms import ContainerForm, create_forms
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -78,7 +78,137 @@ class ContainerDelete(BaseContainer, DeleteView):
         return super().form_valid(form)
 
 
-# views for medical equipment
+from .constants import DRUGS, FLUIDS
+
+
+class EquipmentCreate:
+    @staticmethod
+    def get_name(request):
+        if request.method == "POST":
+            name = request.POST["name"]
+            return redirect("test-object-create", name=name)
+        return render(
+            request,
+            "equipment/equipment-create-1st.html",
+            {"name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES},
+        )
+
+    @staticmethod
+    def select_object_to_create(request, name):
+        forms = create_forms()
+        print(forms)
+        initial = {"name": name}
+        if name in dict(DRUGS).keys():
+            form_obj = forms.get("DrugForm")
+        elif name in dict(FLUIDS).keys():
+            form_obj = forms.get("FluidForm")
+        elif name == "Cannula":
+            form_obj = forms.get("CannulaForm")
+        elif name == "Needle":
+            form_obj = forms.get("NeedleForm")
+        elif name == "Syringe":
+            form_obj = forms.get("SyringeForm")
+        elif name == "BIG":
+            form_obj = forms.get("BIGForm")
+        elif name == "LT tube":
+            form_obj = forms.get("LtTubeForm")
+        elif name == "Gauze":
+            form_obj = forms.get("GauzeForm")
+        elif name == "Sterile gloves":
+            form_obj = forms.get("SterileGlovesForm")
+        elif name == "Gloves":
+            form_obj = forms.get("GlovesForm")
+        elif name == "NPA tube":
+            form_obj = forms.get("NasopharyngealTubeForm")
+        elif name == "OPA tube":
+            form_obj = forms.get("OropharyngealTubeForm")
+        elif name == "ET tube":
+            form_obj = forms.get("EndotrachealTubeForm")
+        elif name == "Laryngoscope blade":
+            form_obj = forms.get("LaryngoscopeBladeForm")
+        elif name == "Oxygen mask":
+            form_obj = forms.get("OxygenMaskForm")
+        elif name == "Ventilation mask":
+            form_obj = forms.get("VentilationMaskForm")
+        else:
+            form_obj = forms.get("MedicalEquipmentForm")
+
+        form = form_obj.form(request.POST or None, initial=initial)
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            messages.success(request, f"{name} created!")
+            return redirect("containers-home")
+        return render(request, "equipment/equipment-create-2nd.html", {"form": form})
+
+
+from queryset_sequence import QuerySetSequence
+from .models import (
+    MedicalEquipment,
+    Drug,
+    Fluid,
+    Cannula,
+    Needle,
+    Syringe,
+    BIG,
+    LtTube,
+    Gloves,
+    SterileGloves,
+    Gauze,
+    NasopharyngealTube,
+    OropharyngealTube,
+    EndotrachealTube,
+    LaryngoscopeBlade,
+    OxygenMask,
+    VentilationMask,
+)
+
+MODEL_LIST = [
+    MedicalEquipment,
+    Drug,
+    Fluid,
+    Cannula,
+    Needle,
+    Syringe,
+    BIG,
+    LtTube,
+    Gloves,
+    SterileGloves,
+    Gauze,
+    NasopharyngealTube,
+    OropharyngealTube,
+    EndotrachealTube,
+    LaryngoscopeBlade,
+    OxygenMask,
+    VentilationMask,
+]
+
+
+class EquipmentRetrieve:
+    @staticmethod
+    def retrieve_equipment(request):
+        queryset = []
+        for model in MODEL_LIST:
+            elements = model.objects.all()
+            print(elements)
+            queryset.append(elements)
+        query = QuerySetSequence(queryset)
+        return render(
+            request, "equipment/equipment-list.html", {"object_list": query._querysets}
+        )
+
+
+# class EquipmentUpdate:
+# def update(request, element):
+
+
+def delete_equipment(request, model, pk):
+    object = get_object_or_404(model, pk=pk)
+    if request.method == "DELETE":
+        object.delete()
+        messages.warning(request, f"{object.name} deleted!")
+        return HttpResponse("DEL")
+
+
 class MedicalEquipmentDelete(DeleteView):
     model = MedicalEquipment
     success_url = reverse_lazy("containers-home")
@@ -89,69 +219,3 @@ class MedicalEquipmentDelete(DeleteView):
         context["container"] = self.object.container
         print(context["container"])
         return context
-
-
-class RetrieveMedicalEquipment(ListView):
-    queryset = BaseMedicalEquipment
-    template_name = "equipment/equipment-list.html"
-
-
-def get_name(request):
-    if request.method == "POST":
-        name = request.POST["name"]
-        return redirect("test-object-create", name=name)
-    return render(
-        request,
-        "equipment/equipment-create-1st.html",
-        {"name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES},
-    )
-
-
-from .constants import DRUGS, FLUIDS
-
-
-def select_object_to_create(request, name):
-    forms = create_forms()
-    print(forms)
-    initial = {"name": name}
-    if name in dict(DRUGS).keys():
-        form_obj = forms.get("DrugForm")
-    elif name in dict(FLUIDS).keys():
-        form_obj = forms.get("FluidForm")
-    elif name == "Cannula":
-        form_obj = forms.get("CannulaForm")
-    elif name == "Needle":
-        form_obj = forms.get("NeedleForm")
-    elif name == "Syringe":
-        form_obj = forms.get("SyringeForm")
-    elif name == "BIG":
-        form_obj = forms.get("BIGForm")
-    elif name == "LT tube":
-        form_obj = forms.get("LtTubeForm")
-    elif name == "Gauze":
-        form_obj = forms.get("GauzeForm")
-    elif name == "Sterile gloves":
-        form_obj = forms.get("SterileGlovesForm")
-    elif name == "Gloves":
-        form_obj = forms.get("GlovesForm")
-    elif name == "NPA tube":
-        form_obj = forms.get("NasopharyngealTubeForm")
-    elif name == "OPA tube":
-        form_obj = forms.get("OropharyngealTubeForm")
-    elif name == "ET tube":
-        form_obj = forms.get("EndotrachealTubeForm")
-    elif name == "Laryngoscope blade":
-        form_obj = forms.get("LaryngoscopeBladeForm")
-    elif name == "Oxygen mask":
-        form_obj = forms.get("OxygenMaskForm")
-    elif name == "Ventilation mask":
-        form_obj = forms.get("VentilationMaskForm")
-    else:
-        form_obj = forms.get("MedicalEquipmentForm")
-
-    form = form_obj.form(request.POST or None, initial=initial)
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        messages.success(request, f"{name} created!")
-        return redirect("containers-home")
-    return render(request, "equipment/equipment-create-2nd.html", {"form": form})
