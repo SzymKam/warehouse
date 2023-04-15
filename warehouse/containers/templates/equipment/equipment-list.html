@@ -2,7 +2,19 @@
     {% load crispy_forms_tags %}
     {% block content %}
 
-<h1>{{ object_list }}</h1>
+    {% for list in object_list %}
+    <ol>
+{% for query in list %}
+            {% for element in query %}
+
+                       <li>{{element.name}} {{element.amount}} {{element.container}} {{element.description}} -
+                           {{element.id}} </li>
+
+                    {% endfor %}
+
+    {% endfor %}
+        </ol>
+{% endfor %}
 
 
 
