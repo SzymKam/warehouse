@@ -57,6 +57,7 @@ class BaseMedicalEquipment(models.Model):
         choices=MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
     )
     description = models.TextField(null=True, blank=True)
+    model_name = __name__
 
     class Meta:
         abstract = True

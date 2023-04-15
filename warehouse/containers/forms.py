@@ -26,17 +26,3 @@ def create_forms():
         form_name = f"{model_class.__name__}Form"
         forms[form_name] = form_class
     return forms
-
-
-class MedicalEquipmentForm(ModelForm):
-    """simple way to add base equipment"""
-
-    class Meta:
-        model = models.MedicalEquipment
-        fields = "__all__"
-
-
-class DrugForm(ModelForm):
-    class Meta:
-        model = models.Drug
-        fields = "__all__"
