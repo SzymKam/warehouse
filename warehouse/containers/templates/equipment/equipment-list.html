@@ -7,8 +7,10 @@
 {% for query in list %}
             {% for element in query %}
 
-                       <li>{{element.name}} {{element.amount}} {{element.container}} {{element.description}} -
-                           {{element.id}} </li>
+                       <li>
+                           {{element.name}} {{element.amount}} {{element.container}} {{element.description}} -
+                           <button><a href="{% url 'equipment-delete' pk=element.id name=element.name %}">Delete
+                               {{element.name}}</a></button></li>
 
                     {% endfor %}
 

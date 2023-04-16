@@ -2,12 +2,11 @@
   {% load crispy_forms_tags %}
     {% block content %}
         <div>
-            <h3>Are you sure to delete {{ object.name }}?</h3>
+            <h3>Are you sure to delete {{ name }}?</h3>
             <form method="post">
                 {% csrf_token %}
-                <h4>Delete container</h4>
+                <h4>Delete element</h4>
                 <button type="submit">Delete</button>
             </form>
-                <button><a href="{% url 'containers-detail' pk=container.id %} ">Cancel</a></button>
         </div>
     {% endblock %}
