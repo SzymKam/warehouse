@@ -1,5 +1,4 @@
-from django.forms import ModelForm, inlineformset_factory, modelformset_factory
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory, ModelForm
 import inspect
 from containers import models
 

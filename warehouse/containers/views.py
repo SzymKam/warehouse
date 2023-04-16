@@ -96,7 +96,6 @@ class EquipmentCreate:
     @staticmethod
     def select_object_to_create(request, name):
         forms = create_forms()
-        print(forms)
         initial = {"name": name}
         if name in dict(DRUGS).keys():
             form_obj = forms.get("DrugForm")
@@ -189,7 +188,6 @@ class EquipmentRetrieve:
         queryset = []
         for model in MODEL_LIST:
             elements = model.objects.all()
-            print(elements)
             queryset.append(elements)
         query = QuerySetSequence(queryset)
         return render(
@@ -201,21 +199,45 @@ class EquipmentRetrieve:
 # def update(request, element):
 
 
-def delete_equipment(request, model, pk):
-    object = get_object_or_404(model, pk=pk)
-    if request.method == "DELETE":
-        object.delete()
-        messages.warning(request, f"{object.name} deleted!")
-        return HttpResponse("DEL")
+def delete_equipment(request, pk, name):
+    if name in dict(DRUGS).keys():
+        model_name = Drug
+    elif name in dict(FLUIDS).keys():
+        model_name = Fluid
+    elif name == "Cannula":
+        model_name = Cannula
+    elif name == "Needle":
+        model_name = Needle
+    elif name == "Syringe":
+        model_name = Syringe
+    elif name == "BIG":
+        model_name = BIG
+    elif name == "LT tube":
+        model_name = LtTube
+    elif name == "Gauze":
+        model_name = Gauze
+    elif name == "Sterile gloves":
+        model_name = SterileGloves
+    elif name == "Gloves":
+        model_name = Gloves
+    elif name == "NPA tube":
+        model_name = NasopharyngealTube
+    elif name == "OPA tube":
+        model_name = OropharyngealTube
+    elif name == "ET tube":
+        model_name = EndotrachealTube
+    elif name == "Laryngoscope blade":
+        model_name = LaryngoscopeBlade
+    elif name == "Oxygen mask":
+        model_name = OxygenMask
+    elif name == "Ventilation mask":
+        model_name = VentilationMask
+    else:
+        model_name = MedicalEquipment
 
-
-class MedicalEquipmentDelete(DeleteView):
-    model = MedicalEquipment
-    success_url = reverse_lazy("containers-home")
-    template_name = "equipment/equipment-delete.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["container"] = self.object.container
-        print(context["container"])
-        return context
+    object_to_delete = get_object_or_404(klass=model_name, pk=pk)
+    if request.method == "POST":
+        object_to_delete.delete()
+        messages.warning(request, f"{object_to_delete.name} deleted!")
+        return redirect("equipment-all")
+    return render(request, "equipment/equipment-delete.html", {"name": name})
