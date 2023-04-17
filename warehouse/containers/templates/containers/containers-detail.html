@@ -4,8 +4,8 @@
     <nav>
         <h2> {{ title }}</h2>
         <ul>
-            <li><a href="{% url 'containers-home' %}">Containers</a></li>
-            <li><a href="{% url 'warehouse-main' %}">Main warehouse page</a></li>
+            <li><button><a href="{% url 'containers-home' %}">Containers</a></button></li>
+            <li><button><a href="{% url 'warehouse-main' %}">Main warehouse page</a></button></li>
         </ul>
     </nav>
 
@@ -13,25 +13,37 @@
         <div>
             {% if container.name == "Main warehouse" %}
                 <h3>You cannot delete Main container</h3>
+                <button><a href="{% url 'equipment-create' %}">Add equipment</a></button>
             {% else %}
                 <h3>Container options</h3>
                 <ul>
-                    <li><a href="{% url 'containers-update' pk=container.id %} ">Update container</a></li>
-                    <li><a href="{% url 'containers-delete' pk=container.id %} ">Delete container</a></li>
+                    <li><button><a href="{% url 'containers-update' pk=container.id %} ">Update container</a></button></li>
+                    <li><button><a href="{% url 'containers-delete' pk=container.id %} ">Delete container</a></button></li>
+                    <li><button><a href="{% url 'equipment-create' %}">Add equipment</a></button></li>
+
                 </ul>
             {% endif %}
-    </div>
-    <div>
+        </div>
+        <div>
             <h1>{{ container.name }}</h1>
             <h2>{{ container.description }}</h2>
-        <h3>Equipment list</h3>
-        <ul>
-            {% for element in equipment %}
-            <li>{{ element.name }} {{ element.container }} {{ element.amount }} {{ element.expiration_date }}
-            {{ element.equipment_type }} {{ element.description }} <a href="{% url 'equipment-delete' pk=element.id %} ">Delete element</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+            <h3>Equipment list</h3>
+            <ul>
+                {% for queryset in equipment %}
+                    {% for element in queryset %}
+                        <li>{{ element.name }}
+                            {{ element.container }}
+                            {{ element.amount }}
+                            {{ element.expiration_date }}
+                            {{ element.equipment_type }}
+                            {{ element.description }}
+                            <button>
+                                <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}">Delete {{element.name}}</a>
+                            </button>
+                        </li>
+                {% endfor %}
+                    {% endfor %}
+            </ul>
+        </div>
     </main>
     {% endblock %}

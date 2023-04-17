@@ -3,9 +3,9 @@
      <nav>
          <h2>Containers</h2>
         <ul>
-            <li><a href="{% url 'warehouse-main' %}">Main warehouse page</a></li>
-            <li><a href="{% url 'containers-create' %}">Add new container</a></li>
-            <li><a href="{% url 'equipment-create' %}">Add new equipment</a></li>
+            <li><button><a href="{% url 'warehouse-main' %}">Main warehouse page</a></button></li>
+            <li><button><a href="{% url 'containers-create' %}">Add new container</a></button></li>
+            <li><button><a href="{% url 'equipment-create' %}">Add new equipment</a></button></li>
 
         </ul>
     </nav>
@@ -14,7 +14,7 @@
         <h1>Containers list </h1>
     <ul>
         {% for container in object_list %}
-        <li><a href="{% url 'containers-detail' pk=container.id %} ">{{ container.name }}</a>
+        <li><button><a href="{% url 'containers-detail' pk=container.id %} ">{{ container.name }}</a></button>
             <p>{{ container.description }}</p>
         </li>
         {% endfor %}
