@@ -13,6 +13,45 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .constants import MEDICAL_EQUIPMENT_NAME_CHOICES
+from .models import (
+    MedicalEquipment,
+    Drug,
+    Fluid,
+    Cannula,
+    Needle,
+    Syringe,
+    BIG,
+    LtTube,
+    Gloves,
+    SterileGloves,
+    Gauze,
+    NasopharyngealTube,
+    OropharyngealTube,
+    EndotrachealTube,
+    LaryngoscopeBlade,
+    OxygenMask,
+    VentilationMask,
+)
+
+MODEL_LIST = [
+    MedicalEquipment,
+    Drug,
+    Fluid,
+    Cannula,
+    Needle,
+    Syringe,
+    BIG,
+    LtTube,
+    Gloves,
+    SterileGloves,
+    Gauze,
+    NasopharyngealTube,
+    OropharyngealTube,
+    EndotrachealTube,
+    LaryngoscopeBlade,
+    OxygenMask,
+    VentilationMask,
+]
 
 
 def warehouse_main(request):
@@ -40,9 +79,18 @@ class ContainerDetail(DetailView):
     template_name = "containers/containers-detail.html"
     queryset = Container.objects.all()
 
+    def get_data_from_all_models(self, container_id):
+        data = []
+        for model in MODEL_LIST:
+            query = model.objects.filter(container=container_id)
+            data.append(query)
+        return data
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["equipment"] = MedicalEquipment.objects.filter(container=self.object.id)
+        context["equipment"] = self.get_data_from_all_models(
+            container_id=self.object.id
+        )
         return context
 
 
@@ -141,45 +189,6 @@ class EquipmentCreate:
 
 
 from queryset_sequence import QuerySetSequence
-from .models import (
-    MedicalEquipment,
-    Drug,
-    Fluid,
-    Cannula,
-    Needle,
-    Syringe,
-    BIG,
-    LtTube,
-    Gloves,
-    SterileGloves,
-    Gauze,
-    NasopharyngealTube,
-    OropharyngealTube,
-    EndotrachealTube,
-    LaryngoscopeBlade,
-    OxygenMask,
-    VentilationMask,
-)
-
-MODEL_LIST = [
-    MedicalEquipment,
-    Drug,
-    Fluid,
-    Cannula,
-    Needle,
-    Syringe,
-    BIG,
-    LtTube,
-    Gloves,
-    SterileGloves,
-    Gauze,
-    NasopharyngealTube,
-    OropharyngealTube,
-    EndotrachealTube,
-    LaryngoscopeBlade,
-    OxygenMask,
-    VentilationMask,
-]
 
 
 class EquipmentRetrieve:
@@ -199,45 +208,51 @@ class EquipmentRetrieve:
 # def update(request, element):
 
 
-def delete_equipment(request, pk, name):
-    if name in dict(DRUGS).keys():
-        model_name = Drug
-    elif name in dict(FLUIDS).keys():
-        model_name = Fluid
-    elif name == "Cannula":
-        model_name = Cannula
-    elif name == "Needle":
-        model_name = Needle
-    elif name == "Syringe":
-        model_name = Syringe
-    elif name == "BIG":
-        model_name = BIG
-    elif name == "LT tube":
-        model_name = LtTube
-    elif name == "Gauze":
-        model_name = Gauze
-    elif name == "Sterile gloves":
-        model_name = SterileGloves
-    elif name == "Gloves":
-        model_name = Gloves
-    elif name == "NPA tube":
-        model_name = NasopharyngealTube
-    elif name == "OPA tube":
-        model_name = OropharyngealTube
-    elif name == "ET tube":
-        model_name = EndotrachealTube
-    elif name == "Laryngoscope blade":
-        model_name = LaryngoscopeBlade
-    elif name == "Oxygen mask":
-        model_name = OxygenMask
-    elif name == "Ventilation mask":
-        model_name = VentilationMask
-    else:
-        model_name = MedicalEquipment
+class EquipmentDelete:
+    @staticmethod
+    def delete_equipment(request, pk, name, container):
+        if name in dict(DRUGS).keys():
+            model_name = Drug
+        elif name in dict(FLUIDS).keys():
+            model_name = Fluid
+        elif name == "Cannula":
+            model_name = Cannula
+        elif name == "Needle":
+            model_name = Needle
+        elif name == "Syringe":
+            model_name = Syringe
+        elif name == "BIG":
+            model_name = BIG
+        elif name == "LT tube":
+            model_name = LtTube
+        elif name == "Gauze":
+            model_name = Gauze
+        elif name == "Sterile gloves":
+            model_name = SterileGloves
+        elif name == "Gloves":
+            model_name = Gloves
+        elif name == "NPA tube":
+            model_name = NasopharyngealTube
+        elif name == "OPA tube":
+            model_name = OropharyngealTube
+        elif name == "ET tube":
+            model_name = EndotrachealTube
+        elif name == "Laryngoscope blade":
+            model_name = LaryngoscopeBlade
+        elif name == "Oxygen mask":
+            model_name = OxygenMask
+        elif name == "Ventilation mask":
+            model_name = VentilationMask
+        else:
+            model_name = MedicalEquipment
 
-    object_to_delete = get_object_or_404(klass=model_name, pk=pk)
-    if request.method == "POST":
-        object_to_delete.delete()
-        messages.warning(request, f"{object_to_delete.name} deleted!")
-        return redirect("equipment-all")
-    return render(request, "equipment/equipment-delete.html", {"name": name})
+        object_to_delete = get_object_or_404(klass=model_name, pk=pk)
+        if request.method == "POST":
+            object_to_delete.delete()
+            messages.warning(request, f"{object_to_delete.name} deleted!")
+            return redirect("containers-detail", pk=container)
+        return render(
+            request,
+            "equipment/equipment-delete.html",
+            {"name": name, "container": container},
+        )

@@ -7,7 +7,8 @@ from .views import (
     ContainerDetail,
     EquipmentCreate,
     EquipmentRetrieve,
-    delete_equipment,
+    # delete_equipment,
+    EquipmentDelete,
 )
 from .views import warehouse_main
 
@@ -37,8 +38,8 @@ urlpatterns = [
         name="test-object-create",
     ),
     path(
-        "equipment/delete/<int:pk>&<str:name>",
-        delete_equipment,
+        "equipment/delete/<int:pk><str:name><int:container>",
+        EquipmentDelete.delete_equipment,
         name="equipment-delete",
     ),
     path("equipment/all/", EquipmentRetrieve.retrieve_equipment, name="equipment-all"),
