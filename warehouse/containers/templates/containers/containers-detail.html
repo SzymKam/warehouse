@@ -37,9 +37,13 @@
                             {{ element.expiration_date }}
                             {{ element.equipment_type }}
                             {{ element.description }}
-                            <button>
-                                <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}">Delete {{element.name}}</a>
+                             <button>
+                                <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}">Update</a>
                             </button>
+                            <button>
+                                <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}">Delete</a>
+                            </button>
+
                         </li>
                 {% endfor %}
                     {% endfor %}

@@ -3,11 +3,11 @@
     {% block content %}
 
     {% if form %}
-    <h2>Create new {{name}}: </h2>
+    <h2>Update {{name}}: </h2>
     <form method="post">
         {% csrf_token %}
         {{ form | crispy }}
-        <button type="submit">Add equipment</button>
+        <button type="submit">Update equipment</button>
     </form>
     {% endif %}
 
