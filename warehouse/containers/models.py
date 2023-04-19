@@ -39,7 +39,7 @@ def get_main_container():
 class BaseMedicalEquipment(models.Model):
     """abstract class working as a base for other models"""
 
-    name = models.CharField(max_length=50, choices=MEDICAL_EQUIPMENT_NAME_CHOICES)
+    name = models.CharField(max_length=50)
     container = models.ForeignKey(
         Container,
         blank=True,
