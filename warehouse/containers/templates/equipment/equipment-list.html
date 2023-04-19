@@ -1,0 +1,22 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+
+    {% for list in object_list %}
+    <ol>
+{% for query in list %}
+            {% for element in query %}
+
+                       <li>
+                           {{element.name}} {{element.amount}} {{element.container}} {{element.description}} -
+                       </li>
+
+                    {% endfor %}
+
+    {% endfor %}
+        </ol>
+{% endfor %}
+
+
+
+{% endblock %}

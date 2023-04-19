@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     "django_extensions",
 ]
 
-INSTALLED_EXTENSIONS = ["containers", "crispy_forms", "crispy_bootstrap4"]
+INSTALLED_EXTENSIONS = [
+    "containers",
+    # "containers.apps.ContainersConfig",
+    "crispy_forms",
+    "crispy_bootstrap4",
+]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
 
@@ -81,8 +86,12 @@ WSGI_APPLICATION = "warehouse.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "medical_app_db",
+        "USER": "user",
+        "PASSWORD": "user",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 

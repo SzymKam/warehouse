@@ -39,13 +39,8 @@ DRUGS = sorted(
         ("Bicarbonate", "Bicarbonate"),
         ("Captopril", "Captopril"),
         ("Glucagon", "Glucagon"),
-        ("Glucose 20%", "Glucose 20%"),
+        ("Glucose 20%-S", "Glucose 20%-S"),
         ("Glucose 40%", "Glucose 40%"),
-        ("Glucose 5%", "Glucose 5%"),
-        ("NaCl 0.9%", "NaCl 0.9%"),
-        ("Optilyte", "Optilyte"),
-        ("Ringer", "Ringer"),
-        ("Plasmalyte", "Plasmalyte"),
         ("Exacyl", "Exacyl"),
         ("Ketamine", "Ketamine"),
         ("Polstigmine", "Polstigmine"),
@@ -55,12 +50,25 @@ DRUGS = sorted(
         ("Calcium", "Calcium"),
         ("Propofol", "Propofol"),
         ("Pantoprazol", "Pantoprazol"),
-        ("Aqua", "Aqua"),
         ("Nitrendipine", "Nitrendipine"),
         ("Rocuronium", "Rocuronium"),
         ("Aspargin", "Aspargin"),
     ]
 )
+FLUIDS = sorted(
+    [
+        ("Other", "Other"),
+        ("Glucose 20%", "Glucose 20%"),
+        ("Glucose 5%", "Glucose 5%"),
+        ("NaCl 0.9%", "NaCl 0.9%"),
+        ("Optilyte", "Optilyte"),
+        ("Ringer", "Ringer"),
+        ("Plasmalyte", "Plasmalyte"),
+        ("Aqua", "Aqua"),
+    ]
+)
+
+
 AIRWAYS = sorted(
     [
         ("Quicktrach", "Quicktrach"),
@@ -218,6 +226,7 @@ MEDICAL_EQUIPMENT_NAME_CHOICES = sorted(
         ("Sets", SETS),
         ("Immobilization", IMMOBILIZATION),
         ("Documentation", DOCUMENTATION),
+        ("Fluids", FLUIDS),
     ]
 )
 

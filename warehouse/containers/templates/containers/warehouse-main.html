@@ -3,7 +3,9 @@
     <nav>
         <h2>Main warehouse page</h2>
         <ul>
-            <li><a href="{% url 'containers-home' %}">Containers</a></li>
+            <li><button><a href="{% url 'containers-home' %}">Containers</a></button></li>
+            <li><button><a href="{% url 'equipment-all' %}">All elements</a></button></li>
+
         </ul>
     </nav>
     {% endblock %}
