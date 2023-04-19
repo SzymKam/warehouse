@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
+from .constants import DRUGS, FLUIDS
 from .models import Container
 from .forms import ContainerForm, create_forms
 from django.contrib import messages
@@ -61,12 +62,6 @@ def warehouse_main(request):
     )
 
 
-# views for containers
-class BaseContainer:
-    model = Container
-    success_url = reverse_lazy("containers-home")
-
-
 class ContainerView(ListView):
     queryset = Container.objects.all()
     template_name = "containers/containers-home.html"
@@ -79,7 +74,8 @@ class ContainerDetail(DetailView):
     template_name = "containers/containers-detail.html"
     queryset = Container.objects.all()
 
-    def get_data_from_all_models(self, container_id):
+    @staticmethod
+    def get_data_from_all_models(container_id):
         data = []
         for model in MODEL_LIST:
             query = model.objects.filter(container=container_id)
@@ -107,10 +103,11 @@ class ContainerUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class ContainerCreate(BaseContainer, CreateView):
+class ContainerCreate(CreateView):
+    model = Container
     template_name = "containers/containers-create.html"
     form_class = ContainerForm
-
+    success_url = reverse_lazy("containers-home")
     queryset = Container.objects.all()
 
     def form_valid(self, form):
@@ -118,15 +115,14 @@ class ContainerCreate(BaseContainer, CreateView):
         return super().form_valid(form)
 
 
-class ContainerDelete(BaseContainer, DeleteView):
+class ContainerDelete(DeleteView):
     template_name = "containers/containers-delete.html"
+    model = Container
+    success_url = reverse_lazy("containers-home")
 
     def form_valid(self, form):
         messages.warning(self.request, "Container deleted!")
         return super().form_valid(form)
-
-
-from .constants import DRUGS, FLUIDS
 
 
 class EquipmentCreate:
@@ -186,7 +182,9 @@ class EquipmentCreate:
             form.save()
             messages.success(request, f"{name} created!")
             return redirect("containers-home")
-        return render(request, "equipment/equipment-create-2nd.html", {"form": form})
+        return render(
+            request, "equipment/equipment-create-2nd.html", {"form": form, "name": name}
+        )
 
 
 from queryset_sequence import QuerySetSequence
@@ -205,8 +203,71 @@ class EquipmentRetrieve:
         )
 
 
-# class EquipmentUpdate:
-# def update(request, element):
+class EquipmentUpdate:
+    @staticmethod
+    def update_equipment(request, pk, name, container):
+        forms = create_forms()
+        if name in dict(DRUGS).keys():
+            model_name = Drug
+            form_obj = forms.get("DrugForm")
+        elif name in dict(FLUIDS).keys():
+            model_name = Fluid
+            form_obj = forms.get("FluidForm")
+        elif name == "Cannula":
+            model_name = Cannula
+            form_obj = forms.get("CannulaForm")
+        elif name == "Needle":
+            model_name = Needle
+            form_obj = forms.get("NeedleForm")
+        elif name == "Syringe":
+            model_name = Syringe
+            form_obj = forms.get("SyringeForm")
+        elif name == "BIG":
+            model_name = BIG
+            form_obj = forms.get("BIGForm")
+        elif name == "LT tube":
+            model_name = LtTube
+            form_obj = forms.get("LtTubeForm")
+        elif name == "Gauze":
+            model_name = Gauze
+            form_obj = forms.get("GauzeForm")
+        elif name == "Sterile gloves":
+            model_name = SterileGloves
+            form_obj = forms.get("SterileGlovesForm")
+        elif name == "Gloves":
+            model_name = Gloves
+            form_obj = forms.get("GlovesForm")
+        elif name == "NPA tube":
+            model_name = NasopharyngealTube
+            form_obj = forms.get("NasopharyngealTubeForm")
+        elif name == "OPA tube":
+            model_name = OropharyngealTube
+            form_obj = forms.get("OropharyngealTubeForm")
+        elif name == "ET tube":
+            model_name = EndotrachealTube
+            form_obj = forms.get("EndotrachealTubeForm")
+        elif name == "Laryngoscope blade":
+            model_name = LaryngoscopeBlade
+            form_obj = forms.get("LaryngoscopeBladeForm")
+        elif name == "Oxygen mask":
+            model_name = OxygenMask
+            form_obj = forms.get("OxygenMaskForm")
+        elif name == "Ventilation mask":
+            model_name = VentilationMask
+            form_obj = forms.get("VentilationMaskForm")
+        else:
+            model_name = MedicalEquipment
+            form_obj = forms.get("MedicalEquipmentForm")
+
+        object_to_update = get_object_or_404(klass=model_name, pk=pk)
+        form = form_obj.form(request.POST or None, instance=object_to_update)
+        if request.method == "POST" and form.is_valid():
+            form.save()
+            messages.info(request, f"{name} updated")
+            return redirect("containers-detail", pk=container)
+        return render(
+            request, "equipment/equipment-update.html", {"form": form, "name": name}
+        )
 
 
 class EquipmentDelete:
