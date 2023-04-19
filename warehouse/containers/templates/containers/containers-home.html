@@ -5,7 +5,7 @@
         <ul>
             <li><button><a href="{% url 'warehouse-main' %}">Main warehouse page</a></button></li>
             <li><button><a href="{% url 'containers-create' %}">Add new container</a></button></li>
-            <li><button><a href="{% url 'equipment-create' %}">Add new equipment</a></button></li>
+            <li><button><a href="{% url 'equipment-create' container=1 %}">Add new equipment</a></button></li>
 
         </ul>
     </nav>

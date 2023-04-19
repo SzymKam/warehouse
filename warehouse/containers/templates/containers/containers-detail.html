@@ -12,14 +12,14 @@
     <main>
         <div>
             {% if container.name == "Main warehouse" %}
-                <h3>You cannot delete Main container</h3>
-                <button><a href="{% url 'equipment-create' %}">Add equipment</a></button>
+                <h3>Container options</h3>
+                <button><a href="{% url 'equipment-create' container=container.id %}">Add equipment</a></button>
             {% else %}
                 <h3>Container options</h3>
                 <ul>
                     <li><button><a href="{% url 'containers-update' pk=container.id %} ">Update container</a></button></li>
                     <li><button><a href="{% url 'containers-delete' pk=container.id %} ">Delete container</a></button></li>
-                    <li><button><a href="{% url 'equipment-create' %}">Add equipment</a></button></li>
+                    <li><button><a href="{% url 'equipment-create' container=container.id %}">Add equipment</a></button></li>
 
                 </ul>
             {% endif %}
