@@ -131,10 +131,10 @@ from .constants import DRUGS, FLUIDS
 
 class EquipmentCreate:
     @staticmethod
-    def get_name(request):
+    def get_name(request, container):
         if request.method == "POST":
             name = request.POST["name"]
-            return redirect("test-object-create", name=name)
+            return redirect("test-object-create", name=name, container=container)
         return render(
             request,
             "equipment/equipment-create-1st.html",
@@ -142,9 +142,10 @@ class EquipmentCreate:
         )
 
     @staticmethod
-    def select_object_to_create(request, name):
+    def select_object_to_create(request, name, container):
         forms = create_forms()
-        initial = {"name": name}
+        initial = {"name": name, "container": Container.objects.get(pk=container)}
+        print(initial)
         if name in dict(DRUGS).keys():
             form_obj = forms.get("DrugForm")
         elif name in dict(FLUIDS).keys():

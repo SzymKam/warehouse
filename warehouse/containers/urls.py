@@ -31,14 +31,18 @@ urlpatterns = [
         name="containers-delete",
     ),
     # CRUD for equipment
-    path("equipment/create", EquipmentCreate.get_name, name="equipment-create"),
     path(
-        "equipment/create/<str:name>",
+        "equipment/create<int:container>",
+        EquipmentCreate.get_name,
+        name="equipment-create",
+    ),
+    path(
+        "equipment/create/<str:name>&<int:container>",
         EquipmentCreate.select_object_to_create,
         name="test-object-create",
     ),
     path(
-        "equipment/delete/<int:pk><str:name><int:container>",
+        "equipment/delete/<int:pk>&<str:name>&<int:container>",
         EquipmentDelete.delete_equipment,
         name="equipment-delete",
     ),
