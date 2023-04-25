@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Type, Optional
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (
     ListView,
@@ -53,12 +54,44 @@ MODEL_LIST = [
     OxygenMask,
     VentilationMask,
 ]
+from django.forms import Form, BaseModelFormSet
+from django.db.models import Model
 
 
 def warehouse_main(request):
     """render main warehouse page"""
     return render(
         request, "containers/warehouse-main.html", {"title": "Main Warehouse"}
+    )
+
+
+def get_form_class_and_model_by_name(
+    name: str, forms: Optional[dict[str, Type[BaseModelFormSet]]] = None
+) -> tuple[Form, Model]:
+    if forms is None:
+        forms = {}
+
+    name_to_form_class = {
+        **{k: (forms.get("DrugForm"), Drug) for k in dict(DRUGS).keys()},
+        **{k: (forms.get("FluidForm"), Fluid) for k in dict(FLUIDS).keys()},
+        "Cannula": (forms.get("CannulaForm"), Cannula),
+        "Needle": (forms.get("NeedleForm"), Needle),
+        "Syringe": (forms.get("SyringeForm"), Syringe),
+        "BIG": (forms.get("BIGForm"), BIG),
+        "LT tube": (forms.get("LtTubeForm"), LtTube),
+        "Gauze": (forms.get("Gauze"), Gauze),
+        "Sterile gloves": (forms.get("SterileGlovesForm"), SterileGloves),
+        "Gloves": (forms.get("SyringeForm"), Syringe),
+        "NPA tube": (forms.get("SyringeForm"), NasopharyngealTube),
+        "OPA tube": (forms.get("SyringeForm"), OropharyngealTube),
+        "ET tube": (forms.get("SyringeForm"), EndotrachealTube),
+        "Laryngoscope blade": (forms.get("SyringeForm"), LaryngoscopeBlade),
+        "Oxygen mask": (forms.get("SyringeForm"), OxygenMask),
+        "Ventilation mask": (forms.get("SyringeForm"), VentilationMask),
+    }
+
+    return name_to_form_class.get(
+        name, (forms.get("MedicalEquipmentForm"), MedicalEquipment)
     )
 
 
@@ -139,43 +172,9 @@ class EquipmentCreate:
 
     @staticmethod
     def select_object_to_create(request, name, container):
-        forms = create_forms()
         initial = {"name": name, "container": Container.objects.get(pk=container)}
-        print(initial)
-        if name in dict(DRUGS).keys():
-            form_obj = forms.get("DrugForm")
-        elif name in dict(FLUIDS).keys():
-            form_obj = forms.get("FluidForm")
-        elif name == "Cannula":
-            form_obj = forms.get("CannulaForm")
-        elif name == "Needle":
-            form_obj = forms.get("NeedleForm")
-        elif name == "Syringe":
-            form_obj = forms.get("SyringeForm")
-        elif name == "BIG":
-            form_obj = forms.get("BIGForm")
-        elif name == "LT tube":
-            form_obj = forms.get("LtTubeForm")
-        elif name == "Gauze":
-            form_obj = forms.get("GauzeForm")
-        elif name == "Sterile gloves":
-            form_obj = forms.get("SterileGlovesForm")
-        elif name == "Gloves":
-            form_obj = forms.get("GlovesForm")
-        elif name == "NPA tube":
-            form_obj = forms.get("NasopharyngealTubeForm")
-        elif name == "OPA tube":
-            form_obj = forms.get("OropharyngealTubeForm")
-        elif name == "ET tube":
-            form_obj = forms.get("EndotrachealTubeForm")
-        elif name == "Laryngoscope blade":
-            form_obj = forms.get("LaryngoscopeBladeForm")
-        elif name == "Oxygen mask":
-            form_obj = forms.get("OxygenMaskForm")
-        elif name == "Ventilation mask":
-            form_obj = forms.get("VentilationMaskForm")
-        else:
-            form_obj = forms.get("MedicalEquipmentForm")
+
+        form_obj, _ = get_form_class_and_model_by_name(name, create_forms())
 
         form = form_obj.form(request.POST or None, initial=initial)
         if form.is_valid() and request.method == "POST":
@@ -206,59 +205,7 @@ class EquipmentRetrieve:
 class EquipmentUpdate:
     @staticmethod
     def update_equipment(request, pk, name, container):
-        forms = create_forms()
-        if name in dict(DRUGS).keys():
-            model_name = Drug
-            form_obj = forms.get("DrugForm")
-        elif name in dict(FLUIDS).keys():
-            model_name = Fluid
-            form_obj = forms.get("FluidForm")
-        elif name == "Cannula":
-            model_name = Cannula
-            form_obj = forms.get("CannulaForm")
-        elif name == "Needle":
-            model_name = Needle
-            form_obj = forms.get("NeedleForm")
-        elif name == "Syringe":
-            model_name = Syringe
-            form_obj = forms.get("SyringeForm")
-        elif name == "BIG":
-            model_name = BIG
-            form_obj = forms.get("BIGForm")
-        elif name == "LT tube":
-            model_name = LtTube
-            form_obj = forms.get("LtTubeForm")
-        elif name == "Gauze":
-            model_name = Gauze
-            form_obj = forms.get("GauzeForm")
-        elif name == "Sterile gloves":
-            model_name = SterileGloves
-            form_obj = forms.get("SterileGlovesForm")
-        elif name == "Gloves":
-            model_name = Gloves
-            form_obj = forms.get("GlovesForm")
-        elif name == "NPA tube":
-            model_name = NasopharyngealTube
-            form_obj = forms.get("NasopharyngealTubeForm")
-        elif name == "OPA tube":
-            model_name = OropharyngealTube
-            form_obj = forms.get("OropharyngealTubeForm")
-        elif name == "ET tube":
-            model_name = EndotrachealTube
-            form_obj = forms.get("EndotrachealTubeForm")
-        elif name == "Laryngoscope blade":
-            model_name = LaryngoscopeBlade
-            form_obj = forms.get("LaryngoscopeBladeForm")
-        elif name == "Oxygen mask":
-            model_name = OxygenMask
-            form_obj = forms.get("OxygenMaskForm")
-        elif name == "Ventilation mask":
-            model_name = VentilationMask
-            form_obj = forms.get("VentilationMaskForm")
-        else:
-            model_name = MedicalEquipment
-            form_obj = forms.get("MedicalEquipmentForm")
-
+        form_obj, model_name = get_form_class_and_model_by_name(name, create_forms())
         object_to_update = get_object_or_404(klass=model_name, pk=pk)
         form = form_obj.form(request.POST or None, instance=object_to_update)
         if request.method == "POST" and form.is_valid():
@@ -273,41 +220,7 @@ class EquipmentUpdate:
 class EquipmentDelete:
     @staticmethod
     def delete_equipment(request, pk, name, container):
-        if name in dict(DRUGS).keys():
-            model_name = Drug
-        elif name in dict(FLUIDS).keys():
-            model_name = Fluid
-        elif name == "Cannula":
-            model_name = Cannula
-        elif name == "Needle":
-            model_name = Needle
-        elif name == "Syringe":
-            model_name = Syringe
-        elif name == "BIG":
-            model_name = BIG
-        elif name == "LT tube":
-            model_name = LtTube
-        elif name == "Gauze":
-            model_name = Gauze
-        elif name == "Sterile gloves":
-            model_name = SterileGloves
-        elif name == "Gloves":
-            model_name = Gloves
-        elif name == "NPA tube":
-            model_name = NasopharyngealTube
-        elif name == "OPA tube":
-            model_name = OropharyngealTube
-        elif name == "ET tube":
-            model_name = EndotrachealTube
-        elif name == "Laryngoscope blade":
-            model_name = LaryngoscopeBlade
-        elif name == "Oxygen mask":
-            model_name = OxygenMask
-        elif name == "Ventilation mask":
-            model_name = VentilationMask
-        else:
-            model_name = MedicalEquipment
-
+        _, model_name = get_form_class_and_model_by_name(name)
         object_to_delete = get_object_or_404(klass=model_name, pk=pk)
         if request.method == "POST":
             object_to_delete.delete()

@@ -1,4 +1,5 @@
-from django.forms import modelformset_factory, ModelForm
+from typing import Type
+from django.forms import modelformset_factory, ModelForm, BaseModelFormSet
 import inspect
 from containers import models
 
@@ -17,7 +18,7 @@ class ContainerForm(ModelForm):
         fields = "__all__"
 
 
-def create_forms():
+def create_forms() -> dict[str, Type[BaseModelFormSet]]:
     model_classes = [cls for name, cls in inspect.getmembers(models, inspect.isclass)]
     forms = {}
     for model_class in model_classes:
