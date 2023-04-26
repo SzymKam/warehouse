@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 INSTALLED_EXTENSIONS = [
     "containers",
+    "staff",
     # "containers.apps.ContainersConfig",
     "crispy_forms",
     "crispy_bootstrap4",
