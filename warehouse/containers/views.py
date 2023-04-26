@@ -15,6 +15,9 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .constants import MEDICAL_EQUIPMENT_NAME_CHOICES
+from queryset_sequence import QuerySetSequence
+from django.forms import Form, BaseModelFormSet
+from django.db.models import Model
 from .models import (
     MedicalEquipment,
     Drug,
@@ -54,14 +57,14 @@ MODEL_LIST = [
     OxygenMask,
     VentilationMask,
 ]
-from django.forms import Form, BaseModelFormSet
-from django.db.models import Model
 
 
-def warehouse_main(request):
-    """render main warehouse page"""
+def main_page(request):
+    """main page of app"""
     return render(
-        request, "containers/warehouse-main.html", {"title": "Main Warehouse"}
+        request,
+        "containers/main-page.html",
+        {"title": "GRM Main Page", "subtitle": "Dashboard"},
     )
 
 
@@ -97,10 +100,16 @@ def get_form_class_and_model_by_name(
 
 class ContainerView(ListView):
     queryset = Container.objects.all()
-    template_name = "containers/containers-home.html"
+    template_name = "containers/containers-list.html"
 
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "GRM Containers"
+        context["subtitle"] = "Containers"
+        return context
 
 
 class ContainerDetail(DetailView):
@@ -117,9 +126,11 @@ class ContainerDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["equipment"] = self.get_data_from_all_models(
+        context["temporary"] = self.get_data_from_all_models(
             container_id=self.object.id
         )
+        context["title"] = "GRM " + str(context["object"])
+        context["subtitle"] = context["object"]
         return context
 
 
@@ -135,6 +146,12 @@ class ContainerUpdate(UpdateView):
         messages.info(self.request, "Container updated!")
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "GRM update container"
+        context["subtitle"] = "Updating container"
+        return context
+
 
 class ContainerCreate(CreateView):
     model = Container
@@ -147,6 +164,12 @@ class ContainerCreate(CreateView):
         messages.success(self.request, "Container crated!")
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["title"] = "GRM New container"
+        context["subtitle"] = "Creating new container"
+        return context
+
 
 class ContainerDelete(DeleteView):
     template_name = "containers/containers-delete.html"
@@ -157,17 +180,27 @@ class ContainerDelete(DeleteView):
         messages.warning(self.request, "Container deleted!")
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "GRM container delete"
+        context["subtitle"] = "Delete container"
+        return context
+
 
 class EquipmentCreate:
     @staticmethod
     def get_name(request, container):
         if request.method == "POST":
             name = request.POST["name"]
-            return redirect("test-object-create", name=name, container=container)
+            return redirect("temporary-create-2nd", name=name, container=container)
         return render(
             request,
-            "equipment/equipment-create-1st.html",
-            {"name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES},
+            "containers/temporary-create-1st.html",
+            {
+                "name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES,
+                "title": "GRM Create object",
+                "subtitle": "Create new element",
+            },
         )
 
     @staticmethod
@@ -180,13 +213,17 @@ class EquipmentCreate:
         if form.is_valid() and request.method == "POST":
             form.save()
             messages.success(request, f"{name} created!")
-            return redirect("containers-home")
+            return redirect("containers-detail", pk=container)
         return render(
-            request, "equipment/equipment-create-2nd.html", {"form": form, "name": name}
+            request,
+            "containers/temporary-create-2nd.html",
+            {
+                "form": form,
+                "name": name,
+                "title": "GRM Create object",
+                "subtitle": f"Create new {name}",
+            },
         )
-
-
-from queryset_sequence import QuerySetSequence
 
 
 class EquipmentRetrieve:
@@ -198,7 +235,13 @@ class EquipmentRetrieve:
             queryset.append(elements)
         query = QuerySetSequence(queryset)
         return render(
-            request, "equipment/equipment-list.html", {"object_list": query._querysets}
+            request,
+            "containers/temporary-all.html",
+            {
+                "object_list": query._querysets,
+                "title": "GRM All temporary",
+                "subtitle": "All temporary",
+            },
         )
 
 
@@ -213,7 +256,14 @@ class EquipmentUpdate:
             messages.info(request, f"{name} updated")
             return redirect("containers-detail", pk=container)
         return render(
-            request, "equipment/equipment-update.html", {"form": form, "name": name}
+            request,
+            "containers/temporary-update.html",
+            {
+                "form": form,
+                "name": name,
+                "title": "GRM Equipment update",
+                "subtitle": "Equipment update",
+            },
         )
 
 
@@ -228,6 +278,11 @@ class EquipmentDelete:
             return redirect("containers-detail", pk=container)
         return render(
             request,
-            "equipment/equipment-delete.html",
-            {"name": name, "container": container},
+            "containers/temporary-delete.html",
+            {
+                "name": name,
+                "container": container,
+                "title": "GRM Equipment delete",
+                "subtitle": "Equipment delete",
+            },
         )

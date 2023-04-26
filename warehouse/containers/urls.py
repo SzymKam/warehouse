@@ -10,12 +10,12 @@ from .views import (
     EquipmentDelete,
     EquipmentUpdate,
 )
-from .views import warehouse_main
+from .views import main_page
 
 
 urlpatterns = [
     # main page
-    path("", warehouse_main, name="warehouse-main"),
+    path("", main_page, name="main-page"),
     # CRUD for containers
     path("containers/", ContainerView.as_view(), name="containers-home"),
     path("containers/<int:pk>", ContainerDetail.as_view(), name="containers-detail"),
@@ -30,26 +30,26 @@ urlpatterns = [
         ContainerDelete.as_view(),
         name="containers-delete",
     ),
-    # CRUD for equipment
+    # CRUD for temporary
     path(
-        "equipment/create<int:container>",
+        "temporary/create<int:container>",
         EquipmentCreate.get_name,
-        name="equipment-create",
+        name="temporary-create-1st",
     ),
     path(
-        "equipment/create/<str:name>&<int:container>",
+        "temporary/create/<str:name>&<int:container>",
         EquipmentCreate.select_object_to_create,
-        name="test-object-create",
+        name="temporary-create-2nd",
     ),
     path(
-        "equipment/delete/<int:pk>&<str:name>&<int:container>",
+        "temporary/delete/<int:pk>&<str:name>&<int:container>",
         EquipmentDelete.delete_equipment,
-        name="equipment-delete",
+        name="temporary-delete",
     ),
-    path("equipment/all/", EquipmentRetrieve.retrieve_equipment, name="equipment-all"),
+    path("temporary/all/", EquipmentRetrieve.retrieve_equipment, name="temporary-all"),
     path(
-        "equipment/update/<int:pk>&<str:name>&<int:container>",
+        "temporary/update/<int:pk>&<str:name>&<int:container>",
         EquipmentUpdate.update_equipment,
-        name="equipment-update",
+        name="temporary-update",
     ),
 ]
