@@ -1,0 +1,60 @@
+{% extends 'containers/base.html' %}
+
+{% block content %}
+
+
+    <main>
+        <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <p class="mb-4">List of medical equipment containers.</p>
+
+                    <ul>
+                    <!-- Page Heading -->
+                    <li><a href="{% url 'containers-create' %}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Add new container</span>
+                                    </a></li>
+                     <li><a href="{% url 'equipment-create-1st' container=1 %}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Add new equipment</span>
+                                    </a></li>
+                    </ul>
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Containers</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for container in object_list %}
+                                        <tr>
+                                            <td><a href="{% url 'containers-detail' pk=container.id %} ">{{ container.name }}</a></td>
+                                            <td>{{container.description}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+    </main>
+
+    {% endblock %}
