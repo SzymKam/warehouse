@@ -67,7 +67,7 @@ class BaseMedicalEquipment(models.Model):
 
 
 class MedicalEquipment(BaseMedicalEquipment):
-    """class for base / common equipment with no special fields"""
+    """class for base / common temporary with no special fields"""
 
     container = models.ForeignKey(
         Container,
@@ -79,7 +79,7 @@ class MedicalEquipment(BaseMedicalEquipment):
     )
 
 
-"""classes below, are classes for special medical equipment, requires special field/s"""
+"""classes below, are classes for special medical temporary, requires special field/s"""
 
 
 class Drug(BaseMedicalEquipment):
