@@ -64,7 +64,7 @@ def main_page(request):
     return render(
         request,
         "containers/main-page.html",
-        {"title": "GRM Main Page", "subtitle": "Dashboard"},
+        {"title": "GRM Main Page", "subtitle": "Main page"},
     )
 
 
@@ -82,15 +82,15 @@ def get_form_class_and_model_by_name(
         "Syringe": (forms.get("SyringeForm"), Syringe),
         "BIG": (forms.get("BIGForm"), BIG),
         "LT tube": (forms.get("LtTubeForm"), LtTube),
-        "Gauze": (forms.get("Gauze"), Gauze),
+        "Gauze": (forms.get("GauzeForm"), Gauze),
         "Sterile gloves": (forms.get("SterileGlovesForm"), SterileGloves),
-        "Gloves": (forms.get("SyringeForm"), Syringe),
-        "NPA tube": (forms.get("SyringeForm"), NasopharyngealTube),
-        "OPA tube": (forms.get("SyringeForm"), OropharyngealTube),
-        "ET tube": (forms.get("SyringeForm"), EndotrachealTube),
-        "Laryngoscope blade": (forms.get("SyringeForm"), LaryngoscopeBlade),
-        "Oxygen mask": (forms.get("SyringeForm"), OxygenMask),
-        "Ventilation mask": (forms.get("SyringeForm"), VentilationMask),
+        "Gloves": (forms.get("GlovesForm"), Gloves),
+        "NPA tube": (forms.get("NasopharyngealTubeForm"), NasopharyngealTube),
+        "OPA tube": (forms.get("OropharyngealTubeForm"), OropharyngealTube),
+        "ET tube": (forms.get("EndotrachealTubeForm"), EndotrachealTube),
+        "Laryngoscope blade": (forms.get("LaryngoscopeBladeForm"), LaryngoscopeBlade),
+        "Oxygen mask": (forms.get("OxygenMaskForm"), OxygenMask),
+        "Ventilation mask": (forms.get("VentilationMaskForm"), VentilationMask),
     }
 
     return name_to_form_class.get(
@@ -126,7 +126,7 @@ class ContainerDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["temporary"] = self.get_data_from_all_models(
+        context["equipment"] = self.get_data_from_all_models(
             container_id=self.object.id
         )
         context["title"] = "GRM " + str(context["object"])
@@ -192,10 +192,10 @@ class EquipmentCreate:
     def get_name(request, container):
         if request.method == "POST":
             name = request.POST["name"]
-            return redirect("temporary-create-2nd", name=name, container=container)
+            return redirect("equipment-create-2nd", name=name, container=container)
         return render(
             request,
-            "containers/temporary-create-1st.html",
+            "containers/equipment-create-1st.html",
             {
                 "name_choices": MEDICAL_EQUIPMENT_NAME_CHOICES,
                 "title": "GRM Create object",
@@ -216,7 +216,7 @@ class EquipmentCreate:
             return redirect("containers-detail", pk=container)
         return render(
             request,
-            "containers/temporary-create-2nd.html",
+            "containers/equipment-create-2nd.html",
             {
                 "form": form,
                 "name": name,
@@ -236,11 +236,11 @@ class EquipmentRetrieve:
         query = QuerySetSequence(queryset)
         return render(
             request,
-            "containers/temporary-all.html",
+            "containers/equipment-all.html",
             {
                 "object_list": query._querysets,
-                "title": "GRM All temporary",
-                "subtitle": "All temporary",
+                "title": "GRM All equipment",
+                "subtitle": "All equipment",
             },
         )
 
@@ -257,7 +257,7 @@ class EquipmentUpdate:
             return redirect("containers-detail", pk=container)
         return render(
             request,
-            "containers/temporary-update.html",
+            "containers/equipment-update.html",
             {
                 "form": form,
                 "name": name,
@@ -278,7 +278,7 @@ class EquipmentDelete:
             return redirect("containers-detail", pk=container)
         return render(
             request,
-            "containers/temporary-delete.html",
+            "containers/equipment-delete.html",
             {
                 "name": name,
                 "container": container,
