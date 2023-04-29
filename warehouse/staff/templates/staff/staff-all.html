@@ -1,0 +1,39 @@
+{% extends 'staff/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <p class="mb-4">List of staff.</a></p>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">All persons:</h6>
+            </div>
+            <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Qualifications</th>
+                                            <th>Expiration</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for person in staff %}
+                                        <tr>
+                                            <td><b>{{ person.username }}</b></td>
+                                            <td>{{ person.medical_qualifications }}</td>
+                                            <td>{{ person.qualifications_expiration_date }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
