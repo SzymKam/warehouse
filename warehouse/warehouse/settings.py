@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from .env import env
 
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 INSTALLED_EXTENSIONS = [
     "containers",
     "staff",
-    # "containers.apps.ContainersConfig",
     "crispy_forms",
     "crispy_bootstrap4",
 ]
@@ -141,3 +140,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+LOGIN_REDIRECT_URL = "main-page"
+LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = "login"
