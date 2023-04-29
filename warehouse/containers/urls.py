@@ -32,24 +32,24 @@ urlpatterns = [
     ),
     # CRUD for temporary
     path(
-        "temporary/create<int:container>",
+        "equipment/create<int:container>",
         EquipmentCreate.get_name,
-        name="temporary-create-1st",
+        name="equipment-create-1st",
     ),
     path(
-        "temporary/create/<str:name>&<int:container>",
+        "equipment/create/<str:name>&<int:container>",
         EquipmentCreate.select_object_to_create,
-        name="temporary-create-2nd",
+        name="equipment-create-2nd",
     ),
     path(
-        "temporary/delete/<int:pk>&<str:name>&<int:container>",
+        "equipment/delete/<int:pk>&<str:name>&<int:container>",
         EquipmentDelete.delete_equipment,
-        name="temporary-delete",
+        name="equipment-delete",
     ),
-    path("temporary/all/", EquipmentRetrieve.retrieve_equipment, name="temporary-all"),
+    path("equipment/all/", EquipmentRetrieve.retrieve_equipment, name="equipment-all"),
     path(
-        "temporary/update/<int:pk>&<str:name>&<int:container>",
+        "equipment/update/<int:pk>&<str:name>&<int:container>",
         EquipmentUpdate.update_equipment,
-        name="temporary-update",
+        name="equipment-update",
     ),
 ]
