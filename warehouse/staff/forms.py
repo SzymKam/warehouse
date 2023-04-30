@@ -1,30 +1,27 @@
 from django.forms import ModelForm
-from .models import Staff
-from django.contrib.auth.forms import UserCreationForm
+from .models import StaffModel
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
-class StaffForm(ModelForm):
+class StaffFormAdmin(UserCreationForm):
     class Meta:
-        model = Staff
-        fields = [
+        model = StaffModel
+        fields = (
             "username",
             "first_name",
             "last_name",
             "email",
-            "password",
+            "password1",
+            "password2",
             "medical_qualifications",
-            "qualifications_expiration_date",
             "position",
+            "qualifications_expiration_date",
             "is_staff",
-            "is_active",
             "image",
-        ]
+        )
 
 
-#
-
-#
-# class StaffForm(UserCreationForm):
-#     class Meta:
-#         model = Staff
-#         fields = "__all__"
+class StaffFormUser(ModelForm):
+    class Meta:
+        model = StaffModel
+        fields = ("username", "email", "image")
