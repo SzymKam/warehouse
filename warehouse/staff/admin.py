@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Staff
+from .models import StaffModel
 
 
-@admin.register(Staff)
+@admin.register(StaffModel)
 class StaffAdmin(admin.ModelAdmin):
     pass
