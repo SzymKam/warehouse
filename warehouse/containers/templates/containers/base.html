@@ -108,10 +108,19 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'all-staff' %}">
-
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStaff"
+                     aria-expanded="true" aria-controls="collapseStaff">
                     <i class="fas fa-fw fa-user-md"></i>
-                    <span>Staff</span></a>
+                    <span>Staff</span>
+                </a>
+                <div id="collapseStaff" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Staff options:</h6>
+                        <a class="collapse-item" href="{% url 'all-staff' %}">All staff</a>
+                        <a class="collapse-item" href="{% url 'register' %}">Register</a>
+                        <div class="collapse-divider"></div>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -145,14 +154,14 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.username}} - </span>
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.medical_qualifications}}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="{% static 'containers/img/grm_logo.jpg' %}">
+                                    src="{{ user.image }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{% url 'update' pk=user.pk %}">
+                                <a class="dropdown-item" href="{% url 'update' pk=user.id %}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Profile {{user.first_name}} {{user.last_name}}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
