@@ -1,11 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Staff
-from .forms import StaffForm
+from .models import StaffModel
+from .forms import StaffFormAdmin, StaffFormUser
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -33,28 +29,64 @@ class StaffLogout(LogoutView):
 def register(request):
     """page only for admin, where can add new staff person"""
     if request.method == "POST":
-        form = StaffForm(request.POST)
+        form = StaffFormAdmin(request.POST)
         if form.is_valid():
-            print("User created")
             messages.success(request, "Account Created")
             form.save()
-            return redirect("main-page")
-    form = StaffForm()
+            return redirect("all-staff")
+    form = StaffFormAdmin()
     return render(
         request, "staff/register.html", {"form": form, "title": "GRM Register"}
     )
 
 
-def update(request, pk):
-    """update user profile"""
-    user = Staff.objects.filter(pk=pk)
-    all = Staff.objects.all()
-    return HttpResponse(f"{user} and all: {all}")
+def update_by_admin(request, pk):
+    """update profile by admin - with most of the fields"""
+    user = get_object_or_404(klass=StaffModel, pk=pk)
+    form = StaffFormAdmin(instance=user)
+    if request.method == "POST":
+        form = StaffFormAdmin(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated!")
+            return redirect("main-page")
+    return render(
+        request, "staff/update.html", {"form": form, "title": "GRM User update"}
+    )
+
+
+def update_by_user(request, pk):
+    """update profile by user - just some fields"""
+    user = get_object_or_404(klass=StaffModel, pk=pk)
+    form = StaffFormUser(instance=user)
+    if request.method == "POST":
+        form = StaffFormUser(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated!")
+            return redirect("main-page")
+    return render(
+        request, "staff/update.html", {"form": form, "title": "GRM User update"}
+    )
+
+
+def delete_user(request, pk):
+    """delete user"""
+    user_to_delete = get_object_or_404(klass=StaffModel, pk=pk)
+    if request.method == "POST":
+        user_to_delete.delete()
+        messages.info(request, "User deleted!")
+        return redirect("all-staff")
+    return render(
+        request,
+        "staff/delete.html",
+        {"title": "GRM User delete", "user": user_to_delete},
+    )
 
 
 def all_staff(request):
     """all rescuers from rescue group"""
-    staff = Staff.objects.all()
+    staff = StaffModel.objects.all()
     return render(
         request, "staff/staff-all.html", {"staff": staff, "title": "GRM People"}
     )
