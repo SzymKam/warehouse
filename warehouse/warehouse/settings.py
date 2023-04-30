@@ -87,7 +87,7 @@ WSGI_APPLICATION = "warehouse.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "medical_app_db",
+        "NAME": "GRM_PCK_DB",
         "USER": "user",
         "PASSWORD": "user",
         "HOST": "127.0.0.1",
@@ -147,3 +147,5 @@ MEDIA_URL = "/media/"
 LOGIN_REDIRECT_URL = "main-page"
 LOGOUT_REDIRECT_URL = "login"
 LOGIN_URL = "login"
+
+AUTH_USER_MODEL = "staff.StaffModel"
