@@ -70,6 +70,22 @@ def update_by_user(request, pk):
     )
 
 
+# class StaffDeleteView(View):
+#     def get(self, request, pk):
+#         user_to_delete = get_object_or_404(klass=StaffModel, pk=pk)
+#         return render(
+#             request,
+#             "staff/delete.html",
+#             {"title": "GRM User delete", "user": user_to_delete},
+#         )
+#
+#     def post(self, request, pk):
+#         user_to_delete = get_object_or_404(klass=StaffModel, pk=pk)
+#         user_to_delete.delete()
+#         messages.info(request, "User deleted!")
+#         return redirect("all-staff")
+
+
 def delete_user(request, pk):
     """delete user"""
     user_to_delete = get_object_or_404(klass=StaffModel, pk=pk)
