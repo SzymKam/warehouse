@@ -1,0 +1,66 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <p class="mb-4">List of staff.</a></p>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">All persons:</h6>
+            </div>
+            <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Surname</th>
+                                            <th>Nickname</th>
+                                            <th>Qualifications</th>
+                                            <th>Expiration date</th>
+                                            <th>Position</th>
+                                            <th>Email</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for person in staff %}
+                                        <tr>
+                                            <td>{{ person.first_name }}</td>
+                                            <td><b>{{ person.last_name }}</b></td>
+                                            <td>{{ person.username }}</td>
+                                            <td>{{ person.medical_qualifications }}</td>
+                                            <td>{{ person.qualifications_expiration_date }}</td>
+                                            <td>{{ person.position }}</td>
+                                            <td>{{ person.email }}</td>
+                                            <td>
+                                                <a href="{% url 'admin-update' pk=person.id %}" class="btn btn-info btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                <i class="fas fa-info-circle"></i>
+                                                </span>
+                                                <span class="text">Update</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'delete-user' pk=person.id %}" class="btn btn-danger btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

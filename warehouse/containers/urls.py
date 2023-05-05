@@ -10,46 +10,62 @@ from .views import (
     EquipmentDelete,
     EquipmentUpdate,
 )
-from .views import warehouse_main
-
+from .views import main_page
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     # main page
-    path("", warehouse_main, name="warehouse-main"),
+    path("", main_page, name="main-page"),
     # CRUD for containers
-    path("containers/", ContainerView.as_view(), name="containers-home"),
-    path("containers/<int:pk>", ContainerDetail.as_view(), name="containers-detail"),
+    path(
+        "containers/", login_required(ContainerView.as_view()), name="containers-home"
+    ),
+    path(
+        "containers/<int:pk>",
+        login_required(ContainerDetail.as_view()),
+        name="containers-detail",
+    ),
     path(
         "containers/update/<int:pk>",
-        ContainerUpdate.as_view(),
+        login_required(ContainerUpdate.as_view()),
         name="containers-update",
     ),
-    path("containers/create", ContainerCreate.as_view(), name="containers-create"),
+    path(
+        "containers/create",
+        login_required(ContainerCreate.as_view()),
+        name="containers-create",
+    ),
     path(
         "containers/delete/<int:pk>",
-        ContainerDelete.as_view(),
+        login_required(ContainerDelete.as_view()),
         name="containers-delete",
     ),
-    # CRUD for equipment
+    # CRUD for temporary
     path(
         "equipment/create<int:container>",
-        EquipmentCreate.get_name,
-        name="equipment-create",
+        login_required(EquipmentCreate.get_name),
+        name="equipment-create-1st",
     ),
     path(
         "equipment/create/<str:name>&<int:container>",
-        EquipmentCreate.select_object_to_create,
-        name="test-object-create",
+        login_required(EquipmentCreate.select_object_to_create),
+        name="equipment-create-2nd",
     ),
     path(
         "equipment/delete/<int:pk>&<str:name>&<int:container>",
-        EquipmentDelete.delete_equipment,
+        login_required(EquipmentDelete.delete_equipment),
         name="equipment-delete",
     ),
-    path("equipment/all/", EquipmentRetrieve.retrieve_equipment, name="equipment-all"),
+    path(
+        "equipment/all/",
+        login_required(EquipmentRetrieve.retrieve_equipment),
+        name="equipment-all",
+    ),
     path(
         "equipment/update/<int:pk>&<str:name>&<int:container>",
-        EquipmentUpdate.update_equipment,
+        login_required(EquipmentUpdate.update_equipment),
         name="equipment-update",
     ),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

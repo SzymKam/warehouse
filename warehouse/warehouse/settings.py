@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from .env import env
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 INSTALLED_EXTENSIONS = [
     "containers",
-    # "containers.apps.ContainersConfig",
+    "staff",
     "crispy_forms",
     "crispy_bootstrap4",
 ]
@@ -87,7 +87,7 @@ WSGI_APPLICATION = "warehouse.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "medical_app_db",
+        "NAME": "GRM_PCK_DB",
         "USER": "user",
         "PASSWORD": "user",
         "HOST": "127.0.0.1",
@@ -140,3 +140,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+LOGIN_REDIRECT_URL = "main-page"
+LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = "login"
+
+AUTH_USER_MODEL = "staff.StaffModel"

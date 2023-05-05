@@ -26,7 +26,7 @@ from .constants import (
 
 class Container(models.Model):
     name = models.CharField(max_length=50, choices=CONTAINER_NAME_CHOICES)
-    description = models.TextField(blank=True, null=True)
+    description = models.CharField(max_length=150, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -56,7 +56,7 @@ class BaseMedicalEquipment(models.Model):
         max_length=50,
         choices=MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
     )
-    description = models.TextField(null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
     model_name = __name__
 
     class Meta:
@@ -67,7 +67,7 @@ class BaseMedicalEquipment(models.Model):
 
 
 class MedicalEquipment(BaseMedicalEquipment):
-    """class for base / common equipment with no special fields"""
+    """class for base / common temporary with no special fields"""
 
     container = models.ForeignKey(
         Container,
@@ -79,7 +79,7 @@ class MedicalEquipment(BaseMedicalEquipment):
     )
 
 
-"""classes below, are classes for special medical equipment, requires special field/s"""
+"""classes below, are classes for special medical temporary, requires special field/s"""
 
 
 class Drug(BaseMedicalEquipment):
