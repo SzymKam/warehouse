@@ -16,7 +16,7 @@ class StaffFormAdmin(UserCreationForm):
             "medical_qualifications",
             "position",
             "qualifications_expiration_date",
-            "is_staff",
+            "can_edit",
             "image",
         )
 
