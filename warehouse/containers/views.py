@@ -13,7 +13,7 @@ from .models import Container
 from .forms import ContainerForm, create_forms
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .constants import MEDICAL_EQUIPMENT_NAME_CHOICES
 from queryset_sequence import QuerySetSequence
 from django.forms import Form, BaseModelFormSet
@@ -59,6 +59,7 @@ MODEL_LIST = [
 ]
 
 
+@login_required()
 def main_page(request):
     """main page of app"""
     return render(
