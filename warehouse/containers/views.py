@@ -13,11 +13,12 @@ from .models import Container
 from .forms import ContainerForm, create_forms
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .constants import MEDICAL_EQUIPMENT_NAME_CHOICES
 from queryset_sequence import QuerySetSequence
 from django.forms import Form, BaseModelFormSet
 from django.db.models import Model
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import (
     MedicalEquipment,
     Drug,
@@ -57,6 +58,10 @@ MODEL_LIST = [
     OxygenMask,
     VentilationMask,
 ]
+
+
+def error_403(request, exception):
+    return render(request, "containers/403.html")
 
 
 @login_required()
@@ -135,7 +140,10 @@ class ContainerDetail(DetailView):
         return context
 
 
-class ContainerUpdate(UpdateView):
+class ContainerUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = "containers.change_container"
+    permission_denied_message = "Only medical magazine admins can update containers"
+    login_url = "main-page"
     model = Container
     template_name = "containers/containers-update.html"
     form_class = ContainerForm
@@ -154,7 +162,10 @@ class ContainerUpdate(UpdateView):
         return context
 
 
-class ContainerCreate(CreateView):
+class ContainerCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ("containers.add_container",)
+    permission_denied_message = "Only medical magazine admins can add containers"
+    login_url = "main-page"
     model = Container
     template_name = "containers/containers-create.html"
     form_class = ContainerForm
@@ -172,7 +183,10 @@ class ContainerCreate(CreateView):
         return context
 
 
-class ContainerDelete(DeleteView):
+class ContainerDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = "containers.delete_container"
+    permission_denied_message = "Only medical magazine admins can delete containers"
+    login_url = "main-page"
     template_name = "containers/containers-delete.html"
     model = Container
     success_url = reverse_lazy("containers-home")
@@ -190,6 +204,7 @@ class ContainerDelete(DeleteView):
 
 class EquipmentCreate:
     @staticmethod
+    @permission_required("containers.add_drug", login_url="main-page")
     def get_name(request, container):
         if request.method == "POST":
             name = request.POST["name"]
@@ -205,6 +220,7 @@ class EquipmentCreate:
         )
 
     @staticmethod
+    @permission_required("containers.add_drug", login_url="main-page")
     def select_object_to_create(request, name, container):
         initial = {"name": name, "container": Container.objects.get(pk=container)}
 
@@ -248,6 +264,7 @@ class EquipmentRetrieve:
 
 class EquipmentUpdate:
     @staticmethod
+    @permission_required("containers.change_drug", login_url="main-page")
     def update_equipment(request, pk, name, container):
         form_obj, model_name = get_form_class_and_model_by_name(name, create_forms())
         object_to_update = get_object_or_404(klass=model_name, pk=pk)
@@ -270,6 +287,7 @@ class EquipmentUpdate:
 
 class EquipmentDelete:
     @staticmethod
+    @permission_required("containers.delete_drug", login_url="main-page")
     def delete_equipment(request, pk, name, container):
         _, model_name = get_form_class_and_model_by_name(name)
         object_to_delete = get_object_or_404(klass=model_name, pk=pk)
