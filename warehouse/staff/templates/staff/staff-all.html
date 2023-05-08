@@ -27,7 +27,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for person in staff %}
+                                    {% for person in object_list %}
                                         <tr>
                                             <td>{{ person.first_name }}</td>
                                             <td><b>{{ person.last_name }}</b></td>
@@ -59,8 +59,51 @@
 
 
                                 </table>
+                                <button id="button">Export to pdf</button>
                             </div>
             </div>
         </div>
     </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    let button = document.getElementById('button')
+
+    button.addEventListener('click', exportPDF)
+
+    var specialElementHandlers = {
+        '.no-export':function (element, renderer){
+            return True
+        }
+    }
+    function exportPDF(){
+        var doc = new jsPDF('p', 'pt', 'a4')
+        var source = document.getElementById('dataTable').innerHTML
+
+        var margins = {
+            top:10,
+            bottom:10,
+            left:10,
+            width: 595
+
+        }
+        doc.fromHTML(
+            source,
+            margins.left,
+            margins.top,
+            {
+                "width":margins.width,
+                "elementHandlers": specialElementHandlers
+            })
+            function(dispose){
+                doc.save("output.pdf")
+            }, margins)
+
+
+
+
+
+        )
+    }
+
+</script>
 {% endblock %}
