@@ -204,7 +204,7 @@ class ContainerDelete(PermissionRequiredMixin, DeleteView):
 
 class EquipmentCreate:
     @staticmethod
-    @permission_required("containers.add_drug", login_url="main-page")
+    @permission_required("containers.add_drug", raise_exception=True)
     def get_name(request, container):
         if request.method == "POST":
             name = request.POST["name"]
@@ -305,3 +305,32 @@ class EquipmentDelete:
                 "subtitle": "Equipment delete",
             },
         )
+
+
+from django.shortcuts import render, HttpResponse
+from django.template.loader import get_template, render_to_string
+from xhtml2pdf import pisa
+
+
+def save_to_pdf(request):
+    # map_items = {
+    #     'staff': Staff,
+    #     'containers': Container,
+    #
+    # }
+    # template_path = "containers/containers-list-for-render.html"
+    # template = get_template(template_path)
+    context = {"object_list": Container.objects.all()}
+    # html = template.render(context)
+    html = render_to_string(
+        "containers/containers-list-for-render.html", context=context
+    )
+    # html = f"{template_path, context}"
+
+    response = HttpResponse(content_type="")
+    response["Content-Disposition"] = 'attachment; filename="my_pdf.pdf"'
+    pdf = pisa.CreatePDF(html, dest=response)
+    print(response)
+    if pdf.err:
+        return HttpResponse("Error while creating PDF: %s" % pdf.err)
+    return response

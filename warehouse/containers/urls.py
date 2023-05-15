@@ -9,6 +9,7 @@ from .views import (
     EquipmentRetrieve,
     EquipmentDelete,
     EquipmentUpdate,
+    save_to_pdf,
 )
 from .views import main_page
 from django.conf import settings
@@ -68,4 +69,5 @@ urlpatterns = [
         login_required(EquipmentUpdate.update_equipment),
         name="equipment-update",
     ),
+    path("pdf", save_to_pdf, name="save_pdf"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
