@@ -51,6 +51,7 @@ INSTALLED_EXTENSIONS = [
     "staff",
     "crispy_forms",
     "crispy_bootstrap4",
+    "weasyprint",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
