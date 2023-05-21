@@ -1,0 +1,44 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <style>
+        th, td {
+            border: 1px solid;
+            border-color: #18181c;
+            color: #18181c;
+       }
+        tr {
+            border: 2px solid;
+            border-color: #18181c;
+            color: #ca2819;
+        }
+    </style>
+</head>
+
+<body>
+            <h3>List of staff</h3>
+            <table>
+                <thead>
+                   <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Qualifications</th>
+                        <th>Expiration date</th>
+                        <th>Position</th>
+                        <th>Email</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    {% for person in object_list %}
+                    <tr>
+                        <td>{{ person.first_name }}</td>
+                        <td><b>{{ person.last_name }}</b></td>
+                        <td>{{ person.medical_qualifications }}</td>
+                        <td>{{ person.qualifications_expiration_date }}</td>
+                        <td>{{ person.position }}</td>
+                        <td>{{ person.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+</body>
