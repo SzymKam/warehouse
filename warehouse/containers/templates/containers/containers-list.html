@@ -6,23 +6,25 @@
         <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <p class="mb-4">List of medical equipment containers.</p>
-
-                    <ul>
-                    <!-- Page Heading -->
-                    <li><a href="{% url 'containers-create' %}" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-flag"></i>
-                                        </span>
-                                        <span class="text">Add new container</span>
-                                    </a></li>
-                     <li><a href="{% url 'equipment-create-1st' container=1 %}" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-flag"></i>
-                                        </span>
-                                        <span class="text">Add new equipment</span>
-                                    </a></li>
-                    </ul>
-
+                    {% if perms.containers.add_container %}
+                        <ul>
+                        <!-- Page Heading -->
+                            <li><a href="{% url 'containers-create' %}" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-flag"></i>
+                                            </span>
+                                            <span class="text">Add new container</span>
+                            </a></li>
+                    {% endif %}
+                    {% if perms.containers.add_medicalequipment %}
+                        <li><a href="{% url 'equipment-create-1st' container=1 %}" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-flag"></i>
+                        </span>
+                        <span class="text">Add new equipment</span>
+                        </a></li>
+                        </ul>
+                    {% endif %}
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -50,7 +52,7 @@
                             </div>
                         </div>
                          <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf' element='containers' element_id=None %}" class="btn btn-secondary btn-icon-split">
+                                    <a href="{% url 'save-pdf-no-id' element='containers' %}" class="btn btn-secondary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
