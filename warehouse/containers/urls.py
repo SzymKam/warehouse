@@ -69,5 +69,6 @@ urlpatterns = [
         login_required(EquipmentUpdate.update_equipment),
         name="equipment-update",
     ),
-    path("save_pdf/<str:element>&<slug:element_id>", save_to_pdf, name="save-pdf"),
+    path("save_pdf/<str:element>/<slug:element_id>", save_to_pdf, name="save-pdf"),
+    path("save_pdf/<str:element>/", save_to_pdf, name="save-pdf-no-id"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
