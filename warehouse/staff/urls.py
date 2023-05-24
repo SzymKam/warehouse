@@ -8,6 +8,9 @@ from .views import (
     StaffDelete,
     AllStaff,
 )
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path("login/", StaffLogin.as_view(), name="login"),
@@ -23,4 +26,4 @@ urlpatterns = [
         "delete/<int:pk>", login_required(StaffDelete.delete_user), name="delete-user"
     ),
     path("", login_required(AllStaff.as_view()), name="all-staff"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
