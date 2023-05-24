@@ -117,7 +117,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Staff options:</h6>
                         <a class="collapse-item" href="{% url 'all-staff' %}">All staff</a>
+                        {% if perms.staff.add_staffmodel %}
                         <a class="collapse-item" href="{% url 'register' %}">Register</a>
+                        {% endif %}
                         <div class="collapse-divider"></div>
                     </div>
                 </div>

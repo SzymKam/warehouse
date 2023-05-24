@@ -7,7 +7,7 @@
 
                     <!-- Page Heading -->
                     <p class="mb-4">{{ container.description }}</a>.</p>
-
+                    {% if perms.containers.add_medicalequipment %}
                     <ul>
                         <li><a href="{% url 'equipment-create-1st' container=container.id %}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
@@ -15,7 +15,9 @@
                                         </span>
                                         <span class="text">Add equipment</span>
                                     </a></li>
+                    {% endif %}
                         {% if container.name != "Main warehouse" %}
+                            {% if perms.containers.change_container %}
                             <li>  <a href="{% url 'containers-update' pk=container.id %} " class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-exclamation-triangle"></i>
@@ -23,6 +25,8 @@
                                             <span class="text">Update container</span>
                                         </a>
                             </li>
+                            {% endif %}
+                             {% if perms.containers.delete_container %}
                             <li><a href="{% url 'containers-delete' pk=container.id %} " class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash"></i>
@@ -30,6 +34,7 @@
                                             <span class="text">Delete container</span>
                                         </a>
                             </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
 
@@ -48,8 +53,12 @@
                                             <th>Amount</th>
                                             <th>Expiration date</th>
                                             <th>Description</th>
+                                            {% if perms.containers.change_medicalequipment %}
                                             <th>Update element</th>
+                                            {% endif %}
+                                            {% if perms.containers.delete_medicalequipment %}
                                             <th>Delete element</th>
+                                         {% endif %}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,6 +78,7 @@
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
                                             <td>{{ element.description }}</td>
+                                              {% if perms.containers.change_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
@@ -77,6 +87,8 @@
                                         <span class="text">Update</span>
                                     </a>
                                             </td>
+                                             {% endif %}
+                                            {% if perms.containers.delete_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
@@ -85,7 +97,7 @@
                                         <span class="text">Delete</span>
                                     </a>
                                             </td>
-
+                                        {% endif %}
                                         {% endfor %}
                                             {% endfor %}
                                     </tbody>
