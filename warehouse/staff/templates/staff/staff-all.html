@@ -22,8 +22,12 @@
                                             <th>Expiration date</th>
                                             <th>Position</th>
                                             <th>Email</th>
+                                            {% if perms.staff.change_staffmodel %}
                                             <th>Update</th>
+                                            {% endif %}
+                                            {% if perms.staff.delete_staffmodel %}
                                             <th>Delete</th>
+                                            {% endif %}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -36,6 +40,7 @@
                                             <td>{{ person.qualifications_expiration_date }}</td>
                                             <td>{{ person.position }}</td>
                                             <td>{{ person.email }}</td>
+                                             {% if perms.staff.change_staffmodel %}
                                             <td>
                                                 <a href="{% url 'admin-update' pk=person.id %}" class="btn btn-info btn-icon-split">
                                                 <span class="icon text-white-50">
@@ -44,6 +49,8 @@
                                                 <span class="text">Update</span>
                                                 </a>
                                             </td>
+                                            {% endif %}
+                                            {% if perms.staff.delete_staffmodel %}
                                             <td>
                                                 <a href="{% url 'delete-user' pk=person.id %}" class="btn btn-danger btn-icon-split">
                                                 <span class="icon text-white-50">
@@ -52,7 +59,7 @@
                                                 <span class="text">Delete</span>
                                                 </a>
                                             </td>
-
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -62,7 +69,7 @@
                             </div>
             </div>
             <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf' element='staff' element_id=None %}" class="btn btn-secondary btn-icon-split">
+                                    <a href="{% url 'save-pdf-no-id' element='staff' %}" class="btn btn-secondary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
