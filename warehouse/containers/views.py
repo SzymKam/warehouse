@@ -328,26 +328,22 @@ def save_to_pdf(request, element, element_id=None):
             "template": "staff/staff-all-pdf.html",
         },
     }
-    if type(element_id) is int:
-        container = {
-            "container": {
-                "object_list": {
-                    "container": Container.objects.filter(pk=element_id),
-                    "equipment": [
-                        model.objects.filter(container=element_id)
-                        for model in MODEL_LIST
-                    ],
-                },
-                "template": "containers/containers-detail-pdf.html",
-            }
+    if element_id is not None:
+        map_elements["container"] = {
+            "object_list": {
+                "container": Container.objects.filter(pk=element_id),
+                "equipment": [
+                    model.objects.filter(container=element_id) for model in MODEL_LIST
+                ],
+            },
+            "template": "containers/containers-detail-pdf.html",
         }
-        map_elements.update(container)
 
     template = get_template(map_elements[element]["template"])
     context = {"object_list": map_elements[element]["object_list"]}
     html = template.render(context)
 
-    pdf_file = HTML(string=html).write_pdf()
+    pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
     response = HttpResponse(content_type="text/pdf")
     response["Content-Disposition"] = f'attachment; filename="{element}.pdf"'
     response.write(pdf_file)
