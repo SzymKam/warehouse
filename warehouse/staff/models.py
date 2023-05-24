@@ -20,7 +20,7 @@ class StaffModel(AbstractUser):
         default=False, help_text="User can edit containers etc"
     )
     image = models.ImageField(
-        default="grm_logo.jpg",
+        default="grm_logo.png",
         upload_to="profile_pictures",
         help_text="Your profile image",
     )
