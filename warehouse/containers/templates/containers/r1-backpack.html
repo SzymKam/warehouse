@@ -1,0 +1,132 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+<main>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <p class="mb-4">R1 backpack - standard equipment</a></p>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">R1 backpack - standard equipment</h6>
+            </div>
+            <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Size / Form</th>
+                                            <th>Amount</th>
+                                            <th>Sachet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Amputated part bag</td>
+                                            <td></td>
+                                            <td>2</td>
+                                            <td>PPE + bags</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Waste bags</td>
+                                            <td></td>
+                                            <td>few</td>
+                                            <td>PPE + bags</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Protection glasses</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>PPE + bags</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FFP2/3 face mask</td>
+                                            <td></td>
+                                            <td>2</td>
+                                            <td>PPE + bags</td>
+                                        <tr>
+                                            <td>Gloves</td>
+                                            <td>S, M, L</td>
+                                            <td>few</td>
+                                            <td>PPE + bags</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gauze</td>
+                                            <td><sup>1</sup>&frasl;<sub>2</sub>m<sup>2</sup></td>
+                                            <td>6</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gauze</td>
+                                            <td>1m<sup>2</sup></td>
+                                            <td>6</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elastic bandage</td>
+                                            <td>Some sizes</td>
+                                            <td>6</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tactical tourniquet</td>
+                                            <td></td>
+                                            <td>2</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hemostatic dressing</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tactical tourniquet</td>
+                                            <td></td>
+                                            <td>2</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hemostatic dressing</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>Hemorrhages</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Emergency Blanket NRC</td>
+                                            <td></td>
+                                            <td>3</td>
+                                            <td>Dressings</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Knitted bandage</td>
+                                            <td>Some sizes</td>
+                                            <td>6</td>
+                                            <td>Dressings</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Codofix</td>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>Dressings</td>
+                                        </tr>
+
+
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+            </div>
+            <div class="my-2"></div>
+                                    <a href="{% url 'save-pdf' element='all' element_id=None %}" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                        <span class="text">Save to PDF</span>
+                                    </a>
+        </div>
+    </div>
+    </main>
+{% endblock %}
