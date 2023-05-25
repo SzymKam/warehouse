@@ -126,6 +126,7 @@ CIRCULATION_AND_DRESSING = sorted(
         ("Codofix", "Codofix"),
         ("Forceps", "Forceps"),
         ("Scissors", "Scissors"),
+        ("Hemostatic dressing", "Hemostatic dressing"),
     ]
 )
 
