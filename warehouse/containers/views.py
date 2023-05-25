@@ -349,3 +349,11 @@ def save_to_pdf(request, element, element_id=None):
     response.write(pdf_file)
 
     return response
+
+
+class StandardEquipment:
+    @staticmethod
+    def r1_backpack_standard(request):
+        return render(
+            request, "containers/r1-backpack.html", {"title": "R1 Backpack standard"}
+        )

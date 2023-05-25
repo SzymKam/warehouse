@@ -10,6 +10,7 @@ from .views import (
     EquipmentDelete,
     EquipmentUpdate,
     save_to_pdf,
+    StandardEquipment,
 )
 from .views import main_page
 from django.conf import settings
@@ -71,4 +72,9 @@ urlpatterns = [
     ),
     path("save_pdf/<str:element>/<slug:element_id>", save_to_pdf, name="save-pdf"),
     path("save_pdf/<str:element>/", save_to_pdf, name="save-pdf-no-id"),
+    path(
+        "equipment/standard/R1-backpack/",
+        StandardEquipment.r1_backpack_standard,
+        name="r1-backpack-standard",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
