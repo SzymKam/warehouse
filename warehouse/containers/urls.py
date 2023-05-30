@@ -77,4 +77,14 @@ urlpatterns = [
         StandardEquipment.r1_backpack_standard,
         name="r1-backpack-standard",
     ),
+    path(
+        "equipment/standard/R1-additions/",
+        StandardEquipment.r1_additions_standard,
+        name="r1-additions-standard",
+    ),
+    path(
+        "equipment/standard/ALS-backpack/",
+        StandardEquipment.als_backpack_standard,
+        name="als-backpack-standard",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

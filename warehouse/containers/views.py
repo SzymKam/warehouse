@@ -311,6 +311,7 @@ from django.shortcuts import render, HttpResponse
 from django.template.loader import get_template
 from weasyprint import HTML
 from staff.models import StaffModel
+from datetime import datetime, date
 
 
 def save_to_pdf(request, element, element_id=None):
@@ -326,6 +327,18 @@ def save_to_pdf(request, element, element_id=None):
         "staff": {
             "object_list": StaffModel.objects.all(),
             "template": "staff/staff-all-pdf.html",
+        },
+        "r1_backpack": {
+            "object_list": "",
+            "template": "containers/r1-backpack-pdf.html",
+        },
+        "r1_additions": {
+            "object_list": "",
+            "template": "containers/r1-additions-pdf.html",
+        },
+        "als_backpack": {
+            "object_list": "",
+            "template": "containers/als-backpack-pdf.html",
         },
     }
     if element_id is not None:
@@ -345,7 +358,9 @@ def save_to_pdf(request, element, element_id=None):
 
     pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
     response = HttpResponse(content_type="text/pdf")
-    response["Content-Disposition"] = f'attachment; filename="{element}.pdf"'
+    response[
+        "Content-Disposition"
+    ] = f'attachment; filename="{element}-{date.today()}.pdf"'
     response.write(pdf_file)
 
     return response
@@ -356,4 +371,16 @@ class StandardEquipment:
     def r1_backpack_standard(request):
         return render(
             request, "containers/r1-backpack.html", {"title": "R1 Backpack standard"}
+        )
+
+    @staticmethod
+    def r1_additions_standard(request):
+        return render(
+            request, "containers/r1-additions.html", {"title": "R1 Additions standard"}
+        )
+
+    @staticmethod
+    def als_backpack_standard(request):
+        return render(
+            request, "containers/als-backpack.html", {"title": "ALS Backpack standard"}
         )
