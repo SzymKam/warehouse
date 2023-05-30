@@ -1,0 +1,21 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <style>
+        th, td, tr {
+            border: 1px solid;
+            border-color: #18181c;
+            color: #18181c;
+       }
+        table {
+            border-collapse: collapse;
+            text-align: center;
+	        vertical-align: middle;
+        }
+    </style>
+</head>
+<main>
+     <img  class="rounded-circle" src="{% static 'containers/grm_logo.jpg' %}" alt="logo">
+    {% block content %}
+    {% endblock %}
+</main>
