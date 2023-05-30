@@ -21,8 +21,6 @@
                                             <th>Expiration date</th>
                                             <th>Container</th>
                                             <th>Description</th>
-
-                                            <th>Model</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,8 +42,6 @@
                                             <td>{{ element.expiration_date }}</td>
                                             <td>{{element.container}}</td>
                                             <td>{{ element.description }}</td>
-
-                                            <td>{{ element.container.related_name }}</td>
                                         </tr>
                                     {% endfor %}
                                     {% endfor %}
@@ -57,7 +53,7 @@
                             </div>
             </div>
             <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf' element='all' element_id=None %}" class="btn btn-secondary btn-icon-split">
+                                    <a href="{% url 'save-pdf-no-id' element='all' %}" class="btn btn-secondary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
