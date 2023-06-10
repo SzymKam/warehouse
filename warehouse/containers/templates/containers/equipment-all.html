@@ -26,9 +26,9 @@
                                             <th>Size / Form</th>
                                             <th>Amount</th>
                                             <th>Expiration date</th>
-                                            <th>Container</th>
-                                            <th>Description</th>
                                             <th>Expiration days</th>
+                                            <th>Description</th>
+                                            <th>Container</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -48,8 +48,6 @@
                                             {% endif %}
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
-                                            <td>{{element.container}}</td>
-                                            <td>{{ element.description }}</td>
                                             {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
                                                 <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
 
@@ -62,6 +60,9 @@
                                             {% else %}
                                                 <td>{{ element.expiration_days }}</td>
                                             {% endif %}
+                                            <td>{{ element.description }}</td>
+                                            <td>{{element.container}}</td>
+
                                         </tr>
                                     {% endfor %}
                                     {% endfor %}
