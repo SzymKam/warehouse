@@ -1,21 +1,5 @@
-{% load static %}
-<head>
-    <meta charset="utf-8">
-    <style>
-        th, td {
-            border: 1px solid;
-            border-color: #18181c;
-            color: #18181c;
-       }
-        tr {
-            border: 2px solid;
-            border-color: #18181c;
-            color: #ca2819;
-        }
-    </style>
-</head>
-
-<body>
+{% extends 'containers/base-pdf.html' %}
+{% block content %}
             <h3>List of staff</h3>
             <table>
                 <thead>
@@ -41,4 +25,4 @@
                     {% endfor %}
                 </tbody>
             </table>
-</body>
+{% endblock %}
