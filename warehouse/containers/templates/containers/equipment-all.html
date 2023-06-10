@@ -1,6 +1,13 @@
 {% extends 'containers/base.html' %}
     {% load crispy_forms_tags %}
     {% block content %}
+
+<style>
+ .exp {
+     color: black;
+ }
+</style>
+
 <main>
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -21,6 +28,7 @@
                                             <th>Expiration date</th>
                                             <th>Container</th>
                                             <th>Description</th>
+                                            <th>Expiration days</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,6 +50,18 @@
                                             <td>{{ element.expiration_date }}</td>
                                             <td>{{element.container}}</td>
                                             <td>{{ element.description }}</td>
+                                            {% if element.check_date <= 60 and element.check_date > 30 %}
+                                                <td class="exp" bgcolor="yellow">{{ element.check_date }}</td>
+
+                                            {% elif element.check_date <= 30 and element.check_date > 0 %}
+                                                <td class="exp" bgcolor="orange">{{ element.check_date }}</td>
+
+                                            {% elif element.check_date < 0 %}
+                                                <td class="exp" bgcolor="red">{{ element.check_date }}</td>
+
+                                            {% else %}
+                                                <td>{{ element.check_date }}</td>
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     {% endfor %}
@@ -55,7 +75,7 @@
             <div class="my-2"></div>
                                     <a href="{% url 'save-pdf-no-id' element='all' %}" class="btn btn-secondary btn-icon-split">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-right"></i>
+                                            <i class="fas fa-arrow-down"></i>
                                         </span>
                                         <span class="text">Save to PDF</span>
                                     </a>

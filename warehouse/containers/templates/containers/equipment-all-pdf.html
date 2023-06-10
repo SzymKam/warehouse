@@ -1,6 +1,5 @@
 {% extends 'containers/base-pdf.html' %}
 {% block content %}
-
     <h3>List of all medical equipment of GRM PCK</h3>
         <table>
             <thead>
@@ -11,6 +10,7 @@
                     <th>Expiration date</th>
                     <th>Container</th>
                     <th>Description</th>
+                    <th>Expiration days</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +29,9 @@
                     {% endif %}
                     <td>{{ element.amount }}</td>
                     <td>{{ element.expiration_date }}</td>
-                    <td>{{element.container}}</td>
+                    <td>{{ element.container }}</td>
                     <td>{{ element.description }}</td>
+                    <td>{{ element.check_date }}</td>
                 </tr>
                 {% endfor %}
                 {% endfor %}

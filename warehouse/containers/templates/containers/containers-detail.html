@@ -1,6 +1,10 @@
 {% extends 'containers/base.html' %}
     {% block content %}
-
+<style>
+ .exp {
+     color: black;
+ }
+</style>
     <main>
         <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -53,6 +57,7 @@
                                             <th>Amount</th>
                                             <th>Expiration date</th>
                                             <th>Description</th>
+                                            <th>Expiration days</th>
                                             {% if perms.containers.change_medicalequipment %}
                                             <th>Update element</th>
                                             {% endif %}
@@ -78,6 +83,18 @@
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
                                             <td>{{ element.description }}</td>
+                                            {% if element.check_date <= 60 and element.check_date > 30 %}
+                                                <td class="exp" bgcolor="yellow">{{ element.check_date }}</td>
+
+                                            {% elif element.check_date <= 30 and element.check_date > 0 %}
+                                                <td class="exp" bgcolor="orange">{{ element.check_date }}</td>
+
+                                            {% elif element.check_date < 0 %}
+                                                <td class="exp" bgcolor="red">{{ element.check_date }}</td>
+
+                                            {% else %}
+                                                <td>{{ element.check_date }}</td>
+                                            {% endif %}
                                               {% if perms.containers.change_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}" class="btn btn-info btn-icon-split">
@@ -107,7 +124,7 @@
                          <div class="my-2"></div>
                                     <a href="{% url 'save-pdf' element='container' element_id=container.id %}" class="btn btn-secondary btn-icon-split">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-right"></i>
+                                            <i class="fas fa-arrow-down"></i>
                                         </span>
                                         <span class="text">Save to PDF</span>
                                     </a>
