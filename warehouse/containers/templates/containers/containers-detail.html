@@ -83,17 +83,17 @@
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
                                             <td>{{ element.description }}</td>
-                                            {% if element.check_date <= 60 and element.check_date > 30 %}
-                                                <td class="exp" bgcolor="yellow">{{ element.check_date }}</td>
+                                            {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
+                                                <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
 
-                                            {% elif element.check_date <= 30 and element.check_date > 0 %}
-                                                <td class="exp" bgcolor="orange">{{ element.check_date }}</td>
+                                            {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
+                                                <td class="exp" bgcolor="orange">{{ element.expiration_days }}</td>
 
-                                            {% elif element.check_date < 0 %}
-                                                <td class="exp" bgcolor="red">{{ element.check_date }}</td>
+                                            {% elif element.expiration_days < 0 %}
+                                                <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
 
                                             {% else %}
-                                                <td>{{ element.check_date }}</td>
+                                                <td>{{ element.expiration_days }}</td>
                                             {% endif %}
                                               {% if perms.containers.change_medicalequipment %}
                                             <td>
