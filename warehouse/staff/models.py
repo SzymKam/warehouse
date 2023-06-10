@@ -16,9 +16,6 @@ class StaffModel(AbstractUser):
     qualifications_expiration_date = models.DateField(
         blank=True, null=True, help_text="Expiration date of license"
     )
-    can_edit = models.BooleanField(
-        default=False, help_text="User can edit containers etc"
-    )
     image = models.ImageField(
         default="grm_logo.jpg",
         upload_to="profile_pictures",

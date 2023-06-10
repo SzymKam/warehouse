@@ -10,18 +10,18 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Update profile {{user}}</h1>
                             </div>
-                            <form action="" method="POST">
+                            <form action="" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form|crispy }}
-                                <input type="submit">
+                                <input type="submit" value="Submit">
                             </form>
                             <hr>
+                            <h6>Reset password? <a href="{% url 'reset-password' %}">Click here</a></h6>
                         </div>
                     </div>
                 </div>

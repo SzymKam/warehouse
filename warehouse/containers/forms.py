@@ -2,6 +2,7 @@ from typing import Type
 from django.forms import modelformset_factory, ModelForm, BaseModelFormSet
 import inspect
 from containers import models
+from django.forms.widgets import DateInput
 
 
 class ContainerForm(ModelForm):
@@ -19,10 +20,13 @@ class ContainerForm(ModelForm):
 
 
 def create_forms() -> dict[str, Type[BaseModelFormSet]]:
+    widgets = {"expiration_date": DateInput(attrs={"type": "date"})}
     model_classes = [cls for name, cls in inspect.getmembers(models, inspect.isclass)]
     forms = {}
     for model_class in model_classes:
-        form_class = modelformset_factory(model_class, fields="__all__")
+        form_class = modelformset_factory(
+            model_class, fields="__all__", widgets=widgets
+        )
         form_name = f"{model_class.__name__}Form"
         forms[form_name] = form_class
     return forms

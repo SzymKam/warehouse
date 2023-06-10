@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required
-from .models import StaffModel
-from .forms import StaffFormAdmin, StaffFormUser
+from staff.models import StaffModel
+from staff.forms import StaffFormAdmin, StaffFormUser, StaffFormUpdate
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 
 
 class StaffLogin(LoginView):
@@ -41,6 +42,7 @@ class AllStaff(ListView):
 
 class StaffRegister:
     @staticmethod
+    @login_required
     @permission_required("staff.add_staffmodel", login_url="main-page")
     def register(request):
         """page only for admin, where can add new staff person"""
@@ -61,17 +63,17 @@ class StaffRegister:
 
 class StaffUpdate:
     @staticmethod
+    @login_required
     @permission_required("staff.change_staffmodel", login_url="main-page")
     def update_by_admin(request, pk):
         """update profile by admin - with most of the fields"""
         user = get_object_or_404(klass=StaffModel, pk=pk)
-        form = StaffFormAdmin(instance=user)
+        form = StaffFormUpdate(instance=user)
         if request.method == "POST":
-            form = StaffFormAdmin(request.POST, request.FILES, instance=user)
+            form = StaffFormUpdate(request.POST, request.FILES, instance=user)
             if form.is_valid():
                 form.save()
                 messages.success(request, "Profile updated!")
-                return redirect("main-page")
         return render(
             request,
             "staff/update.html",
@@ -79,16 +81,16 @@ class StaffUpdate:
         )
 
     @staticmethod
+    @login_required
     def update_by_user(request, pk):
         """update profile by user - just some fields"""
         user = get_object_or_404(klass=StaffModel, pk=pk)
-        form = StaffFormUser(instance=user)
         if request.method == "POST":
             form = StaffFormUser(request.POST, request.FILES, instance=user)
             if form.is_valid():
                 form.save()
                 messages.success(request, "Profile updated!")
-                return redirect("main-page")
+        form = StaffFormUser(instance=user)
         return render(
             request, "staff/update.html", {"form": form, "title": "GRM User update"}
         )
@@ -96,6 +98,7 @@ class StaffUpdate:
 
 class StaffDelete:
     @staticmethod
+    @login_required
     @permission_required("staff.delete_staffmodel", login_url="main-page")
     def delete_user(request, pk):
         """delete user"""

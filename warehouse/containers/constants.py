@@ -39,7 +39,7 @@ DRUGS = sorted(
         ("Bicarbonate", "Bicarbonate"),
         ("Captopril", "Captopril"),
         ("Glucagon", "Glucagon"),
-        ("Glucose 20%-S", "Glucose 20%-S"),
+        ("Glucose 20% i.v.", "Glucose 20% i.v."),
         ("Glucose 40%", "Glucose 40%"),
         ("Exacyl", "Exacyl"),
         ("Ketamine", "Ketamine"),
@@ -126,6 +126,7 @@ CIRCULATION_AND_DRESSING = sorted(
         ("Codofix", "Codofix"),
         ("Forceps", "Forceps"),
         ("Scissors", "Scissors"),
+        ("Hemostatic dressing", "Hemostatic dressing"),
     ]
 )
 
@@ -202,6 +203,7 @@ IMMOBILIZATION = sorted(
         ("Scoop stretcher", "Scoop stretcher"),
         ("Vacuum mattress", "Vacuum mattress"),
         ("Kramer splint set", "Kramer splint set"),
+        ("Pelvic stabilization belt", "Pelvic stabilization belt"),
     ]
 )
 DOCUMENTATION = sorted(
@@ -322,7 +324,7 @@ DRUG_DOSAGE_FORM = [
     ("Pills", "Pills"),
     ("Nebulizer", "Nebulizer"),
     ("Injection", "Injection"),
-    ("Ointment", "Ointment"),
+    ("Ointment / Gel", "Ointment / Gel"),
     ("Areosol", "Areosol"),
     ("Rectal enema", "Rectal enema"),
 ]

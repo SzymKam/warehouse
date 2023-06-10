@@ -82,29 +82,29 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Models list:</h6>
-                        <a class="collapse-item" href="#">R1 Backpack</a>
-                        <a class="collapse-item" href="#">R1 Additions</a>
-                        <a class="collapse-item" href="#">ALS Backpack</a>
+                        <a class="collapse-item" href="{% url 'r1-backpack-standard' %}">R1 Backpack</a>
+                        <a class="collapse-item" href="{% url 'r1-additions-standard' %}">R1 Additions</a>
+                        <a class="collapse-item" href="{% url 'als-backpack-standard' %}">ALS Backpack</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-hospital-symbol"></i>
-                    <span>Field hospital</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Hospital options:</h6>
-                        <a class="collapse-item" href="#">New event</a>
-                        <a class="collapse-item" href="#">History</a>
-                        <div class="collapse-divider"></div>
-                    </div>
-                </div>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"-->
+<!--                    aria-expanded="true" aria-controls="collapsePages">-->
+<!--                    <i class="fas fa-fw fa-hospital-symbol"></i>-->
+<!--                    <span>Field hospital</span>-->
+<!--                </a>-->
+<!--                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
+<!--                    <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                        <h6 class="collapse-header">Hospital options:</h6>-->
+<!--                        <a class="collapse-item" href="#">New event</a>-->
+<!--                        <a class="collapse-item" href="#">History</a>-->
+<!--                        <div class="collapse-divider"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -117,7 +117,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Staff options:</h6>
                         <a class="collapse-item" href="{% url 'all-staff' %}">All staff</a>
+                        {% if perms.staff.add_staffmodel %}
                         <a class="collapse-item" href="{% url 'register' %}">Register</a>
+                        {% endif %}
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -151,7 +153,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-gray-100">{{user.username}} - {{ user.medical_qualifications }}</span>
+                                <span class="text-gray-100">{{user.username}} - {{ user.medical_qualifications }} </span>
                                 <img class="img-profile rounded-circle"
                                     src="{{ user.image.url }}">
                             </a>
@@ -182,16 +184,6 @@
             {% block content %}
 
             {% endblock %}
-
-            <!-- Footer -->
-<!--            <footer class="sticky-footer bg-white">-->
-<!--                <div class="container my-auto">-->
-<!--                    <div class="copyright text-center my-auto">-->
-<!--                        <span>SzymKam 2023</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </footer>-->
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->

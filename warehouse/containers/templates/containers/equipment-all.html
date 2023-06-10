@@ -1,6 +1,13 @@
 {% extends 'containers/base.html' %}
     {% load crispy_forms_tags %}
     {% block content %}
+
+<style>
+ .exp {
+     color: black;
+ }
+</style>
+
 <main>
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -19,10 +26,9 @@
                                             <th>Size / Form</th>
                                             <th>Amount</th>
                                             <th>Expiration date</th>
-                                            <th>Container</th>
+                                            <th>Expiration days</th>
                                             <th>Description</th>
-
-                                            <th>Model</th>
+                                            <th>Container</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,10 +48,21 @@
                                             {% endif %}
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
-                                            <td>{{element.container}}</td>
-                                            <td>{{ element.description }}</td>
+                                            {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
+                                                <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
 
-                                            <td>{{ element.container.related_name }}</td>
+                                            {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
+                                                <td class="exp" bgcolor="orange">{{ element.expiration_days }}</td>
+
+                                            {% elif element.expiration_days < 0 %}
+                                                <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
+
+                                            {% else %}
+                                                <td>{{ element.expiration_days }}</td>
+                                            {% endif %}
+                                            <td>{{ element.description }}</td>
+                                            <td>{{element.container}}</td>
+
                                         </tr>
                                     {% endfor %}
                                     {% endfor %}
@@ -56,6 +73,13 @@
                                 </table>
                             </div>
             </div>
+            <div class="my-2"></div>
+                                    <a href="{% url 'save-pdf-no-id' element='all' %}" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </span>
+                                        <span class="text">Save to PDF</span>
+                                    </a>
         </div>
     </div>
     </main>

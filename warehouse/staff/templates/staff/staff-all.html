@@ -22,8 +22,12 @@
                                             <th>Expiration date</th>
                                             <th>Position</th>
                                             <th>Email</th>
+                                            {% if perms.staff.change_staffmodel %}
                                             <th>Update</th>
+                                            {% endif %}
+                                            {% if perms.staff.delete_staffmodel %}
                                             <th>Delete</th>
+                                            {% endif %}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -36,6 +40,7 @@
                                             <td>{{ person.qualifications_expiration_date }}</td>
                                             <td>{{ person.position }}</td>
                                             <td>{{ person.email }}</td>
+                                             {% if perms.staff.change_staffmodel %}
                                             <td>
                                                 <a href="{% url 'admin-update' pk=person.id %}" class="btn btn-info btn-icon-split">
                                                 <span class="icon text-white-50">
@@ -44,6 +49,8 @@
                                                 <span class="text">Update</span>
                                                 </a>
                                             </td>
+                                            {% endif %}
+                                            {% if perms.staff.delete_staffmodel %}
                                             <td>
                                                 <a href="{% url 'delete-user' pk=person.id %}" class="btn btn-danger btn-icon-split">
                                                 <span class="icon text-white-50">
@@ -52,58 +59,22 @@
                                                 <span class="text">Delete</span>
                                                 </a>
                                             </td>
-
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
 
 
                                 </table>
-                                <button id="button">Export to pdf</button>
                             </div>
             </div>
+            <div class="my-2"></div>
+                                    <a href="{% url 'save-pdf-no-id' element='staff' %}" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </span>
+                                        <span class="text">Save to PDF</span>
+                                    </a>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-    let button = document.getElementById('button')
-
-    button.addEventListener('click', exportPDF)
-
-    var specialElementHandlers = {
-        '.no-export':function (element, renderer){
-            return True
-        }
-    }
-    function exportPDF(){
-        var doc = new jsPDF('p', 'pt', 'a4')
-        var source = document.getElementById('dataTable').innerHTML
-
-        var margins = {
-            top:10,
-            bottom:10,
-            left:10,
-            width: 595
-
-        }
-        doc.fromHTML(
-            source,
-            margins.left,
-            margins.top,
-            {
-                "width":margins.width,
-                "elementHandlers": specialElementHandlers
-            })
-            function(dispose){
-                doc.save("output.pdf")
-            }, margins)
-
-
-
-
-
-        )
-    }
-
-</script>
 {% endblock %}

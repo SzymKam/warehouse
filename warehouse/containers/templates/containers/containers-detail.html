@@ -1,13 +1,17 @@
 {% extends 'containers/base.html' %}
     {% block content %}
-
+<style>
+ .exp {
+     color: black;
+ }
+</style>
     <main>
         <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <p class="mb-4">{{ container.description }}</a>.</p>
-
+                    {% if perms.containers.add_medicalequipment %}
                     <ul>
                         <li><a href="{% url 'equipment-create-1st' container=container.id %}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
@@ -15,7 +19,9 @@
                                         </span>
                                         <span class="text">Add equipment</span>
                                     </a></li>
+                    {% endif %}
                         {% if container.name != "Main warehouse" %}
+                            {% if perms.containers.change_container %}
                             <li>  <a href="{% url 'containers-update' pk=container.id %} " class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-exclamation-triangle"></i>
@@ -23,6 +29,8 @@
                                             <span class="text">Update container</span>
                                         </a>
                             </li>
+                            {% endif %}
+                             {% if perms.containers.delete_container %}
                             <li><a href="{% url 'containers-delete' pk=container.id %} " class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash"></i>
@@ -30,6 +38,7 @@
                                             <span class="text">Delete container</span>
                                         </a>
                             </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
 
@@ -47,9 +56,14 @@
                                             <th>Size / Form</th>
                                             <th>Amount</th>
                                             <th>Expiration date</th>
+                                            <th>Expiration days</th>
                                             <th>Description</th>
+                                            {% if perms.containers.change_medicalequipment %}
                                             <th>Update element</th>
+                                            {% endif %}
+                                            {% if perms.containers.delete_medicalequipment %}
                                             <th>Delete element</th>
+                                            {% endif %}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,7 +82,20 @@
                                             {% endif %}
                                             <td>{{ element.amount }}</td>
                                             <td>{{ element.expiration_date }}</td>
+                                            {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
+                                                <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
+
+                                            {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
+                                                <td class="exp" bgcolor="orange">{{ element.expiration_days }}</td>
+
+                                            {% elif element.expiration_days < 0 %}
+                                                <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
+
+                                            {% else %}
+                                                <td>{{ element.expiration_days }}</td>
+                                            {% endif %}
                                             <td>{{ element.description }}</td>
+                                              {% if perms.containers.change_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
@@ -77,6 +104,8 @@
                                         <span class="text">Update</span>
                                     </a>
                                             </td>
+                                             {% endif %}
+                                            {% if perms.containers.delete_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
@@ -85,14 +114,23 @@
                                         <span class="text">Delete</span>
                                     </a>
                                             </td>
-
+                                        {% endif %}
                                         {% endfor %}
                                             {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                         <div class="my-2"></div>
+                                    <a href="{% url 'save-pdf' element='container' element_id=container.id %}" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </span>
+                                        <span class="text">Save to PDF</span>
+                                    </a>
                     </div>
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->

@@ -23,4 +23,4 @@ urlpatterns = [
     path("staff/", include("staff.urls")),
 ]
 
-handler403 = "containers.views.error_403"
+handler403 = "containers.views.error_403.error_403"

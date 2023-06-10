@@ -1,0 +1,21 @@
+{% extends 'containers/base-pdf.html' %}
+{% block content %}
+
+            <h3>List of medical equipment containers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th><h4>Name</h4></th>
+                        <th><h4>Description</h4></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for container in object_list %}
+                        <tr>
+                            <td>{{ container.name }}</td>
+                            <td>{{container.description}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}

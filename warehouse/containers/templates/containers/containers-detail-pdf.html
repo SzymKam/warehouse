@@ -1,0 +1,49 @@
+{% extends 'containers/base-pdf.html' %}
+{% block content %}
+
+    {% if object_list.container %}
+        {% for container in object_list.container %}
+            <h3>Equipment list of: {{container.name}} </h3>
+        {% endfor %}
+   {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th><h4>Name</h4></th>
+                    <th><h4>Size / Form</h4></th>
+                    <th><h4>Amount</h4></th>
+                    <th><h4>Expiration date</h4></th>
+                    <th><h4>Expiration days</h4></th>
+                    <th><h4>Description</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list.equipment %}
+            {% for queryset in object_list.equipment %}
+            {% for equipment in queryset %}
+                <tr>
+                    <td>{{equipment.name}}</td>
+                    {% if equipment.dosage_form %}
+                        <td>{{equipment.dosage_form}}</td>
+                    {% elif equipment.volume %}
+                        <td>{{equipment.volume}}</td>
+                    {% elif equipment.size %}
+                        <td>{{equipment.size}}</td>
+                    {% else %}
+                        <td>{{equipment.type}}</td>
+                    {% endif %}
+
+                        <td>{{ equipment.amount }}</td>
+
+                        <td>{{ equipment.expiration_date }}</td>
+
+                        <td>{{ equipment.expiration_days }}</td>
+
+                        <td>{{ equipment.description }}</td>
+                </tr>
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+{% endblock %}

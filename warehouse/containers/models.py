@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from .constants import (
     VENTILATION_MASK_SIZE,
@@ -19,8 +20,6 @@ from .constants import (
     DRUG_DOSAGE_FORM,
     DRUG_ACTIVE_SUBSTANCES,
     CONTAINER_NAME_CHOICES,
-    MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
-    MEDICAL_EQUIPMENT_NAME_CHOICES,
 )
 
 
@@ -50,20 +49,21 @@ class BaseMedicalEquipment(models.Model):
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
-    equipment_type = models.CharField(
-        null=True,
-        blank=True,
-        max_length=50,
-        choices=MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES,
-    )
     description = models.CharField(max_length=200, null=True, blank=True)
     model_name = __name__
 
-    class Meta:
-        abstract = True
+    @property
+    def expiration_days(self):
+        if self.expiration_date:
+            delta_time = self.expiration_date - datetime.date.today()
+            return delta_time.days
+        return " "
 
     def __str__(self):
         return f"{self.name}"
+
+    class Meta:
+        abstract = True
 
 
 class MedicalEquipment(BaseMedicalEquipment):

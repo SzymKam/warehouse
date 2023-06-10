@@ -1,0 +1,28 @@
+{% extends 'containers/base-pdf.html' %}
+{% block content %}
+            <h3>List of staff</h3>
+            <table>
+                <thead>
+                   <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Qualifications</th>
+                        <th>Expiration date</th>
+                        <th>Position</th>
+                        <th>Email</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    {% for person in object_list %}
+                    <tr>
+                        <td>{{ person.first_name }}</td>
+                        <td><b>{{ person.last_name }}</b></td>
+                        <td>{{ person.medical_qualifications }}</td>
+                        <td>{{ person.qualifications_expiration_date }}</td>
+                        <td>{{ person.position }}</td>
+                        <td>{{ person.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}
