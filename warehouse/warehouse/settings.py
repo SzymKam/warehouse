@@ -155,3 +155,21 @@ LOGOUT_REDIRECT_URL = "login"
 LOGIN_URL = "login"
 
 AUTH_USER_MODEL = "staff.StaffModel"
+
+
+"""sending emails to app"""
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+"""sending emails from server"""
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = 'smtp.sendgrid.net'
+#
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 25         #  25, 587	(for unencrypted/TLS connections)
+#
+# # EMAIL_USE_SSL = True
+# # EMAIL_PORT = 465          # 465	(for SSL connections)
+#
+# EMAIL_HOST_USER = 'grm_mail'
+# EMAIL_HOST_PASSWORD = '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'
