@@ -5,7 +5,7 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView,
 )
-from .serializers import ContainerSerializer
+from API.serializers import ContainerSerializer
 from containers.models import Container
 
 
