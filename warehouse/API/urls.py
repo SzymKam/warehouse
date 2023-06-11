@@ -13,6 +13,14 @@ from API.views.staff_crud_API import (
     DeleteStaff,
     UpdateStaff,
 )
+from API.views.equipment_crud_API import (
+    GetAllEquipment,
+    GetEquipment,
+    DeleteEquipment,
+    UpdateEquipment,
+    CreateEquipment,
+)
+
 
 urlpatterns = [
     # containers crud
@@ -29,11 +37,20 @@ urlpatterns = [
         UpdateContainer.as_view(),
         name="update-container",
     ),
-    # equipment crud
     # staff crud
     path("staff/", GetAllStaff.as_view(), name="get-all-staff"),
     path("staff/<int:pk>/", GetStaff.as_view(), name="get-staff"),
     path("staff/create/", CreateStaff.as_view(), name="create-staff"),
     path("staff/delete/<int:pk>/", DeleteStaff.as_view(), name="delete-staff"),
     path("staff/update/<int:pk>/", UpdateStaff.as_view(), name="update-staff"),
+    # equipment crud
+    path("equipment/", GetAllEquipment.as_view(), name="get-all-equipment"),
+    path("equipment/<int:pk>/", GetEquipment.as_view(), name="get-equipment"),
+    path("equipment/create/", CreateEquipment.as_view(), name="create-equipment"),
+    path(
+        "equipment/delete/<int:pk>/", DeleteEquipment.as_view(), name="delete-equipment"
+    ),
+    path(
+        "equipment/update/<int:pk>/", UpdateEquipment.as_view(), name="update-equipment"
+    ),
 ]
