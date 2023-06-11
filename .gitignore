@@ -1,7 +1,6 @@
 warehouse/containers/static
 warehouse/containers/migrations
 warehouse/staff/migrations
-warehouse/containers/templates/temporary/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
