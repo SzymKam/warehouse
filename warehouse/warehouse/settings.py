@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
+    "rest_framework",
 ]
 
 INSTALLED_EXTENSIONS = [
     "containers",
     "staff",
+    "API",
     "crispy_forms",
     "crispy_bootstrap4",
     "weasyprint",
