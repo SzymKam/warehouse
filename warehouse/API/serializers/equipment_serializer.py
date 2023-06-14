@@ -87,7 +87,7 @@ class GauzeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class NasopharyngealTubeGlovesSerializer(serializers.ModelSerializer):
+class NasopharyngealTubeSerializer(serializers.ModelSerializer):
     class Meta:
         model = NasopharyngealTube
         fields = "__all__"
@@ -99,7 +99,7 @@ class OropharyngealTubeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class EndotrachealTubeGlovesSerializer(serializers.ModelSerializer):
+class EndotrachealTubeSerializer(serializers.ModelSerializer):
     class Meta:
         model = EndotrachealTube
         fields = "__all__"
@@ -140,9 +140,9 @@ class AllEquipmentSerializer(Serializer):
     gloves = GlovesSerializer(many=True, read_only=True)
     sterile_gloves = SterileGlovesSerializer(many=True, read_only=True)
     gauze = GauzeSerializer(many=True, read_only=True)
-    npa_tube = NasopharyngealTubeGlovesSerializer(many=True, read_only=True)
+    npa_tube = NasopharyngealTubeSerializer(many=True, read_only=True)
     opa_tube = OropharyngealTubeSerializer(many=True, read_only=True)
-    et_tube = EndotrachealTubeGlovesSerializer(many=True, read_only=True)
+    et_tube = EndotrachealTubeSerializer(many=True, read_only=True)
     laryngoscope_blade = LaryngoscopeBladeSerializer(many=True, read_only=True)
     oxygen_mask = OxygenMaskSerializer(many=True, read_only=True)
     ventilation_mask = VentilationMaskSerializer(many=True, read_only=True)
