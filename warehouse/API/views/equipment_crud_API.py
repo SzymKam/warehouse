@@ -5,9 +5,13 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView,
 )
-from API.serializers.equipment_serializer import AllEquipmentSerializer
+from API.serializers.equipment_serializer import (
+    AllEquipmentSerializer,
+    MedicalEquipmentSerializer,
+)
 from rest_framework.permissions import IsAuthenticated
 from containers.models import MedicalEquipment, Drug
+from API.constants import SERIALIZER_DICT, serializer_drugs_and_fluids
 
 
 class GetAllEquipment(ListAPIView):
@@ -24,16 +28,26 @@ class GetEquipment(RetrieveAPIView):
 
 class CreateEquipment(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = AllEquipmentSerializer
-    # ?= tube
-    # def get_serializer_class(self):
-    #     value = self.kwargs.get('value')
-    #     if value == 'tube':
-    #         return TubeSerializer
+    serializer_class = MedicalEquipmentSerializer
 
-    # def get(self):
-    #     serializer_class = self.get_serializer_class()
-    #     serializer = serializer_class(data=request.data)
+    @staticmethod
+    def get_class_serializer(name_value):
+        print("name value", name_value)
+        serializer_dict = serializer_drugs_and_fluids()
+        try:
+            serializer = serializer_dict[name_value]
+            print("after dict", serializer)
+        except KeyError:
+            serializer = MedicalEquipmentSerializer
+        print("end", serializer)
+        return serializer
+
+    def get_serializer(self, *args, **kwargs):
+        name_value = self.request.data["name"]
+        # serializer_class = self.get_serializer_class()
+        serializer_class = self.get_class_serializer(name_value)
+        kwargs.setdefault("context", self.get_serializer_context())
+        return serializer_class(*args, **kwargs)
 
 
 class UpdateEquipment(UpdateAPIView):
