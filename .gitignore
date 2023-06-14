@@ -3,6 +3,7 @@ warehouse/containers/migrations
 warehouse/staff/migrations
 warehouse/containers/migrations
 warehouse/API/migrations
+warehouse/warehouse/env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -56,7 +57,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-warehouse/warehouse/env.py
+
 
 # Translations
 *.mo
