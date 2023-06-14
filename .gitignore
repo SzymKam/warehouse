@@ -3,7 +3,7 @@ warehouse/containers/migrations
 warehouse/staff/migrations
 warehouse/containers/migrations
 warehouse/API/migrations
-warehouse/warehouse/env
+warehouse/warehouse/env.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
