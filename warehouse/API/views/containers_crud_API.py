@@ -14,7 +14,7 @@ from rest_framework.mixins import (
     DestroyModelMixin,
 )
 from rest_framework.viewsets import GenericViewSet
-from API.constants import API_NAME_CHOICES
+from API.constants import allowed_containers_name
 from rest_framework.exceptions import ValidationError
 
 
@@ -32,14 +32,14 @@ class ContainersViewSet(
 
     def perform_create(self, serializer):
         name = serializer.validated_data.get("name")
-        allowed_name = API_NAME_CHOICES
+        allowed_name = allowed_containers_name()
         if name not in allowed_name:
             raise ValidationError("Invalid name")
         serializer.save()
 
     def perform_update(self, serializer):
         name = serializer.validated_data.get("name")
-        allowed_name = API_NAME_CHOICES
+        allowed_name = allowed_containers_name()
         if name not in allowed_name:
             raise ValidationError("Invalid name")
         serializer.save()
