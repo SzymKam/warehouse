@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import Serializer, ModelSerializer
 from containers.models import (
     MedicalEquipment,
     Drug,
@@ -28,6 +28,8 @@ class MedicalEquipmentSerializer(serializers.ModelSerializer):
 
 
 class DrugSerializer(serializers.ModelSerializer):
+    expiration_days = serializers.CharField(read_only=True)
+
     class Meta:
         model = Drug
         fields = "__all__"
@@ -129,20 +131,33 @@ class AllEquipmentSerializer(Serializer):
 
     """
 
-    medical_equipment = MedicalEquipmentSerializer(many=True, read_only=True)
-    drug = DrugSerializer(many=True, read_only=True)
-    fluid = FluidSerializer(many=True, read_only=True)
-    cannula = CannulaSerializer(many=True, read_only=True)
-    needle = NeedleSerializer(many=True, read_only=True)
-    syringe = SyringeSerializer(many=True, read_only=True)
-    big = BIGSerializer(many=True, read_only=True)
-    lt_tube = LtTubeSerializer(many=True, read_only=True)
-    gloves = GlovesSerializer(many=True, read_only=True)
-    sterile_gloves = SterileGlovesSerializer(many=True, read_only=True)
-    gauze = GauzeSerializer(many=True, read_only=True)
-    npa_tube = NasopharyngealTubeSerializer(many=True, read_only=True)
-    opa_tube = OropharyngealTubeSerializer(many=True, read_only=True)
-    et_tube = EndotrachealTubeSerializer(many=True, read_only=True)
-    laryngoscope_blade = LaryngoscopeBladeSerializer(many=True, read_only=True)
-    oxygen_mask = OxygenMaskSerializer(many=True, read_only=True)
-    ventilation_mask = VentilationMaskSerializer(many=True, read_only=True)
+    # medical_equipment = MedicalEquipmentSerializer(many=True, read_only=True)
+    # drug = DrugSerializer(many=True, read_only=True)
+    # fluid = FluidSerializer(many=True, read_only=True)
+    # cannula = CannulaSerializer(many=True, read_only=True)
+    # needle = NeedleSerializer(many=True, read_only=True)
+    # syringe = SyringeSerializer(many=True, read_only=True)
+    # big = BIGSerializer(many=True, read_only=True)
+    # lt_tube = LtTubeSerializer(many=True, read_only=True)
+    # gloves = GlovesSerializer(many=True, read_only=True)
+    # sterile_gloves = SterileGlovesSerializer(many=True, read_only=True)
+    # gauze = GauzeSerializer(many=True, read_only=True)
+    # npa_tube = NasopharyngealTubeSerializer(many=True, read_only=True)
+    # opa_tube = OropharyngealTubeSerializer(many=True, read_only=True)
+    # et_tube = EndotrachealTubeSerializer(many=True, read_only=True)
+    # laryngoscope_blade = LaryngoscopeBladeSerializer(many=True, read_only=True)
+    # oxygen_mask = OxygenMaskSerializer(many=True, read_only=True)
+    # ventilation_mask = VentilationMaskSerializer(many=True, read_only=True)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        drug = DrugSerializer(Drug.objects.all(), many=True).data
+        medical_equipment = MedicalEquipmentSerializer(
+            MedicalEquipment.objects.all(), many=True
+        ).data
+
+        representation["drug"] = drug
+        representation["medical_equipment"] = medical_equipment
+
+        return representation
