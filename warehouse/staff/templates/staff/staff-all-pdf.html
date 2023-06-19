@@ -1,5 +1,10 @@
 {% extends 'containers/base-pdf.html' %}
 {% block content %}
+            <style>
+                @page {
+                    size: landscape;
+                }
+            </style>
             <h3>List of staff</h3>
             <table>
                 <thead>
@@ -18,7 +23,11 @@
                         <td>{{ person.first_name }}</td>
                         <td><b>{{ person.last_name }}</b></td>
                         <td>{{ person.medical_qualifications }}</td>
-                        <td>{{ person.qualifications_expiration_date }}</td>
+                        {% if person.qualifications_expiration_date %}
+                            <td>{{ person.qualifications_expiration_date }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                         <td>{{ person.position }}</td>
                         <td>{{ person.email }}</td>
                     </tr>
