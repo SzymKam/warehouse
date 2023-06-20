@@ -7,6 +7,15 @@ from API.serializers.equipment_serializer import (
     SyringeSerializer,
     BIGSerializer,
     LtTubeSerializer,
+    GlovesSerializer,
+    SterileGlovesSerializer,
+    GauzeSerializer,
+    NasopharyngealTubeSerializer,
+    OropharyngealTubeSerializer,
+    EndotrachealTubeSerializer,
+    LaryngoscopeBladeSerializer,
+    OxygenMaskSerializer,
+    VentilationMaskSerializer,
 )
 from containers.models import (
     Drug,
@@ -17,6 +26,15 @@ from containers.models import (
     Syringe,
     BIG,
     LtTube,
+    Gloves,
+    SterileGloves,
+    Gauze,
+    NasopharyngealTube,
+    OropharyngealTube,
+    EndotrachealTube,
+    LaryngoscopeBlade,
+    OxygenMask,
+    VentilationMask,
 )
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
@@ -121,4 +139,112 @@ class LtTubeViewset(
 ):
     serializer_class = LtTubeSerializer
     queryset = LtTube.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class GlovesViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = GlovesSerializer
+    queryset = Gloves.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class SterileGlovesViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = SterileGlovesSerializer
+    queryset = SterileGloves.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class GauzeViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = GauzeSerializer
+    queryset = Gauze.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class NasopharyngealTubeViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = NasopharyngealTubeSerializer
+    queryset = NasopharyngealTube.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class OropharyngealTubeViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = OropharyngealTubeSerializer
+    queryset = OropharyngealTube.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class EndotrachealTubeViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = EndotrachealTubeSerializer
+    queryset = EndotrachealTube.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class LaryngoscopeBladeViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = LaryngoscopeBladeSerializer
+    queryset = LaryngoscopeBlade.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class OxygenMaskViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = OxygenMaskSerializer
+    queryset = OxygenMask.objects.all()
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+
+class VentilationMaskViewset(
+    RetrieveModelMixin,
+    ListModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet,
+):
+    serializer_class = VentilationMaskSerializer
+    queryset = VentilationMask.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
