@@ -70,18 +70,36 @@
                                     {% for queryset in equipment %}
                                         {% for element in queryset %}
                                         <tr>
-                                            <td>{{ element.name }}</td>
+                                            {% if element.name %}
+                                                <td><b>{{ element.name }}</b></td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
                                             {% if element.dosage_form %}
                                                 <td>{{element.dosage_form}}</td>
                                             {% elif element.volume %}
                                                 <td>{{element.volume}}</td>
                                             {% elif element.size %}
                                                 <td>{{element.size}}</td>
-                                            {% else %}
+                                            {% elif element.type %}
                                                 <td>{{element.type}}</td>
+                                            {% else %}
+                                                <td></td>
                                             {% endif %}
-                                            <td>{{ element.amount }}</td>
-                                            <td>{{ element.expiration_date }}</td>
+
+                                            {% if element.amount %}
+                                                <td>{{ element.amount }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if element.expiration_date %}
+                                                <td>{{ element.expiration_date }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
                                             {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
                                                 <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
 
@@ -94,8 +112,14 @@
                                             {% else %}
                                                 <td>{{ element.expiration_days }}</td>
                                             {% endif %}
-                                            <td>{{ element.description }}</td>
-                                              {% if perms.containers.change_medicalequipment %}
+
+                                            {% if element.description %}
+                                                <td>{{ element.description }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if perms.containers.change_medicalequipment %}
                                             <td>
                                                 <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">

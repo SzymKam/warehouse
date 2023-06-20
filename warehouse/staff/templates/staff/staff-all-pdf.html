@@ -11,6 +11,7 @@
                    <tr>
                         <th>Name</th>
                         <th>Surname</th>
+                        <th>Nickname</th>
                         <th>Qualifications</th>
                         <th>Expiration date</th>
                         <th>Position</th>
@@ -20,16 +21,47 @@
                 <tbody>
                     {% for person in object_list %}
                     <tr>
-                        <td>{{ person.first_name }}</td>
-                        <td><b>{{ person.last_name }}</b></td>
-                        <td>{{ person.medical_qualifications }}</td>
+                        {% if person.first_name %}
+                            <td>{{ person.first_name }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if person.last_name %}
+                            <td><b>{{ person.last_name }}</b></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if person.username %}
+                            <td>{{ person.username }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if person.medical_qualifications %}
+                            <td>{{ person.medical_qualifications }}</td>
+                         {% else %}
+                            <td></td>
+                        {% endif %}
+
                         {% if person.qualifications_expiration_date %}
                             <td>{{ person.qualifications_expiration_date }}</td>
                         {% else %}
                             <td></td>
                         {% endif %}
-                        <td>{{ person.position }}</td>
-                        <td>{{ person.email }}</td>
+
+                        {% if person.position %}
+                            <td>{{ person.position }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                        {% if person.email %}
+                            <td>{{ person.email }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
