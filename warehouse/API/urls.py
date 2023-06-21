@@ -23,6 +23,9 @@ from API.views.all_models_viewset import (
     OxygenMaskViewset,
     VentilationMaskViewset,
 )
+from django.views.generic import TemplateView
+from django.urls import path
+
 
 router = SimpleRouter()
 router.register(r"staffs", StaffViewSet)
@@ -47,4 +50,13 @@ router.register(r"laryngoscope-blade", LaryngoscopeBladeViewset)
 router.register(r"oxygen-mask", OxygenMaskViewset)
 router.register(r"ventilation-mask", VentilationMaskViewset)
 
-urlpatterns = [] + router.urls
+urlpatterns = [
+    path(
+        "redoc/",
+        TemplateView.as_view(
+            template_name="API/redoc.html",
+            extra_context={"schema_url": "openapi-schema"},
+        ),
+        name="redoc",
+    ),
+] + router.urls
