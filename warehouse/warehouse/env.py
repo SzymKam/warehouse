@@ -12,4 +12,5 @@ env = environ.Env(
         "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",
     ),
     DEFAULT_FROM_EMAIL=(str, "szymon15kaminski@gmail.com"),
+    TEST_PASSWORD=(str, "nimda"),
 )
