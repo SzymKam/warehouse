@@ -44,6 +44,14 @@ from rest_framework.mixins import (
     DestroyModelMixin,
 )
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework.exceptions import ValidationError
+from API.constants import name_to_serializer
+
+
+def validate_name_for_update(serializer):
+    if "name" in serializer.validated_data.keys():
+        if serializer.validated_data["name"] not in name_to_serializer().keys():
+            raise ValidationError("Invalid name")
 
 
 class MedicalEquipmentViewset(
@@ -57,6 +65,10 @@ class MedicalEquipmentViewset(
     queryset = MedicalEquipment.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class DrugViewset(
     RetrieveModelMixin,
@@ -69,6 +81,10 @@ class DrugViewset(
     queryset = Drug.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class FluidViewset(
     RetrieveModelMixin,
@@ -80,6 +96,10 @@ class FluidViewset(
     serializer_class = FluidSerializer
     queryset = Fluid.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class CannulaViewset(
