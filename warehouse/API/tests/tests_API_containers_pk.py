@@ -7,7 +7,6 @@ from rest_framework import status
 from warehouse.env import env
 
 
-@tag("test")
 class TestContainersResponse(TestCase):
     def setUp(self) -> None:
         self.user = StaffModel.objects.create(
