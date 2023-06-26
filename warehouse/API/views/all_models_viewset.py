@@ -113,6 +113,10 @@ class CannulaViewset(
     queryset = Cannula.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class NeedleViewset(
     RetrieveModelMixin,
@@ -124,6 +128,10 @@ class NeedleViewset(
     serializer_class = NeedleSerializer
     queryset = Needle.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class SyringeViewset(
@@ -137,6 +145,10 @@ class SyringeViewset(
     queryset = Syringe.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class BIGViewset(
     RetrieveModelMixin,
@@ -148,6 +160,10 @@ class BIGViewset(
     serializer_class = BIGSerializer
     queryset = BIG.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class LtTubeViewset(
@@ -161,6 +177,10 @@ class LtTubeViewset(
     queryset = LtTube.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class GlovesViewset(
     RetrieveModelMixin,
@@ -172,6 +192,10 @@ class GlovesViewset(
     serializer_class = GlovesSerializer
     queryset = Gloves.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class SterileGlovesViewset(
@@ -185,6 +209,10 @@ class SterileGlovesViewset(
     queryset = SterileGloves.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class GauzeViewset(
     RetrieveModelMixin,
@@ -196,6 +224,10 @@ class GauzeViewset(
     serializer_class = GauzeSerializer
     queryset = Gauze.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class NasopharyngealTubeViewset(
@@ -209,6 +241,10 @@ class NasopharyngealTubeViewset(
     queryset = NasopharyngealTube.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class OropharyngealTubeViewset(
     RetrieveModelMixin,
@@ -220,6 +256,10 @@ class OropharyngealTubeViewset(
     serializer_class = OropharyngealTubeSerializer
     queryset = OropharyngealTube.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class EndotrachealTubeViewset(
@@ -233,6 +273,10 @@ class EndotrachealTubeViewset(
     queryset = EndotrachealTube.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class LaryngoscopeBladeViewset(
     RetrieveModelMixin,
@@ -244,6 +288,10 @@ class LaryngoscopeBladeViewset(
     serializer_class = LaryngoscopeBladeSerializer
     queryset = LaryngoscopeBlade.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
 
 
 class OxygenMaskViewset(
@@ -257,6 +305,10 @@ class OxygenMaskViewset(
     queryset = OxygenMask.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
 
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
 
 class VentilationMaskViewset(
     RetrieveModelMixin,
@@ -268,3 +320,7 @@ class VentilationMaskViewset(
     serializer_class = VentilationMaskSerializer
     queryset = VentilationMask.objects.all()
     permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        validate_name_for_update(serializer)
+        super().perform_update(serializer)
