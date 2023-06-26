@@ -38,10 +38,11 @@ class ContainersViewSet(
         serializer.save()
 
     def perform_update(self, serializer):
-        name = serializer.validated_data.get("name")
-        allowed_name = allowed_containers_name()
-        if name not in allowed_name:
-            raise ValidationError("Invalid name")
+        if "name" in serializer.validated_data.keys():
+            name = serializer.validated_data.get("name")
+            allowed_name = allowed_containers_name()
+            if name not in allowed_name:
+                raise ValidationError("Invalid name")
         serializer.save()
 
     def retrieve(self, request, *args, **kwargs):
