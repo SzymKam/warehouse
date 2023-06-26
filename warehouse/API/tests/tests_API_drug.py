@@ -20,7 +20,6 @@ class TestDrugsResponse(TestCase):
             name="Adrenalin", active_substance="Epinephrinum"
         )
 
-    @tag("API-drug-get")
     def test_get_logged_user_return_right_values_with_two_objects(self):
         url = reverse("drug-list")
         self.client.force_login(self.user)
@@ -38,7 +37,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("API-drug-get")
     def test_get_not_logged_user_return_403(self):
         url = reverse("drug-list")
         response = self.client.get(url)
@@ -46,7 +44,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("API-drug-post")
     def test_post_logged_have_permissions_user_return_405(self):
         url = reverse("drug-list")
         self.client.force_login(self.user)
@@ -58,7 +55,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-post")
     def test_post_logged_user_no_permissions_return_403(self):
         url = reverse("drug-list")
         self.client.force_login(self.user)
@@ -68,7 +64,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-post")
     def test_post_not_logged_user_return_403(self):
         url = reverse("drug-list")
         data = {"name": "Fentanyl", "active_substance": "Fentanylum"}
@@ -77,7 +72,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-patch")
     def test_patch_logged_have_permissions_user_return_405(self):
         url = reverse("drug-list")
 
@@ -90,7 +84,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-patch")
     def test_patch_logged_user_no_permissions_return_403(self):
         url = reverse("drug-list")
         self.client.force_login(self.user)
@@ -100,7 +93,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-patch")
     def test_patch_not_logged_user_return_403(self):
         url = reverse("drug-list")
         response = self.client.patch(path=url)
@@ -108,7 +100,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-delete")
     def test_delete_logged_have_permissions_user_return_405(self):
         url = reverse("drug-list")
 
@@ -121,7 +112,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("API-drug-delete")
     def test_delete_logged_user_no_permissions_return_403(self):
         url = reverse("drug-list")
         self.client.force_login(self.user)
@@ -131,7 +121,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("API-drug-delete")
     def test_delete_not_logged_user_return_403(self):
         url = reverse("drug-list")
         response = self.client.delete(path=url)

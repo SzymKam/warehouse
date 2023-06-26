@@ -20,7 +20,6 @@ class TestDrugsResponse(TestCase):
             name="Adrenalin", active_substance="Epinephrinum"
         )
 
-    @tag("API-drug-get-id")
     def test_get_not_logged_user_return_403(self):
         object_to_get = Drug.objects.filter(name="Adrenalin").first()
         url = reverse("drug-detail", kwargs={"pk": object_to_get.id})
@@ -30,7 +29,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("API-drug-get-id")
     def test_get_logged_user_return_right_values_from_object(self):
         object_to_get = Drug.objects.filter(name="Adrenalin").first()
         url = reverse("drug-detail", kwargs={"pk": object_to_get.id})
@@ -44,7 +42,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.data["id"], object_to_get.id)
         self.assertEqual(response.data["name"], object_to_get.name)
 
-    @tag("API-drug-get-id")
     def test_get_logged_user_return_404_when_object_not_exist(self):
         url = reverse("drug-detail", kwargs={"pk": 100000})
 
@@ -55,7 +52,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("API-drug-post-id")
     def test_post_logged_have_permissions_user_return_405(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 
@@ -69,7 +65,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-post-id")
     def test_post_logged_user_no_permissions_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 
@@ -81,7 +76,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-post-id")
     def test_post_not_logged_user_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 
@@ -91,7 +85,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("API-drug-patch-id")
     def test_patch_logged_have_permissions_user_return_right_value(self):
         object_to_patch = Drug.objects.filter(name="Adrenalin").first()
         url = reverse("drug-detail", kwargs={"pk": object_to_patch.id})
@@ -111,7 +104,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.data["name"], object_to_patch.name)
         self.assertEqual(response.data["description"], data["description"])
 
-    @tag("API-drug-patch-id")
     def test_patch_logged_have_permissions_user_invalid_name_return_400(self):
         object_to_patch = Drug.objects.filter(name="Adrenalin").first()
         url = reverse("drug-detail", kwargs={"pk": object_to_patch.id})
@@ -128,7 +120,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-patch-id")
     def test_patch_logged_user_no_permissions_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 
@@ -139,7 +130,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-patch-id")
     def test_patch_not_logged_user_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 
@@ -148,7 +138,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("API-drug-delete-id")
     def test_delete_logged_have_permissions_user_return_204(self):
         object_to_delete = Drug.objects.filter(name="Adrenalin").first()
         url = reverse("drug-detail", kwargs={"pk": object_to_delete.id})
@@ -162,7 +151,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("API-drug-delete-id")
     def test_delete_logged_user_no_permissions_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
         self.client.force_login(self.user)
@@ -172,7 +160,6 @@ class TestDrugsResponse(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("API-drug-delete-id")
     def test_delete_not_logged_user_return_403(self):
         url = reverse("drug-detail", kwargs={"pk": 1})
 

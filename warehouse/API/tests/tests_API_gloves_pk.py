@@ -7,7 +7,7 @@ from rest_framework import status
 from warehouse.env import env
 
 
-class TestDrugsResponse(TestCase):
+class TestGlovesResponse(TestCase):
     def setUp(self) -> None:
         self.container = Container.objects.create(name="Main warehouse")
         self.user = StaffModel.objects.create(
@@ -16,7 +16,6 @@ class TestDrugsResponse(TestCase):
         self.element_1 = Gloves.objects.create(name="Gloves", size="S")
         self.element_2 = Gloves.objects.create(name="Gloves", size="L")
 
-    @tag("test")
     def test_get_not_logged_user_return_403(self):
         object_to_get = Gloves.objects.filter(name="Gloves").first()
         url = reverse("gloves-detail", kwargs={"pk": object_to_get.id})

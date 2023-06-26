@@ -7,7 +7,7 @@ from rest_framework import status
 from warehouse.env import env
 
 
-class TestDrugsResponse(TestCase):
+class TestGauzeResponse(TestCase):
     def setUp(self) -> None:
         self.container = Container.objects.create(name="Main warehouse")
         self.user = StaffModel.objects.create(

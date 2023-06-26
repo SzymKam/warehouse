@@ -1,24 +1,24 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
-from containers.models import Gauze, Container
+from containers.models import SterileGloves, Container
 from staff.models import StaffModel
 from django.urls import reverse
 from rest_framework import status
 from warehouse.env import env
 
 
-class TestGauzeResponse(TestCase):
+class TestSterileGlovesResponse(TestCase):
     def setUp(self) -> None:
         self.container = Container.objects.create(name="Main warehouse")
         self.user = StaffModel.objects.create(
             username="nimda", password=env("TEST_PASSWORD")
         )
-        self.element_1 = Gauze.objects.create(name="Gauze", size="1m^2")
-        self.element_2 = Gauze.objects.create(name="Gauze", size="1/2m^2")
+        self.element_1 = SterileGloves.objects.create(name="Sterile gloves", size="6.0")
+        self.element_2 = SterileGloves.objects.create(name="Sterile gloves", size="8.0")
 
     def test_get_not_logged_user_return_403(self):
-        object_to_get = Gauze.objects.filter(name="Gauze").first()
-        url = reverse("gauze-detail", kwargs={"pk": object_to_get.id})
+        object_to_get = SterileGloves.objects.filter(name="Sterile gloves").first()
+        url = reverse("sterilegloves-detail", kwargs={"pk": object_to_get.id})
 
         response = self.client.get(url)
 
@@ -26,8 +26,8 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
     def test_get_logged_user_return_right_values_from_object(self):
-        object_to_get = Gauze.objects.filter(name="Gauze").first()
-        url = reverse("gauze-detail", kwargs={"pk": object_to_get.id})
+        object_to_get = SterileGloves.objects.filter(name="Sterile gloves").first()
+        url = reverse("sterilegloves-detail", kwargs={"pk": object_to_get.id})
 
         self.client.force_login(self.user)
 
@@ -39,7 +39,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.data["name"], object_to_get.name)
 
     def test_get_logged_user_return_404_when_object_not_exist(self):
-        url = reverse("gauze-detail", kwargs={"pk": 100000})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 100000})
 
         self.client.force_login(self.user)
 
@@ -49,10 +49,10 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
     def test_post_logged_have_permissions_user_return_405(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         self.client.force_login(self.user)
-        self.permission = Permission.objects.get(codename="add_gauze")
+        self.permission = Permission.objects.get(codename="add_sterilegloves")
         self.user.user_permissions.add(self.permission)
 
         response = self.client.post(path=url)
@@ -61,7 +61,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
     def test_post_logged_user_no_permissions_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         self.client.force_login(self.user)
 
@@ -71,7 +71,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
     def test_post_not_logged_user_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         response = self.client.post(path=url)
 
@@ -79,11 +79,11 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
     def test_patch_logged_have_permissions_user_return_right_value(self):
-        object_to_patch = Gauze.objects.filter(name="Gauze").first()
-        url = reverse("gauze-detail", kwargs={"pk": object_to_patch.id})
+        object_to_patch = SterileGloves.objects.filter(name="Sterile gloves").first()
+        url = reverse("sterilegloves-detail", kwargs={"pk": object_to_patch.id})
 
         self.client.force_login(self.user)
-        self.permission = Permission.objects.get(codename="change_gauze")
+        self.permission = Permission.objects.get(codename="change_sterilegloves")
         self.user.user_permissions.add(self.permission)
 
         data = {"description": "test_description"}
@@ -98,11 +98,11 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.data["description"], data["description"])
 
     def test_patch_logged_have_permissions_user_invalid_name_return_400(self):
-        object_to_patch = Gauze.objects.filter(name="Gauze").first()
-        url = reverse("gauze-detail", kwargs={"pk": object_to_patch.id})
+        object_to_patch = SterileGloves.objects.filter(name="Sterile gloves").first()
+        url = reverse("sterilegloves-detail", kwargs={"pk": object_to_patch.id})
 
         self.client.force_login(self.user)
-        self.permission = Permission.objects.get(codename="change_gauze")
+        self.permission = Permission.objects.get(codename="change_sterilegloves")
         self.user.user_permissions.add(self.permission)
 
         data = {"name": "some_name", "description": "test_description"}
@@ -114,7 +114,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
     def test_patch_logged_user_no_permissions_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         self.client.force_login(self.user)
 
@@ -124,7 +124,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
     def test_patch_not_logged_user_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         response = self.client.patch(path=url, content_type="application/json")
 
@@ -132,11 +132,11 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
     def test_delete_logged_have_permissions_user_return_204(self):
-        object_to_delete = Gauze.objects.filter(name="Gauze").first()
-        url = reverse("gauze-detail", kwargs={"pk": object_to_delete.id})
+        object_to_delete = SterileGloves.objects.filter(name="Sterile gloves").first()
+        url = reverse("sterilegloves-detail", kwargs={"pk": object_to_delete.id})
 
         self.client.force_login(self.user)
-        self.permission = Permission.objects.get(codename="delete_gauze")
+        self.permission = Permission.objects.get(codename="delete_sterilegloves")
         self.user.user_permissions.add(self.permission)
 
         response = self.client.delete(path=url)
@@ -145,7 +145,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
     def test_delete_logged_user_no_permissions_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
         self.client.force_login(self.user)
 
         response = self.client.delete(path=url)
@@ -154,7 +154,7 @@ class TestGauzeResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
     def test_delete_not_logged_user_return_403(self):
-        url = reverse("gauze-detail", kwargs={"pk": 1})
+        url = reverse("sterilegloves-detail", kwargs={"pk": 1})
 
         response = self.client.delete(path=url)
 
