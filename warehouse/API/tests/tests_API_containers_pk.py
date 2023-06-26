@@ -109,7 +109,7 @@ class TestContainersResponse(TestCase):
         self.assertEqual(response.data["description"], data["description"])
 
     def test_patch_logged_user_have_permissions_id_not_in_list_return_404(self):
-        url = reverse("container-detail", kwargs={"pk": 100})
+        url = reverse("container-detail", kwargs={"pk": 9999})
 
         self.client.force_login(self.user)
         self.permission = Permission.objects.get(codename="change_container")
@@ -163,7 +163,7 @@ class TestContainersResponse(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
     def test_delete_logged_user_have_permissions_id_not_in_list_return_404(self):
-        url = reverse("container-detail", kwargs={"pk": 100})
+        url = reverse("container-detail", kwargs={"pk": 99999})
 
         self.client.force_login(self.user)
         self.permission = Permission.objects.get(codename="delete_container")
