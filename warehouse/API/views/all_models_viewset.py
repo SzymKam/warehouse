@@ -36,291 +36,112 @@ from containers.models import (
     OxygenMask,
     VentilationMask,
 )
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import (
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-)
+from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from rest_framework.exceptions import ValidationError
 from API.constants import name_to_serializer
 
 
-def validate_name_for_update(serializer):
-    if "name" in serializer.validated_data.keys():
-        if serializer.validated_data["name"] not in name_to_serializer().keys():
-            raise ValidationError("Invalid name")
-
-
-class MedicalEquipmentViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
+class EquipmentViewSetMixin(
+    mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
 ):
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
+
+    def perform_update(self, serializer):
+        EquipmentViewSetMixin.validate_name_for_update(serializer)
+        super().perform_update(serializer)
+
+    @staticmethod
+    def validate_name_for_update(serializer):
+        if "name" in serializer.validated_data.keys():
+            if serializer.validated_data["name"] not in name_to_serializer().keys():
+                raise ValidationError("Invalid name")
+
+
+class MedicalEquipmentViewset(EquipmentViewSetMixin):
     serializer_class = MedicalEquipmentSerializer
     queryset = MedicalEquipment.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class DrugViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class DrugViewset(EquipmentViewSetMixin):
     serializer_class = DrugSerializer
     queryset = Drug.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class FluidViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class FluidViewset(EquipmentViewSetMixin):
     serializer_class = FluidSerializer
     queryset = Fluid.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class CannulaViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class CannulaViewset(EquipmentViewSetMixin):
     serializer_class = CannulaSerializer
     queryset = Cannula.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class NeedleViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class NeedleViewset(EquipmentViewSetMixin):
     serializer_class = NeedleSerializer
     queryset = Needle.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class SyringeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class SyringeViewset(EquipmentViewSetMixin):
     serializer_class = SyringeSerializer
     queryset = Syringe.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class BIGViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class BIGViewset(EquipmentViewSetMixin):
     serializer_class = BIGSerializer
     queryset = BIG.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class LtTubeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class LtTubeViewset(EquipmentViewSetMixin):
     serializer_class = LtTubeSerializer
     queryset = LtTube.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class GlovesViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class GlovesViewset(EquipmentViewSetMixin):
     serializer_class = GlovesSerializer
     queryset = Gloves.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class SterileGlovesViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class SterileGlovesViewset(EquipmentViewSetMixin):
     serializer_class = SterileGlovesSerializer
     queryset = SterileGloves.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class GauzeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class GauzeViewset(EquipmentViewSetMixin):
     serializer_class = GauzeSerializer
     queryset = Gauze.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class NasopharyngealTubeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class NasopharyngealTubeViewset(EquipmentViewSetMixin):
     serializer_class = NasopharyngealTubeSerializer
     queryset = NasopharyngealTube.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class OropharyngealTubeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class OropharyngealTubeViewset(EquipmentViewSetMixin):
     serializer_class = OropharyngealTubeSerializer
     queryset = OropharyngealTube.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class EndotrachealTubeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class EndotrachealTubeViewset(EquipmentViewSetMixin):
     serializer_class = EndotrachealTubeSerializer
     queryset = EndotrachealTube.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class LaryngoscopeBladeViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class LaryngoscopeBladeViewset(EquipmentViewSetMixin):
     serializer_class = LaryngoscopeBladeSerializer
     queryset = LaryngoscopeBlade.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class OxygenMaskViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class OxygenMaskViewset(EquipmentViewSetMixin):
     serializer_class = OxygenMaskSerializer
     queryset = OxygenMask.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
 
 
-class VentilationMaskViewset(
-    RetrieveModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet,
-):
+class VentilationMaskViewset(EquipmentViewSetMixin):
     serializer_class = VentilationMaskSerializer
     queryset = VentilationMask.objects.all()
-    permission_classes = [IsAuthenticated, DjangoModelPermissions]
-
-    def perform_update(self, serializer):
-        validate_name_for_update(serializer)
-        super().perform_update(serializer)
