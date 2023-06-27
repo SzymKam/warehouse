@@ -2,17 +2,18 @@ from rest_framework.response import Response
 from API.serializers.equipment_serializer import (
     AllEquipmentSerializer,
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from API.constants import name_to_serializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import CreateModelMixin
+from containers.models import MedicalEquipment
 
 
 class EquipmentViewSet(GenericViewSet, CreateModelMixin):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, DjangoModelPermissions]
     serializer_class = AllEquipmentSerializer
-    queryset = None
+    queryset = MedicalEquipment.objects.all()
 
     def list(self, request):
         serializer = AllEquipmentSerializer(instance={}, many=False)
