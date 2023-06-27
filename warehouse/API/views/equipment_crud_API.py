@@ -29,7 +29,7 @@ class EquipmentViewSet(GenericViewSet, CreateModelMixin):
         return serializer
 
     def get_serializer(self, *args, **kwargs):
-        name_value = self.request.data["name"]
+        name_value = self.request.data.get("name")
         serializer_class = self.get_class_serializer(name_value=name_value)
         kwargs.setdefault("context", self.get_serializer_context())
         return serializer_class(*args, **kwargs)
