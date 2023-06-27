@@ -25,6 +25,7 @@ from API.views.all_models_viewset import (
 )
 from django.views.generic import TemplateView
 from django.urls import path
+from rest_framework.schemas import get_schema_view
 
 
 router = SimpleRouter()
@@ -50,7 +51,15 @@ router.register(r"laryngoscope-blade", LaryngoscopeBladeViewset)
 router.register(r"oxygen-mask", OxygenMaskViewset)
 router.register(r"ventilation-mask", VentilationMaskViewset)
 
+
 urlpatterns = [
+    path(
+        "openapi",
+        get_schema_view(
+            title="Your Project", description="API for all things …", version="1.0.0"
+        ),
+        name="openapi-schema",
+    ),
     path(
         "redoc/",
         TemplateView.as_view(
