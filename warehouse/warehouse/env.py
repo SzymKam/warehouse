@@ -9,8 +9,8 @@ env = environ.Env(
     EMAIL_HOST_USER=(str, "apikey"),
     EMAIL_HOST_PASSWORD=(
         str,
-        "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",
+        None,
     ),
-    DEFAULT_FROM_EMAIL=(str, "szymon15kaminski@gmail.com"),
-    TEST_PASSWORD=(str, "nimda"),
+    DEFAULT_FROM_EMAIL=(str, None),
+    TEST_PASSWORD=(str, None),
 )
