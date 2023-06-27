@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class StaffLogin(LoginView):
@@ -28,7 +29,7 @@ class StaffLogout(LogoutView):
         return context
 
 
-class AllStaff(ListView):
+class AllStaff(LoginRequiredMixin, ListView):
     """all rescuers from rescue group"""
 
     queryset = StaffModel.objects.all()
