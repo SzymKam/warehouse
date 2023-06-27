@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "rest_framework",
+    "uritemplate",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -172,6 +173,13 @@ EMAIL_PORT = 587  #  25, 587	(for unencrypted/TLS connections)
 
 # EMAIL_USE_SSL = True
 # EMAIL_PORT = 465          # 465	(for SSL connections)
+
+if (
+    env("EMAIL_HOST_USER") is None
+    and env("EMAIL_HOST_PASSWORD") is None
+    and env("DEFAULT_FROM_EMAIL") is None
+):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
