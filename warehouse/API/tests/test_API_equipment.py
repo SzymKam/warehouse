@@ -5,6 +5,7 @@ from staff.models import StaffModel
 from django.urls import reverse
 from rest_framework import status
 from warehouse.env import env
+import secrets
 
 
 class TestEquipmentResponse(TestCase):
