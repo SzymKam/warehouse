@@ -1,3 +1,5 @@
+import secrets
+
 from django.test import TestCase, Client, tag
 from django.urls import reverse
 from staff.models import StaffModel
@@ -10,13 +12,13 @@ class AllStaffViewTest(TestCase):
         self.url = reverse("all-staff")
 
         self.user_1 = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.user_2 = StaffModel.objects.create(
-            username="test_2", password=env("TEST_PASSWORD")
+            username="test_2", password=secrets.token_hex(nbytes=10)
         )
         self.user_3 = StaffModel.objects.create(
-            username="test_3", password=env("TEST_PASSWORD")
+            username="test_3", password=secrets.token_hex(nbytes=10)
         )
 
     def test_get_not_logged_user_return_302(self):

@@ -1,7 +1,5 @@
 from django.test import TestCase, Client, tag
 from django.urls import reverse
-from staff.models import StaffModel
-from warehouse.env import env
 
 
 class PasswordResetCompleteTest(TestCase):
@@ -68,18 +66,3 @@ class PasswordResetViewTest(TestCase):
         self.assertEqual(response.context["subtitle"], "Reset Password")
         self.assertEqual(response.context["title"], "GRM Password reset")
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
-
-
-# class PasswordResetConfirmViewTest(TestCase):
-#     def setUp(self) -> None:
-#         self.client = Client()
-#         self.url = reverse("password_reset_confirm")
-#
-#     @tag('test')
-#     def test_if_get_return_right_values(self):
-#         response = self.client.get(self.url, kwargs={"uidb64": "MjQ", 'token': "set-password"})
-#
-#         self.assertEqual(response.status_code, 200)
-#         self.assertTemplateUsed(response, "staff/password-reset-form.html")
-#         self.assertEqual(response.context["subtitle"], "Password reset confirm")
-#         self.assertEqual(response.context["title"], "GRM Password reset confirm")
