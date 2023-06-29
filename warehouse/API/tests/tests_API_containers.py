@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
 from containers.models import Drug, Container
@@ -10,7 +12,7 @@ from warehouse.env import env
 class TestContainersResponse(TestCase):
     def setUp(self) -> None:
         self.user = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.container_1 = Container.objects.create(name="Main warehouse")
         self.container_2 = Container.objects.create(name="Special/Other")

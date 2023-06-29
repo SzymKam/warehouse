@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
 from containers.models import EndotrachealTube, Container
@@ -11,7 +13,7 @@ class TestEtTubeResponse(TestCase):
     def setUp(self) -> None:
         self.container = Container.objects.create(name="Main warehouse")
         self.user = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.element_1 = EndotrachealTube.objects.create(name="ET tube", size="2.5")
         self.element_2 = EndotrachealTube.objects.create(name="ET tube", size="10.0")

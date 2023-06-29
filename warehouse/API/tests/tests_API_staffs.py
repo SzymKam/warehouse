@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
 from staff.models import StaffModel
@@ -9,13 +11,13 @@ from warehouse.env import env
 class TestStaffResponse(TestCase):
     def setUp(self) -> None:
         self.user_1 = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.user_2 = StaffModel.objects.create(
-            username="test_2", password=env("TEST_PASSWORD")
+            username="test_2", password=secrets.token_hex(nbytes=10)
         )
         self.user_3 = StaffModel.objects.create(
-            username="test_3", password=env("TEST_PASSWORD")
+            username="test_3", password=secrets.token_hex(nbytes=10)
         )
 
     def test_get_logged_user_return_right_values_with_two_objects(self):
@@ -57,7 +59,7 @@ class TestStaffResponse(TestCase):
         self.permission = Permission.objects.get(codename="add_staffmodel")
         self.user_1.user_permissions.add(self.permission)
 
-        data = {"username": "test_4", "password": env("TEST_PASSWORD")}
+        data = {"username": "test_4", "password": secrets.token_hex(nbytes=8)}
         response = self.client.post(path=url, data=data)
 
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")

@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
 from containers.models import OxygenMask, Container
@@ -10,13 +12,13 @@ from warehouse.env import env
 class TestStaffResponse(TestCase):
     def setUp(self) -> None:
         self.user_1 = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.user_2 = StaffModel.objects.create(
-            username="test_2", password=env("TEST_PASSWORD")
+            username="test_2", password=secrets.token_hex(nbytes=10)
         )
         self.user_3 = StaffModel.objects.create(
-            username="test_3", password=env("TEST_PASSWORD")
+            username="test_3", password=secrets.token_hex(nbytes=10)
         )
 
     def test_get_not_logged_user_return_403(self):

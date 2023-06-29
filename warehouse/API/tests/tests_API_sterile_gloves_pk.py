@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, tag
 from containers.models import SterileGloves, Container
@@ -11,7 +13,7 @@ class TestSterileGlovesResponse(TestCase):
     def setUp(self) -> None:
         self.container = Container.objects.create(name="Main warehouse")
         self.user = StaffModel.objects.create(
-            username="nimda", password=env("TEST_PASSWORD")
+            username="nimda", password=secrets.token_hex(nbytes=10)
         )
         self.element_1 = SterileGloves.objects.create(name="Sterile gloves", size="6.0")
         self.element_2 = SterileGloves.objects.create(name="Sterile gloves", size="8.0")
