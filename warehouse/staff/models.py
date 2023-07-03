@@ -5,7 +5,10 @@ from .constants import QUALIFICATIONS
 
 class StaffModel(AbstractUser):
     position = models.CharField(
-        max_length=50, blank=True, null=True, help_text="Role in GRM"
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="Role in GRM",
     )
     medical_qualifications = models.CharField(
         max_length=50,
@@ -14,7 +17,9 @@ class StaffModel(AbstractUser):
         help_text="Qualifications",
     )
     qualifications_expiration_date = models.DateField(
-        blank=True, null=True, help_text="Expiration date of license"
+        blank=True,
+        null=True,
+        help_text="Expiration date of license",
     )
     image = models.ImageField(
         default="grm_logo.jpg",

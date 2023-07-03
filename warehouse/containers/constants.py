@@ -266,7 +266,6 @@ DRUG_ACTIVE_SUBSTANCES = sorted(
         ("Naloxoni hydrochloridum", "Naloxoni hydrochloridum"),
         ("Budesonidum", "Budesonidum"),
         ("Hydrocortisonum", "Hydrocortisonum"),
-        # 10
         ("Dexamethasoni phosphas", "Dexamethasoni phosphas"),
         ("Diazepamum", "Diazepamum"),
         ("Clonazepam", "Clonazepam"),
@@ -277,7 +276,6 @@ DRUG_ACTIVE_SUBSTANCES = sorted(
         ("Amiodaroni hydrochloridum", "Amiodaroni hydrochloridum"),
         ("Lidocaini hydrochloridum", "Lidocaini hydrochloridum"),
         ("Epinephrinum", "Epinephrinum"),
-        # 20
         ("Salbutamolum", "Salbutamolum"),
         ("Urapidilum", "Urapidilum"),
         ("Metoprololi tartras", "Metoprololi tartras"),
@@ -288,7 +286,6 @@ DRUG_ACTIVE_SUBSTANCES = sorted(
         ("Hepariunum natricum", "Hepariunum natricum"),
         ("Thiethylperazinum", "Thiethylperazinum"),
         ("Metoclopramidum", "Metoclopramidum"),
-        # 30
         ("Furosemidum", "Furosemidum"),
         ("Mannitolum", "Mannitolum"),
         ("Hydroxyzinum", "Hydroxyzinum"),

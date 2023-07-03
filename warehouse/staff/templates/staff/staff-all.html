@@ -33,14 +33,50 @@
                                     <tbody>
                                     {% for person in object_list %}
                                         <tr>
-                                            <td>{{ person.first_name }}</td>
-                                            <td><b>{{ person.last_name }}</b></td>
-                                            <td>{{ person.username }}</td>
-                                            <td>{{ person.medical_qualifications }}</td>
-                                            <td>{{ person.qualifications_expiration_date }}</td>
-                                            <td>{{ person.position }}</td>
-                                            <td>{{ person.email }}</td>
-                                             {% if perms.staff.change_staffmodel %}
+                                            {% if person.first_name %}
+                                                <td>{{ person.first_name }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.last_name %}
+                                                <td><b>{{ person.last_name }}</b></td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.username %}
+                                                <td>{{ person.username }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.medical_qualifications %}
+                                                <td>{{ person.medical_qualifications }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.qualifications_expiration_date %}
+                                                <td>{{ person.qualifications_expiration_date }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.position %}
+                                                <td>{{ person.position }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+                                            {% if person.email %}
+                                                <td>{{ person.email }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+
+
+                                            {% if perms.staff.change_staffmodel %}
                                             <td>
                                                 <a href="{% url 'admin-update' pk=person.id %}" class="btn btn-info btn-icon-split">
                                                 <span class="icon text-white-50">
