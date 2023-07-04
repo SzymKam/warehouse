@@ -1,5 +1,5 @@
 import secrets
-
+import random
 from django.test import TestCase, Client, tag
 from django.urls import reverse
 from django.contrib.auth.models import Permission
@@ -7,12 +7,13 @@ from rest_framework import status
 from faker import Faker
 
 from staff.models import StaffModel
+from containers.models import Container
+from API.constants import allowed_containers_name
+
+DETAIL_URL = "containers-detail"
 
 
-DETAIL_URL = "admin-update"
-
-
-class StaffUpdateByAdminTest(TestCase):
+class ContainersHomeTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()
@@ -23,22 +24,119 @@ class StaffUpdateByAdminTest(TestCase):
         self.user_2 = StaffModel.objects.create(
             username=self.fake.name(), password=secrets.token_hex(nbytes=8)
         )
-        self.user_3 = StaffModel.objects.create(
-            username=self.fake.name(), password=secrets.token_hex(nbytes=8)
+
+        self.user_2.user_permissions.add(
+            Permission.objects.get(codename="add_container")
+        )
+        self.user_2.user_permissions.add(
+            Permission.objects.get(codename="change_container")
+        )
+        self.user_2.user_permissions.add(
+            Permission.objects.get(codename="delete_container")
         )
 
-        self.template_used = "staff/delete.html"
+        self.container_1 = Container.objects.create(name="Main warehouse")
 
-        self.user_1.user_permissions.add(
-            Permission.objects.get(codename="add_staffmodel")
-        )
-        self.user_1.user_permissions.add(
-            Permission.objects.get(codename="change_staffmodel")
-        )
-        self.user_1.user_permissions.add(
-            Permission.objects.get(codename="delete_staffmodel")
-        )
+        self.container_2 = Container.objects.create(name="Trauma Wall - ALS")
 
     @staticmethod
     def detail_url(obj):
         return reverse(DETAIL_URL, kwargs={"pk": obj.pk})
+
+    def test_get_not_logged_user_return_302(self):
+        response = self.client.get(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response.request["REQUEST_METHOD"], "GET")
+
+    def test_get_logged_user_return_200(self):
+        self.client.force_login(self.user_1)
+
+        response = self.client.get(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.request["REQUEST_METHOD"], "GET")
+        self.assertEqual(response.context["object"], self.container_1)
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_get_logged_user_have_permissions_return_200(self):
+        self.client.force_login(self.user_2)
+
+        response = self.client.get(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.request["REQUEST_METHOD"], "GET")
+        self.assertEqual(response.context["object"], self.container_1)
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_post_not_logged_user_return_302(self):
+        response = self.client.post(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response.request["REQUEST_METHOD"], "POST")
+
+    def test_post_logged_user_return_405(self):
+        self.client.force_login(self.user_1)
+
+        response = self.client.post(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "POST")
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_post_logged_user_have_permissions_return_200(self):
+        self.client.force_login(self.user_2)
+
+        response = self.client.post(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "POST")
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_patch_not_logged_user_return_302(self):
+        response = self.client.patch(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
+
+    def test_patch_logged_user_return_405(self):
+        self.client.force_login(self.user_1)
+
+        response = self.client.patch(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_patch_logged_user_have_permissions_return_200(self):
+        self.client.force_login(self.user_2)
+
+        response = self.client.patch(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_delete_not_logged_user_return_302(self):
+        response = self.client.delete(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
+
+    def test_delete_logged_user_return_405(self):
+        self.client.force_login(self.user_1)
+
+        response = self.client.delete(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
+        self.assertTemplateUsed("containers/containers-detail.html")
+
+    def test_delete_logged_user_have_permissions_return_200(self):
+        self.client.force_login(self.user_2)
+
+        response = self.client.delete(path=self.detail_url(self.container_1))
+
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
+        self.assertTemplateUsed("containers/containers-detail.html")
