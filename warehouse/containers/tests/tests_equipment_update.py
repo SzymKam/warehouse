@@ -9,10 +9,10 @@ from faker import Faker
 from staff.models import StaffModel
 from containers.models import Container, MedicalEquipment
 
-DETAIL_URL = "equipment-delete"
+DETAIL_URL = "equipment-update"
 
 
-class EquipmentDeleteTest(TestCase):
+class EquipmentUpdateTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()
@@ -89,13 +89,13 @@ class EquipmentDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_logged_user_have_permissions_return_302(self):
+    def test_post_logged_user_have_permissions_return_200(self):
         self.client.force_login(self.user_2)
         response = self.client.post(
             path=self.detail_url(container=self.container_1, equipment=self.equipment_1)
         )
 
-        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
     def test_patch_not_logged_user_return_302(self):
