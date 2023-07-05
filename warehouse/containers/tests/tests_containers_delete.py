@@ -42,14 +42,12 @@ class ContainersDeleteTest(TestCase):
     def detail_url(obj):
         return reverse(DETAIL_URL, kwargs={"pk": obj.pk})
 
-    @tag("test")
     def test_get_not_logged_user_return_302(self):
         response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("test")
     def test_get_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
@@ -58,7 +56,6 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    @tag("test")
     def test_get_logged_user_have_permissions_return_200(self):
         self.client.force_login(self.user_2)
 
@@ -68,14 +65,12 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
         self.assertEqual(response.context["object"], self.container_1)
 
-    @tag("test")
     def test_post_not_logged_user_return_302(self):
         response = self.client.post(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("test")
     def test_post_logged_user_return_200_not_update(self):
         self.client.force_login(self.user_1)
 
@@ -84,7 +79,6 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("test")
     def test_post_logged_user_have_permissions_return_302(self):
         self.client.force_login(self.user_2)
 
@@ -93,14 +87,12 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    @tag("test")
     def test_patch_not_logged_user_return_302(self):
         response = self.client.patch(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("test")
     def test_patch_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
@@ -109,7 +101,6 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("test")
     def test_patch_logged_user_have_permissions_return_405(self):
         self.client.force_login(self.user_2)
 
@@ -118,14 +109,12 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    @tag("test")
     def test_delete_not_logged_user_return_302(self):
         response = self.client.delete(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("test")
     def test_delete_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
@@ -134,7 +123,6 @@ class ContainersDeleteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    @tag("test")
     def test_delete_logged_user_have_permissions_return_302(self):
         self.client.force_login(self.user_2)
 
