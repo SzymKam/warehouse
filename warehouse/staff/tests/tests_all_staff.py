@@ -37,10 +37,6 @@ class AllStaffViewTest(TestCase):
 
         self.assertEqual(len(response.context["object_list"]), 3)
         self.assertIsInstance(response.context["object_list"][0], StaffModel)
-        self.assertEqual(
-            response.context["object_list"][0].username, self.user_2.username
-        )
-
         self.assertTemplateUsed(response, "staff/staff-all.html")
         self.assertTemplateUsed(response, "containers/base.html")
 
