@@ -10,7 +10,7 @@ from staff.models import StaffModel
 DETAIL_URL = "r1-backpack-standard"
 
 
-class ContainersHomeTest(TestCase):
+class R1BackpackStandardTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()

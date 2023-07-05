@@ -11,7 +11,7 @@ from staff.models import StaffModel
 DETAIL_URL = "als-backpack-standard"
 
 
-class ContainersHomeTest(TestCase):
+class AlsBackpackStandardTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()

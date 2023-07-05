@@ -13,7 +13,7 @@ from API.constants import allowed_containers_name
 DETAIL_URL = "equipment-all"
 
 
-class ContainersHomeTest(TestCase):
+class EquipmentAllTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()

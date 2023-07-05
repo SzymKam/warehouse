@@ -10,7 +10,7 @@ from staff.models import StaffModel
 DETAIL_URL = "r1-additions-standard"
 
 
-class ContainersHomeTest(TestCase):
+class R1AdditionsStandardTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()
