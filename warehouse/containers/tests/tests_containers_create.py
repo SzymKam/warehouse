@@ -88,8 +88,6 @@ class ContainersCreateTest(TestCase):
         data = {"name": "any name"}
         response = self.client.post(path=reverse(DETAIL_URL), data=data)
 
-        print(response.context)
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
