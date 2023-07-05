@@ -9,10 +9,10 @@ from faker import Faker
 from staff.models import StaffModel
 from containers.models import Container
 
-DETAIL_URL = "containers-create"
+DETAIL_URL = "containers-delete"
 
 
-class ContainersCreateTest(TestCase):
+class ContainersDeleteTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.fake = Faker()
@@ -36,103 +36,109 @@ class ContainersCreateTest(TestCase):
 
         self.container_1 = Container.objects.create(name="Main warehouse")
 
+        self.container_2 = Container.objects.create(name="Trauma Wall - ALS")
+
+    @staticmethod
+    def detail_url(obj):
+        return reverse(DETAIL_URL, kwargs={"pk": obj.pk})
+
+    @tag("test")
     def test_get_not_logged_user_return_302(self):
-        response = self.client.get(path=reverse(DETAIL_URL))
+        response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
+    @tag("test")
     def test_get_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
-        response = self.client.get(path=reverse(DETAIL_URL))
+        response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
+    @tag("test")
     def test_get_logged_user_have_permissions_return_200(self):
         self.client.force_login(self.user_2)
 
-        response = self.client.get(path=reverse(DETAIL_URL))
+        response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
+        self.assertEqual(response.context["object"], self.container_1)
 
+    @tag("test")
     def test_post_not_logged_user_return_302(self):
-        response = self.client.post(path=reverse(DETAIL_URL))
+        response = self.client.post(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_logged_user_return_200(self):
+    @tag("test")
+    def test_post_logged_user_return_200_not_update(self):
         self.client.force_login(self.user_1)
 
-        data = {"name": "Special / Other"}
-        response = self.client.post(path=reverse(DETAIL_URL), data=data)
+        response = self.client.post(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
+    @tag("test")
     def test_post_logged_user_have_permissions_return_302(self):
         self.client.force_login(self.user_2)
 
-        data = {"name": "Special / Other"}
-        response = self.client.post(path=reverse(DETAIL_URL), data=data)
+        response = self.client.post(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_logged_user_have_permissions_invalid_name_return_302(self):
-        self.client.force_login(self.user_2)
-
-        data = {"name": "any name"}
-        response = self.client.post(path=reverse(DETAIL_URL), data=data)
-
-        print(response.context)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.request["REQUEST_METHOD"], "POST")
-
+    @tag("test")
     def test_patch_not_logged_user_return_302(self):
-        response = self.client.patch(path=reverse(DETAIL_URL))
+        response = self.client.patch(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
+    @tag("test")
     def test_patch_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
-        response = self.client.patch(path=reverse(DETAIL_URL))
+        response = self.client.patch(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
+    @tag("test")
     def test_patch_logged_user_have_permissions_return_405(self):
         self.client.force_login(self.user_2)
 
-        response = self.client.patch(path=reverse(DETAIL_URL))
+        response = self.client.patch(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
+    @tag("test")
     def test_delete_not_logged_user_return_302(self):
-        response = self.client.delete(path=reverse(DETAIL_URL))
+        response = self.client.delete(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
+    @tag("test")
     def test_delete_logged_user_return_200(self):
         self.client.force_login(self.user_1)
 
-        response = self.client.delete(path=reverse(DETAIL_URL))
+        response = self.client.delete(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_delete_logged_user_have_permissions_return_405(self):
+    @tag("test")
+    def test_delete_logged_user_have_permissions_return_302(self):
         self.client.force_login(self.user_2)
 
-        response = self.client.delete(path=reverse(DETAIL_URL))
+        response = self.client.delete(path=self.detail_url(self.container_1))
 
-        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
