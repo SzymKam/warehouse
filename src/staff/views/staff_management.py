@@ -7,6 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from typing import Any
 
 
 class StaffLogin(LoginView):
@@ -14,7 +15,7 @@ class StaffLogin(LoginView):
 
     template_name = "staff/login.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Login"
         return context
@@ -23,7 +24,7 @@ class StaffLogin(LoginView):
 class StaffLogout(LogoutView):
     """user logout page"""
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Logout"
         return context
@@ -35,7 +36,7 @@ class AllStaff(LoginRequiredMixin, ListView):
     queryset = StaffModel.objects.all()
     template_name = "staff/staff-all.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM People"
         return context
@@ -66,7 +67,7 @@ class StaffUpdate:
     @staticmethod
     @login_required
     @permission_required("staff.change_staffmodel", login_url="main-page")
-    def update_by_admin(request, pk):
+    def update_by_admin(request, pk: int):
         """update profile by admin - with most of the fields"""
         user = get_object_or_404(klass=StaffModel, pk=pk)
         form = StaffFormUpdate(instance=user)
@@ -83,7 +84,7 @@ class StaffUpdate:
 
     @staticmethod
     @login_required
-    def update_by_user(request, pk):
+    def update_by_user(request, pk: int):
         """update profile by user - just some fields"""
         user = get_object_or_404(klass=StaffModel, pk=pk)
         if request.method == "POST":
@@ -101,7 +102,7 @@ class StaffDelete:
     @staticmethod
     @login_required
     @permission_required("staff.delete_staffmodel", login_url="main-page")
-    def delete_user(request, pk):
+    def delete_user(request, pk: int):
         """delete user"""
         user_to_delete = get_object_or_404(klass=StaffModel, pk=pk)
         if request.method == "POST":

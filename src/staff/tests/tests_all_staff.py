@@ -1,9 +1,8 @@
 import secrets
 
-from django.test import TestCase, Client, tag
+from django.test import TestCase, Client
 from django.urls import reverse
 from staff.models import StaffModel
-from core.env import env
 
 
 class AllStaffViewTest(TestCase):
@@ -21,13 +20,13 @@ class AllStaffViewTest(TestCase):
             username="test_3", password=secrets.token_hex(nbytes=10)
         )
 
-    def test_get_not_logged_user_return_302(self):
+    def test_get_not_logged_user_return_302(self) -> None:
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_get_logged_user_return_staffs(self):
+    def test_get_logged_user_return_staffs(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.get(self.url)
@@ -42,7 +41,7 @@ class AllStaffViewTest(TestCase):
 
         self.assertEqual(response.context["title"], "GRM People")
 
-    def test_post_logged_user_return_405(self):
+    def test_post_logged_user_return_405(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.post(self.url)
@@ -50,13 +49,13 @@ class AllStaffViewTest(TestCase):
         self.assertEqual(response.status_code, 405)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_not_logged_user_return_302(self):
+    def test_post_not_logged_user_return_302(self) -> None:
         response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_patch_logged_user_return_405(self):
+    def test_patch_logged_user_return_405(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.patch(self.url)
@@ -64,13 +63,13 @@ class AllStaffViewTest(TestCase):
         self.assertEqual(response.status_code, 405)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_patch_not_logged_user_return_302(self):
+    def test_patch_not_logged_user_return_302(self) -> None:
         response = self.client.patch(self.url)
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_delete_logged_user_return_405(self):
+    def test_delete_logged_user_return_405(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.delete(self.url)
@@ -78,7 +77,7 @@ class AllStaffViewTest(TestCase):
         self.assertEqual(response.status_code, 405)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_delete_not_logged_user_return_302(self):
+    def test_delete_not_logged_user_return_302(self) -> None:
         response = self.client.delete(self.url)
 
         self.assertEqual(response.status_code, 302)

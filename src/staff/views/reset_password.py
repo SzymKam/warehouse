@@ -4,12 +4,13 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView,
     PasswordResetConfirmView,
 )
+from typing import Any
 
 
 class MyPasswordResetView(PasswordResetView):
     template_name = "staff/password-reset.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Password reset"
         context["subtitle"] = "Reset Password"
@@ -19,7 +20,7 @@ class MyPasswordResetView(PasswordResetView):
 class MyPasswordResetDoneView(PasswordResetDoneView):
     template_name = "staff/password-reset-sent.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Password reset sent"
         context["subtitle"] = "Password reset sent"
@@ -29,7 +30,7 @@ class MyPasswordResetDoneView(PasswordResetDoneView):
 class MyPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "staff/password-reset-done.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Password reset done"
         context["subtitle"] = "Password reset done"
@@ -39,7 +40,7 @@ class MyPasswordResetCompleteView(PasswordResetCompleteView):
 class MyPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = "staff/password-reset-form.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Password reset confirm"
         context["subtitle"] = "Password reset confirm"
