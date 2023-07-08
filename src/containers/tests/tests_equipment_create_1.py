@@ -1,6 +1,6 @@
 import secrets
 
-from django.test import TestCase, Client, tag
+from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import Permission
 from rest_framework import status
@@ -31,36 +31,36 @@ class EquipmentCreate1Test(TestCase):
         self.container_1 = Container.objects.create(name="Main core")
 
     @staticmethod
-    def detail_url(obj):
+    def detail_url(obj) -> str:
         return reverse(DETAIL_URL, kwargs={"container": obj.pk})
 
-    def test_get_not_logged_user_return_302(self):
+    def test_get_not_logged_user_return_302(self) -> None:
         response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_get_logged_user_return_200(self):
+    def test_get_logged_user_return_200(self) -> None:
         self.client.force_login(self.user_1)
         response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_get_logged_user_have_permissions_return_200(self):
+    def test_get_logged_user_have_permissions_return_200(self) -> None:
         self.client.force_login(self.user_2)
         response = self.client.get(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
-    def test_post_not_logged_user_return_302(self):
+    def test_post_not_logged_user_return_302(self) -> None:
         response = self.client.post(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_logged_user_return_200(self):
+    def test_post_logged_user_return_200(self) -> None:
         self.client.force_login(self.user_1)
 
         data = {"name": "Quicktrach"}
@@ -69,7 +69,7 @@ class EquipmentCreate1Test(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_post_logged_user_have_permissions_return_302(self):
+    def test_post_logged_user_have_permissions_return_302(self) -> None:
         self.client.force_login(self.user_2)
 
         data = {"name": "Quicktrach"}
@@ -78,13 +78,13 @@ class EquipmentCreate1Test(TestCase):
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "POST")
 
-    def test_delete_not_logged_user_return_302(self):
+    def test_delete_not_logged_user_return_302(self) -> None:
         response = self.client.delete(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_delete_logged_user_return_200(self):
+    def test_delete_logged_user_return_200(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.delete(path=self.detail_url(self.container_1))
@@ -92,7 +92,7 @@ class EquipmentCreate1Test(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_delete_logged_user_have_permissions_return_200(self):
+    def test_delete_logged_user_have_permissions_return_200(self) -> None:
         self.client.force_login(self.user_2)
 
         response = self.client.delete(path=self.detail_url(self.container_1))
@@ -100,13 +100,13 @@ class EquipmentCreate1Test(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "DELETE")
 
-    def test_patch_not_logged_user_return_302(self):
+    def test_patch_not_logged_user_return_302(self) -> None:
         response = self.client.patch(path=self.detail_url(self.container_1))
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_patch_logged_user_return_200(self):
+    def test_patch_logged_user_return_200(self) -> None:
         self.client.force_login(self.user_1)
 
         response = self.client.patch(path=self.detail_url(self.container_1))
@@ -114,7 +114,7 @@ class EquipmentCreate1Test(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "PATCH")
 
-    def test_patch_logged_user_have_permissions_return_200(self):
+    def test_patch_logged_user_have_permissions_return_200(self) -> None:
         self.client.force_login(self.user_2)
 
         response = self.client.patch(path=self.detail_url(self.container_1))

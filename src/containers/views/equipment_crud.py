@@ -9,6 +9,11 @@ from containers.constants import MEDICAL_EQUIPMENT_NAME_CHOICES
 from queryset_sequence import QuerySetSequence
 from django.forms import Form, BaseModelFormSet
 from django.db.models import Model
+from django.shortcuts import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponsePermanentRedirect,
+)
 from containers.models import (
     MedicalEquipment,
     Drug,
@@ -84,7 +89,9 @@ class EquipmentCreate:
     @staticmethod
     @login_required()
     @permission_required("containers.add_drug", raise_exception=True)
-    def get_name(request, container):
+    def get_name(
+        request, container: int
+    ) -> [HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect]:
         if request.method == "POST":
             name = request.POST["name"]
             return redirect("equipment-create-2nd", name=name, container=container)
@@ -101,7 +108,9 @@ class EquipmentCreate:
     @staticmethod
     @login_required()
     @permission_required("containers.add_drug", login_url="main-page")
-    def select_object_to_create(request, name, container):
+    def select_object_to_create(
+        request, name: str, container: int
+    ) -> [HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect]:
         initial = {"name": name, "container": Container.objects.get(pk=container)}
 
         form_obj, _ = get_form_class_and_model_by_name(name, create_forms())
@@ -126,7 +135,7 @@ class EquipmentCreate:
 class EquipmentRetrieve:
     @staticmethod
     @login_required()
-    def retrieve_equipment(request):
+    def retrieve_equipment(request) -> HttpResponse:
         queryset = []
         for model in MODEL_LIST:
             elements = model.objects.all()
@@ -147,7 +156,9 @@ class EquipmentUpdate:
     @staticmethod
     @login_required()
     @permission_required("containers.change_drug", login_url="main-page")
-    def update_equipment(request, pk, name, container):
+    def update_equipment(
+        request, pk: int, name: str, container: int
+    ) -> [HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect]:
         form_obj, model_name = get_form_class_and_model_by_name(name, create_forms())
         object_to_update = get_object_or_404(klass=model_name, pk=pk)
         form = form_obj.form(request.POST or None, instance=object_to_update)
@@ -171,7 +182,9 @@ class EquipmentDelete:
     @staticmethod
     @login_required()
     @permission_required("containers.delete_drug", login_url="main-page")
-    def delete_equipment(request, pk, name, container):
+    def delete_equipment(
+        request, pk: int, name: str, container: int
+    ) -> [HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect]:
         _, model_name = get_form_class_and_model_by_name(name)
         object_to_delete = get_object_or_404(klass=model_name, pk=pk)
         if request.method == "POST":

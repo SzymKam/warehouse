@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required()
-def save_to_pdf(request, element, element_id=None):
+def save_to_pdf(request, element, element_id=None) -> HttpResponse:
     map_elements = {
         "containers": {
             "object_list": Container.objects.all(),

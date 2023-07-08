@@ -30,6 +30,7 @@ from containers.models import (
     OxygenMask,
     VentilationMask,
 )
+from typing import Any
 
 MODEL_LIST = [
     MedicalEquipment,
@@ -56,10 +57,10 @@ class ContainerView(LoginRequiredMixin, ListView):
     template_name = "containers/containers-list.html"
     queryset = Container.objects.all()
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> Any:
         return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Containers"
         context["subtitle"] = "Containers"
@@ -71,14 +72,14 @@ class ContainerDetail(LoginRequiredMixin, DetailView):
     queryset = Container.objects.all()
 
     @staticmethod
-    def get_data_from_all_models(container_id):
+    def get_data_from_all_models(container_id: int) -> list[Any]:
         data = []
         for model in MODEL_LIST:
             query = model.objects.filter(container=container_id)
             data.append(query)
         return data
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["equipment"] = self.get_data_from_all_models(
             container_id=self.object.id
@@ -103,7 +104,7 @@ class ContainerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         messages.info(self.request, "Container updated!")
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM update container"
         context["subtitle"] = "Updating container"
@@ -124,7 +125,7 @@ class ContainerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         messages.success(self.request, "Container crated!")
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data()
         context["title"] = "GRM New container"
         context["subtitle"] = "Creating new container"
@@ -143,7 +144,7 @@ class ContainerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
         messages.warning(self.request, "Container deleted!")
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM container delete"
         context["subtitle"] = "Delete container"

@@ -31,7 +31,7 @@ class Container(models.Model):
         return f"{self.name}"
 
 
-def get_main_container():
+def get_main_container() -> Container:
     return Container.objects.get(name="Main core")
 
 
