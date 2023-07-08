@@ -1,4 +1,4 @@
-from API.serializers.equipment_serializer import (
+from api.serializers.equipment_serializer import (
     BIGSerializer,
     CannulaSerializer,
     NeedleSerializer,

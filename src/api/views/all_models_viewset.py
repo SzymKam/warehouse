@@ -1,4 +1,4 @@
-from API.serializers.equipment_serializer import (
+from api.serializers.equipment_serializer import (
     MedicalEquipmentSerializer,
     DrugSerializer,
     FluidSerializer,
@@ -39,7 +39,7 @@ from containers.models import (
 from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from rest_framework.exceptions import ValidationError
-from API.constants import name_to_serializer
+from api.constants import name_to_serializer
 
 
 class EquipmentViewSetMixin(
@@ -56,92 +56,92 @@ class EquipmentViewSetMixin(
         super().perform_update(serializer)
 
     @staticmethod
-    def validate_name_for_update(serializer):
+    def validate_name_for_update(serializer) -> None:
         if "name" in serializer.validated_data.keys():
             if serializer.validated_data["name"] not in name_to_serializer().keys():
                 raise ValidationError("Invalid name")
 
 
-class MedicalEquipmentViewset(EquipmentViewSetMixin):
+class MedicalEquipmentViewSet(EquipmentViewSetMixin):
     serializer_class = MedicalEquipmentSerializer
     queryset = MedicalEquipment.objects.all()
 
 
-class DrugViewset(EquipmentViewSetMixin):
+class DrugViewSet(EquipmentViewSetMixin):
     serializer_class = DrugSerializer
     queryset = Drug.objects.all()
 
 
-class FluidViewset(EquipmentViewSetMixin):
+class FluidViewSet(EquipmentViewSetMixin):
     serializer_class = FluidSerializer
     queryset = Fluid.objects.all()
 
 
-class CannulaViewset(EquipmentViewSetMixin):
+class CannulaViewSet(EquipmentViewSetMixin):
     serializer_class = CannulaSerializer
     queryset = Cannula.objects.all()
 
 
-class NeedleViewset(EquipmentViewSetMixin):
+class NeedleViewSet(EquipmentViewSetMixin):
     serializer_class = NeedleSerializer
     queryset = Needle.objects.all()
 
 
-class SyringeViewset(EquipmentViewSetMixin):
+class SyringeViewSet(EquipmentViewSetMixin):
     serializer_class = SyringeSerializer
     queryset = Syringe.objects.all()
 
 
-class BIGViewset(EquipmentViewSetMixin):
+class BIGViewSet(EquipmentViewSetMixin):
     serializer_class = BIGSerializer
     queryset = BIG.objects.all()
 
 
-class LtTubeViewset(EquipmentViewSetMixin):
+class LtTubeViewSet(EquipmentViewSetMixin):
     serializer_class = LtTubeSerializer
     queryset = LtTube.objects.all()
 
 
-class GlovesViewset(EquipmentViewSetMixin):
+class GlovesViewSet(EquipmentViewSetMixin):
     serializer_class = GlovesSerializer
     queryset = Gloves.objects.all()
 
 
-class SterileGlovesViewset(EquipmentViewSetMixin):
+class SterileGlovesViewSet(EquipmentViewSetMixin):
     serializer_class = SterileGlovesSerializer
     queryset = SterileGloves.objects.all()
 
 
-class GauzeViewset(EquipmentViewSetMixin):
+class GauzeViewSet(EquipmentViewSetMixin):
     serializer_class = GauzeSerializer
     queryset = Gauze.objects.all()
 
 
-class NasopharyngealTubeViewset(EquipmentViewSetMixin):
+class NasopharyngealTubeViewSet(EquipmentViewSetMixin):
     serializer_class = NasopharyngealTubeSerializer
     queryset = NasopharyngealTube.objects.all()
 
 
-class OropharyngealTubeViewset(EquipmentViewSetMixin):
+class OropharyngealTubeViewSet(EquipmentViewSetMixin):
     serializer_class = OropharyngealTubeSerializer
     queryset = OropharyngealTube.objects.all()
 
 
-class EndotrachealTubeViewset(EquipmentViewSetMixin):
+class EndotrachealTubeViewSet(EquipmentViewSetMixin):
     serializer_class = EndotrachealTubeSerializer
     queryset = EndotrachealTube.objects.all()
 
 
-class LaryngoscopeBladeViewset(EquipmentViewSetMixin):
+class LaryngoscopeBladeViewSet(EquipmentViewSetMixin):
     serializer_class = LaryngoscopeBladeSerializer
     queryset = LaryngoscopeBlade.objects.all()
 
 
-class OxygenMaskViewset(EquipmentViewSetMixin):
+class OxygenMaskViewSet(EquipmentViewSetMixin):
     serializer_class = OxygenMaskSerializer
     queryset = OxygenMask.objects.all()
 
 
-class VentilationMaskViewset(EquipmentViewSetMixin):
+class VentilationMaskViewSet(EquipmentViewSetMixin):
     serializer_class = VentilationMaskSerializer
     queryset = VentilationMask.objects.all()

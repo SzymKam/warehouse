@@ -1,13 +1,13 @@
 from rest_framework.response import Response
 
-from API.serializers.containers_serializer import (
+from api.serializers.containers_serializer import (
     ContainerSerializer,
     DetailContainerSerializer,
 )
 from containers.models import Container
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from rest_framework.viewsets import ModelViewSet
-from API.constants import allowed_containers_name
+from api.constants import allowed_containers_name
 from rest_framework.exceptions import ValidationError
 
 

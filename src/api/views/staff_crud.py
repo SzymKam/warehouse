@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from API.serializers.staff_serializer import StaffSerializer
+from api.serializers.staff_serializer import StaffSerializer
 from staff.models import StaffModel
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 

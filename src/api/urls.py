@@ -3,30 +3,30 @@ from django.urls import path
 from rest_framework.schemas import get_schema_view
 from rest_framework.routers import SimpleRouter
 
-from API.views.containers_crud_API import ContainersViewSet
-from API.views.equipment_crud_API import (
+from api.views.containers_crud import ContainersViewSet
+from api.views.equipment_crud import (
     EquipmentViewSet,
 )
-from API.views.all_models_viewset import (
-    DrugViewset,
-    MedicalEquipmentViewset,
-    FluidViewset,
-    CannulaViewset,
-    NeedleViewset,
-    SyringeViewset,
-    BIGViewset,
-    LtTubeViewset,
-    GlovesViewset,
-    SterileGlovesViewset,
-    GauzeViewset,
-    NasopharyngealTubeViewset,
-    OropharyngealTubeViewset,
-    EndotrachealTubeViewset,
-    LaryngoscopeBladeViewset,
-    OxygenMaskViewset,
-    VentilationMaskViewset,
+from api.views.all_models_viewset import (
+    DrugViewSet,
+    MedicalEquipmentViewSet,
+    FluidViewSet,
+    CannulaViewSet,
+    NeedleViewSet,
+    SyringeViewSet,
+    BIGViewSet,
+    LtTubeViewSet,
+    GlovesViewSet,
+    SterileGlovesViewSet,
+    GauzeViewSet,
+    NasopharyngealTubeViewSet,
+    OropharyngealTubeViewSet,
+    EndotrachealTubeViewSet,
+    LaryngoscopeBladeViewSet,
+    OxygenMaskViewSet,
+    VentilationMaskViewSet,
 )
-from .views.staff_crud_API import StaffViewSet
+from .views.staff_crud import StaffViewSet
 
 
 router = SimpleRouter()
@@ -34,37 +34,37 @@ router.register(r"staffs", StaffViewSet)
 router.register(r"containers", ContainersViewSet)
 router.register(r"equipment", EquipmentViewSet, basename="equipment")
 
-router.register(r"drug", DrugViewset)
-router.register(r"medical-equipment", MedicalEquipmentViewset)
-router.register(r"fluid", FluidViewset)
-router.register(r"cannula", CannulaViewset)
-router.register(r"needle", NeedleViewset)
-router.register(r"syringe", SyringeViewset)
-router.register(r"big", BIGViewset)
-router.register(r"lt-tube", LtTubeViewset)
-router.register(r"gloves", GlovesViewset)
-router.register(r"sterile-gloves", SterileGlovesViewset)
-router.register(r"gauze", GauzeViewset)
-router.register(r"npa-tube", NasopharyngealTubeViewset)
-router.register(r"opa-tube", OropharyngealTubeViewset)
-router.register(r"et-tube", EndotrachealTubeViewset)
-router.register(r"laryngoscope-blade", LaryngoscopeBladeViewset)
-router.register(r"oxygen-mask", OxygenMaskViewset)
-router.register(r"ventilation-mask", VentilationMaskViewset)
+router.register(r"drug", DrugViewSet)
+router.register(r"medical-equipment", MedicalEquipmentViewSet)
+router.register(r"fluid", FluidViewSet)
+router.register(r"cannula", CannulaViewSet)
+router.register(r"needle", NeedleViewSet)
+router.register(r"syringe", SyringeViewSet)
+router.register(r"big", BIGViewSet)
+router.register(r"lt-tube", LtTubeViewSet)
+router.register(r"gloves", GlovesViewSet)
+router.register(r"sterile-gloves", SterileGlovesViewSet)
+router.register(r"gauze", GauzeViewSet)
+router.register(r"npa-tube", NasopharyngealTubeViewSet)
+router.register(r"opa-tube", OropharyngealTubeViewSet)
+router.register(r"et-tube", EndotrachealTubeViewSet)
+router.register(r"laryngoscope-blade", LaryngoscopeBladeViewSet)
+router.register(r"oxygen-mask", OxygenMaskViewSet)
+router.register(r"ventilation-mask", VentilationMaskViewSet)
 
 
 urlpatterns = [
     path(
         "openapi",
         get_schema_view(
-            title="Your Project", description="API for all things …", version="1.0.0"
+            title="Your Project", description="api for all things …", version="1.0.0"
         ),
         name="openapi-schema",
     ),
     path(
         "redoc/",
         TemplateView.as_view(
-            template_name="API/redoc.html",
+            template_name="api/redoc.html",
             extra_context={"schema_url": "openapi-schema"},
         ),
         name="redoc",

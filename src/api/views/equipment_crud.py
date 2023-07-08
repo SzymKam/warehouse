@@ -1,13 +1,14 @@
 from rest_framework.response import Response
-from API.serializers.equipment_serializer import (
+from api.serializers.equipment_serializer import (
     AllEquipmentSerializer,
 )
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
-from API.constants import name_to_serializer
+from api.constants import name_to_serializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import CreateModelMixin
 from containers.models import MedicalEquipment
+from typing import Any
 
 
 class EquipmentViewSet(GenericViewSet, CreateModelMixin):
@@ -15,12 +16,12 @@ class EquipmentViewSet(GenericViewSet, CreateModelMixin):
     serializer_class = AllEquipmentSerializer
     queryset = MedicalEquipment.objects.all()
 
-    def list(self, request):
+    def list(self, request) -> Any:
         serializer = AllEquipmentSerializer(instance={}, many=False)
         return Response(serializer.data)
 
     @staticmethod
-    def get_class_serializer(name_value):
+    def get_class_serializer(name_value: str) -> Any:
         serializer_dict = name_to_serializer()
         try:
             serializer = serializer_dict[name_value]
