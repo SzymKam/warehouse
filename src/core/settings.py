@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 INSTALLED_EXTENSIONS = [
     "containers",
     "staff",
-    "API",
+    "api",
     "crispy_forms",
     "crispy_bootstrap4",
     "weasyprint",
