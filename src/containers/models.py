@@ -32,7 +32,7 @@ class Container(models.Model):
 
 
 def get_main_container() -> Container:
-    return Container.objects.get(name="Main core")
+    return Container.objects.get(name="Main warehouse")
 
 
 class BaseMedicalEquipment(models.Model):

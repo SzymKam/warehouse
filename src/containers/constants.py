@@ -240,7 +240,7 @@ MEDICAL_EQUIPMENT_EQUIPMENT_TYPE_CHOICES = [
 
 CONTAINER_NAME_CHOICES = sorted(
     [
-        ("Main core", "Main core"),
+        ("Main warehouse", "Main warehouse"),
         ("Trauma Wall - ALS", "Trauma Wall - ALS"),
         ("Trauma Wall - hospital", "Trauma Wall - hospital"),
         ("Backpack - ALS", "Backpack - ALS"),
