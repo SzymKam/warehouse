@@ -21,7 +21,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("containers.urls")),
     path("staff/", include("staff.urls")),
-    path("API/", include("API.urls")),
+    path("api/", include("api.urls")),
 ]
 
 handler403 = "containers.views.error_403.error_403"
