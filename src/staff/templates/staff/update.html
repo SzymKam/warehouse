@@ -1,0 +1,33 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Update profile {{user}}</h1>
+                            </div>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <input type="submit" value="Submit">
+                            </form>
+                            <hr>
+                            <h6>Reset password? <a href="{% url 'reset-password' %}">Click here</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+{% endblock %}

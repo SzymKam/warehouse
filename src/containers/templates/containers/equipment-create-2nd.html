@@ -1,0 +1,20 @@
+{% extends 'containers/base.html' %}
+    {% load crispy_forms_tags %}
+    {% block content %}
+    {% if form %}
+    <main>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Select detail of {{name}}:</h6>
+            </div>
+            <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                    {{ form | crispy }}
+                <button type="submit">Add equipment</button>
+            </form>
+            </div>
+        </div>
+    </main>
+    {% endif %}
+{% endblock %}

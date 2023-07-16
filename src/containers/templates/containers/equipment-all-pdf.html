@@ -1,0 +1,72 @@
+{% extends 'containers/base-pdf.html' %}
+{% block content %}
+    <h3>List of all medical equipment of GRM PCK</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size / Form</th>
+                    <th>Amount</th>
+                    <th>Expiration date</th>
+                    <th>Expiration days</th>
+                    <th>Description</th>
+                    <th>Container</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for queryset in object_list %}
+                {% for element in queryset %}
+                <tr>
+                    {% if element.name %}
+                        <td><b>{{ element.name }}</b></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.dosage_form %}
+                        <td>{{element.dosage_form}}</td>
+                    {% elif element.volume %}
+                        <td>{{element.volume}}</td>
+                    {% elif element.size %}
+                        <td>{{element.size}}</td>
+                    {% elif element.type %}
+                        <td>{{element.type}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.amount %}
+                        <td>{{ element.amount }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.expiration_date %}
+                        <td>{{ element.expiration_date }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.expiration_days %}
+                        <td>{{ element.expiration_days }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.description %}
+                        <td>{{ element.description }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    {% if element.container %}
+                        <td>{{ element.container }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
