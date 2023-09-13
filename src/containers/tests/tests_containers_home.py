@@ -1,5 +1,5 @@
 import secrets
-from django.test import TestCase, Client
+from django.test import TestCase, Client, tag
 from django.urls import reverse
 from django.contrib.auth.models import Permission
 from rest_framework import status
@@ -33,7 +33,7 @@ class ContainersHomeTest(TestCase):
             Permission.objects.get(codename="delete_container")
         )
 
-        self.container_1 = Container.objects.create(name="Main core")
+        self.container_1 = Container.objects.create(name="Warehouse")
         self.container_2 = Container.objects.create(name="Trauma Wall - ALS")
 
     def test_get_not_logged_user_return_302(self) -> None:
@@ -46,12 +46,12 @@ class ContainersHomeTest(TestCase):
         self.client.force_login(self.user_1)
 
         response = self.client.get(path=reverse(DETAIL_URL))
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
-        self.assertEqual(len(response.context["object_list"]), 2)
-        self.assertEqual(response.context["object_list"][0].name, self.container_1.name)
-        self.assertEqual(response.context["object_list"][1].name, self.container_2.name)
+        self.assertEqual(len(response.context["object_list"]), 3)
+        self.assertEqual(response.context["object_list"][0].name, "Main warehouse")
+        self.assertEqual(response.context["object_list"][1].name, self.container_1.name)
+        self.assertEqual(response.context["object_list"][2].name, self.container_2.name)
         self.assertTemplateUsed("containers/containers-list.html")
 
     def test_get_logged_user_have_permissions_return_200(self) -> None:
@@ -61,9 +61,10 @@ class ContainersHomeTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
-        self.assertEqual(len(response.context["object_list"]), 2)
-        self.assertEqual(response.context["object_list"][0].name, self.container_1.name)
-        self.assertEqual(response.context["object_list"][1].name, self.container_2.name)
+        self.assertEqual(len(response.context["object_list"]), 3)
+        self.assertEqual(response.context["object_list"][0].name, "Main warehouse")
+        self.assertEqual(response.context["object_list"][1].name, self.container_1.name)
+        self.assertEqual(response.context["object_list"][2].name, self.container_2.name)
         self.assertTemplateUsed("containers/containers-list.html")
 
     def test_post_not_logged_user_return_302(self) -> None:
