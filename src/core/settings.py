@@ -96,7 +96,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "GRM_PCK_DB",
+        "NAME": "warehouse_db",
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
         "HOST": "127.0.0.1",

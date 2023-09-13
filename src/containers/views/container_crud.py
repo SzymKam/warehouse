@@ -135,7 +135,6 @@ class ContainerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class ContainerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "containers.delete_container"
     permission_denied_message = "Only medical magazine admins can delete containers"
-    login_url = "main-page"
     template_name = "containers/containers-delete.html"
     model = Container
     success_url = reverse_lazy("containers-home")

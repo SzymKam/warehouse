@@ -14,7 +14,7 @@ class TestContainersResponse(TestCase):
         self.user = StaffModel.objects.create(
             username="nimda", password=secrets.token_hex(nbytes=10)
         )
-        self.container_1 = Container.objects.create(name="Main core")
+        self.container_1 = Container.objects.create(name="Warehouse")
         self.container_2 = Container.objects.create(name="Special/Other")
 
     def test_get_not_logged_user_return_403(self):
@@ -32,13 +32,14 @@ class TestContainersResponse(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
-        self.assertEqual(len(response.data), 2)
-        self.assertEqual(response.data[0]["name"], self.container_1.name)
-        self.assertEqual(response.data[1]["name"], self.container_2.name)
-        self.assertEqual(response.data[0]["id"], self.container_1.id)
-        self.assertEqual(response.data[1]["id"], self.container_2.id)
-        self.assertEqual(response.data[0]["description"], self.container_1.description)
-        self.assertEqual(response.data[1]["description"], self.container_2.description)
+        self.assertEqual(len(response.data), 3)
+        self.assertEqual(response.data[0]["name"], "Main warehouse")
+        self.assertEqual(response.data[1]["name"], self.container_1.name)
+        self.assertEqual(response.data[2]["name"], self.container_2.name)
+        self.assertEqual(response.data[1]["id"], self.container_1.id)
+        self.assertEqual(response.data[2]["id"], self.container_2.id)
+        self.assertEqual(response.data[1]["description"], self.container_1.description)
+        self.assertEqual(response.data[2]["description"], self.container_2.description)
 
     def test_post_logged_have_permissions_user_container_name_in_list_create_container(
         self,

@@ -130,7 +130,7 @@ def allowed_containers_name() -> list[str]:
     api_name_choices = []
     for name, _ in CONTAINER_NAME_CHOICES:
         api_name_choices.append(name)
-    api_name_choices.remove("Main core")
+    api_name_choices.remove("Main warehouse")
     return api_name_choices
 
 
