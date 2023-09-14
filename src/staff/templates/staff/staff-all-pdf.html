@@ -1,69 +1,57 @@
-{% extends 'containers/base-pdf.html' %}
-{% block content %}
-            <style>
-                @page {
-                    size: landscape;
-                }
-            </style>
-            <h3>List of staff</h3>
-            <table>
-                <thead>
-                   <tr>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Nickname</th>
-                        <th>Qualifications</th>
-                        <th>Expiration date</th>
-                        <th>Position</th>
-                        <th>Email</th>
-                   </tr>
-                </thead>
-                <tbody>
-                    {% for person in object_list %}
-                    <tr>
-                        {% if person.first_name %}
-                            <td>{{ person.first_name }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
+{% extends 'containers/base-pdf.html' %} {% block content %}
 
-                        {% if person.last_name %}
-                            <td><b>{{ person.last_name }}</b></td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if person.username %}
-                            <td>{{ person.username }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if person.medical_qualifications %}
-                            <td>{{ person.medical_qualifications }}</td>
-                         {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if person.qualifications_expiration_date %}
-                            <td>{{ person.qualifications_expiration_date }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if person.position %}
-                            <td>{{ person.position }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if person.email %}
-                            <td>{{ person.email }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<style>
+  @page {
+    size: landscape;
+  }
+</style>
+<h3>List of staff</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Nickname</th>
+      <th>Qualifications</th>
+      <th>Expiration date</th>
+      <th>Position</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in object_list %}
+    <tr>
+      {% if person.first_name %}
+      <td>{{ person.first_name }}</td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.last_name %}
+      <td><b>{{ person.last_name }}</b></td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.username %}
+      <td>{{ person.username }}</td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.medical_qualifications %}
+      <td>{{ person.medical_qualifications }}</td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.qualifications_expiration_date %}
+      <td>{{ person.qualifications_expiration_date }}</td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.position %}
+      <td>{{ person.position }}</td>
+      {% else %}
+      <td></td>
+      {% endif %} {% if person.email %}
+      <td>{{ person.email }}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

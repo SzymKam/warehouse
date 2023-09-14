@@ -1,33 +1,28 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %} {% block
+content %}
 
 <body class="bg-gradient-primary">
-
-    <div class="container">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Add new person!</h1>
-                            </div>
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                {{ form|crispy }}
-                                <input type="submit" value="Add new user">
-                            </form>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Add new person!</h1>
+              </div>
+              <form action="" method="POST">
+                {% csrf_token %} {{ form|crispy }}
+                <input type="submit" value="Add new user" />
+              </form>
+              <hr />
             </div>
+          </div>
         </div>
-
+      </div>
     </div>
+  </div>
 </body>
 
-    {% endblock %}
+{% endblock %}
