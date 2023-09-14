@@ -1,272 +1,280 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %} {% block
+content %}
 <main>
-    <div class="container-fluid">
-        <!-- Page Heading -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">ALS backpack - standard equipment</h6>
-            </div>
-            <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Size / Form</th>
-                                            <th>Amount</th>
-                                            <th>Pocket</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Glucometer</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small upper side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Glucometer strips</td>
-                                            <td></td>
-                                            <td>10</td>
-                                            <td>Small upper side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Diagnostic flashlight</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small upper side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thermometer</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small upper side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pressure gauge</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small upper side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sharps disposal containers</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small lower side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Waste bags</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Small lower side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Infusion set</td>
-                                            <td></td>
-                                            <td>3</td>
-                                            <td>Large side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Glucose 5%</td>
-                                            <td>100ml</td>
-                                            <td>1</td>
-                                            <td>Large side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>NaCl 0.9%</td>
-                                            <td>100ml</td>
-                                            <td>1</td>
-                                            <td>Large side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Optilyte</td>
-                                            <td>500ml</td>
-                                            <td>1</td>
-                                            <td>Large side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Plasmalyte</td>
-                                            <td>500ml</td>
-                                            <td>1</td>
-                                            <td>Large side pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alcohol swabs</td>
-                                            <td></td>
-                                            <td>Dozen</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Yellow - 24G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Blue - 22G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Pink - 20G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Green - 18G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Gray - 16G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula</td>
-                                            <td>Orange - 14G</td>
-                                            <td>3</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Needle</td>
-                                            <td>"Blue - 0.6mm</td>
-                                            <td>10</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Needle</td>
-                                            <td>Green - 0.8mm</td>
-                                            <td>10</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Needle</td>
-                                            <td>Pink - 1.2mm</td>
-                                            <td>20</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>BIG</td>
-                                            <td>Red - child</td>
-                                            <td>1</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>BIG</td>
-                                            <td>Blue - adult</td>
-                                            <td>1</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                         <tr>
-                                            <td>Syringe</td>
-                                            <td>2ml</td>
-                                            <td>5</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Syringe</td>
-                                            <td>5ml</td>
-                                            <td>5</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Syringe</td>
-                                            <td>10ml</td>
-                                            <td>5</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Syringe</td>
-                                            <td>20ml</td>
-                                            <td>5</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cannula fixation tape</td>
-                                            <td></td>
-                                            <td>10</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Medical tourniquet</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Skin disinfectant</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3-way stopcock</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Front pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quicktrach</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Magill forceps</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Spatula</td>
-                                            <td>Several</td>
-                                            <td>1</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Intubation style</td>
-                                            <td></td>
-                                            <td>2</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Laryngoscope + blades</td>
-                                            <td></td>
-                                            <td>1</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ET tube </td>
-                                            <td></td>
-                                            <td>2</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Intubation style</td>
-                                            <td></td>
-                                            <td>2</td>
-                                            <td>Inside pocket</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-            </div>
-            <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf-no-id' element='als_backpack' %}" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-down"></i>
-                                        </span>
-                                        <span class="text">Save to PDF</span>
-                                    </a>
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+          ALS backpack - standard equipment
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size / Form</th>
+                <th>Amount</th>
+                <th>Pocket</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Glucometer</td>
+                <td></td>
+                <td>1</td>
+                <td>Small upper side pocket</td>
+              </tr>
+              <tr>
+                <td>Glucometer strips</td>
+                <td></td>
+                <td>10</td>
+                <td>Small upper side pocket</td>
+              </tr>
+              <tr>
+                <td>Diagnostic flashlight</td>
+                <td></td>
+                <td>1</td>
+                <td>Small upper side pocket</td>
+              </tr>
+              <tr>
+                <td>Thermometer</td>
+                <td></td>
+                <td>1</td>
+                <td>Small upper side pocket</td>
+              </tr>
+              <tr>
+                <td>Pressure gauge</td>
+                <td></td>
+                <td>1</td>
+                <td>Small upper side pocket</td>
+              </tr>
+              <tr>
+                <td>Sharps disposal containers</td>
+                <td></td>
+                <td>1</td>
+                <td>Small lower side pocket</td>
+              </tr>
+              <tr>
+                <td>Waste bags</td>
+                <td></td>
+                <td>1</td>
+                <td>Small lower side pocket</td>
+              </tr>
+              <tr>
+                <td>Infusion set</td>
+                <td></td>
+                <td>3</td>
+                <td>Large side pocket</td>
+              </tr>
+              <tr>
+                <td>Glucose 5%</td>
+                <td>100ml</td>
+                <td>1</td>
+                <td>Large side pocket</td>
+              </tr>
+              <tr>
+                <td>NaCl 0.9%</td>
+                <td>100ml</td>
+                <td>1</td>
+                <td>Large side pocket</td>
+              </tr>
+              <tr>
+                <td>Optilyte</td>
+                <td>500ml</td>
+                <td>1</td>
+                <td>Large side pocket</td>
+              </tr>
+              <tr>
+                <td>Plasmalyte</td>
+                <td>500ml</td>
+                <td>1</td>
+                <td>Large side pocket</td>
+              </tr>
+              <tr>
+                <td>Alcohol swabs</td>
+                <td></td>
+                <td>Dozen</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Yellow - 24G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Blue - 22G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Pink - 20G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Green - 18G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Gray - 16G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula</td>
+                <td>Orange - 14G</td>
+                <td>3</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Needle</td>
+                <td>"Blue - 0.6mm</td>
+                <td>10</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Needle</td>
+                <td>Green - 0.8mm</td>
+                <td>10</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Needle</td>
+                <td>Pink - 1.2mm</td>
+                <td>20</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>BIG</td>
+                <td>Red - child</td>
+                <td>1</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>BIG</td>
+                <td>Blue - adult</td>
+                <td>1</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Syringe</td>
+                <td>2ml</td>
+                <td>5</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Syringe</td>
+                <td>5ml</td>
+                <td>5</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Syringe</td>
+                <td>10ml</td>
+                <td>5</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Syringe</td>
+                <td>20ml</td>
+                <td>5</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Cannula fixation tape</td>
+                <td></td>
+                <td>10</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Medical tourniquet</td>
+                <td></td>
+                <td>1</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Skin disinfectant</td>
+                <td></td>
+                <td>1</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>3-way stopcock</td>
+                <td></td>
+                <td>1</td>
+                <td>Front pocket</td>
+              </tr>
+              <tr>
+                <td>Quicktrach</td>
+                <td></td>
+                <td>1</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>Magill forceps</td>
+                <td></td>
+                <td>1</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>Spatula</td>
+                <td>Several</td>
+                <td>1</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>Intubation style</td>
+                <td></td>
+                <td>2</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>Laryngoscope + blades</td>
+                <td></td>
+                <td>1</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>ET tube</td>
+                <td></td>
+                <td>2</td>
+                <td>Inside pocket</td>
+              </tr>
+              <tr>
+                <td>Intubation style</td>
+                <td></td>
+                <td>2</td>
+                <td>Inside pocket</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div class="my-2"></div>
+      <a
+        href="{% url 'save-pdf-no-id' element='als_backpack' %}"
+        class="btn btn-secondary btn-icon-split"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-down"></i>
+        </span>
+        <span class="text">Save to PDF</span>
+      </a>
     </div>
-    </main>
+  </div>
+</main>
 {% endblock %}

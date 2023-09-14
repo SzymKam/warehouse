@@ -1,121 +1,131 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %} {% block
+content %}
+
 <main>
-    <div class="container-fluid">
-        <!-- Page Heading -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">R1 bag - additional equipment</h6>
-            </div>
-            <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Size / Form</th>
-                                            <th>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>KPP card</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paracetamol</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ketonal</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ibuprofen</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pyralgin</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ASA</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>No-Spa</td>
-                                            <td>Pills</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>NaCl 0.9%</td>
-                                            <td>10ml</td>
-                                            <td>10</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Icemix</td>
-                                            <td>Areosol</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Scissors</td>
-                                            <td></td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Adhesive tape</td>
-                                            <td></td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Plaster for wound</td>
-                                            <td></td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gauze - single</td>
-                                            <td></td>
-                                            <td>10</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Non-sterile swabs</td>
-                                            <td></td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Octenisept</td>
-                                            <td></td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Elastic bandage</td>
-                                            <td></td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Knitted bandage</td>
-                                            <td></td>
-                                            <td>2</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-            </div>
-            <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf-no-id' element='r1_additions' %}" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-down"></i>
-                                        </span>
-                                        <span class="text">Save to PDF</span>
-                                    </a>
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+          R1 bag - additional equipment
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size / Form</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>KPP card</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Paracetamol</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Ketonal</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Ibuprofen</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Pyralgin</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>ASA</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>No-Spa</td>
+                <td>Pills</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>NaCl 0.9%</td>
+                <td>10ml</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>Icemix</td>
+                <td>Areosol</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Scissors</td>
+                <td></td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Adhesive tape</td>
+                <td></td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Plaster for wound</td>
+                <td></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Gauze - single</td>
+                <td></td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>Non-sterile swabs</td>
+                <td></td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Octenisept</td>
+                <td></td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Elastic bandage</td>
+                <td></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Knitted bandage</td>
+                <td></td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div class="my-2"></div>
+      <a
+        href="{% url 'save-pdf-no-id' element='r1_additions' %}"
+        class="btn btn-secondary btn-icon-split"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-down"></i>
+        </span>
+        <span class="text">Save to PDF</span>
+      </a>
     </div>
-    </main>
+  </div>
+</main>
 {% endblock %}
