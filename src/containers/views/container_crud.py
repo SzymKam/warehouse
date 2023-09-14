@@ -31,6 +31,7 @@ from containers.models import (
     VentilationMask,
 )
 from typing import Any
+from ..models import get_main_container
 
 MODEL_LIST = [
     MedicalEquipment,
@@ -64,6 +65,7 @@ class ContainerView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Containers"
         context["subtitle"] = "Containers"
+        context["main"] = get_main_container().id
         return context
 
 
