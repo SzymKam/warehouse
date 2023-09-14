@@ -22,8 +22,8 @@
           <span class="text">Add equipment</span>
         </a>
       </li>
-      {% endif %} {% if container.name != "Main warehouse" %} {% if
-      perms.containers.change_container %}
+      {% endif %} {% if container.name != "Main warehouse" %}
+      {% if perms.containers.change_container %}
       <li>
         <a
           href="{% url 'containers-update' pk=container.id %} "
@@ -105,14 +105,13 @@
                 <td>{{ element.expiration_date }}</td>
                 {% else %}
                 <td></td>
-                {% endif %} {% if element.expiration_days <= 60 and
-                element.expiration_days > 30 %}
+                {% endif %}
+                {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
                 <td class="exp" bgcolor="yellow">
                   {{ element.expiration_days }}
                 </td>
 
-                {% elif element.expiration_days <= 30 and
-                element.expiration_days > 0 %}
+                {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
                 <td class="exp" bgcolor="orange">
                   {{ element.expiration_days }}
                 </td>
@@ -122,7 +121,8 @@
 
                 {% else %}
                 <td>{{ element.expiration_days }}</td>
-                {% endif %} {% if element.description %}
+                {% endif %}
+                {% if element.description %}
                 <td>{{ element.description }}</td>
                 {% else %}
                 <td></td>
@@ -168,8 +168,5 @@
       </a>
     </div>
   </div>
-
-  <!-- /.container-fluid -->
-  <!-- End of Main Content -->
 </main>
 {% endblock %}

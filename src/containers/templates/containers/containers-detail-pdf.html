@@ -1,5 +1,5 @@
-{% extends 'containers/base-pdf.html' %} {% block content %} {% if
-object_list.container %} {% for container in object_list.container %}
+{% extends 'containers/base-pdf.html' %} {% block content %}
+{% if object_list.container %} {% for container in object_list.container %}
 <h3>Equipment list of: {{container.name}}</h3>
 {% endfor %} {% endif %}
 <table>
