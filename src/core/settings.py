@@ -99,7 +99,7 @@ DATABASES = {
         "NAME": "warehouse_db",
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
-        "HOST": "127.0.0.1",
+        "HOST": env("HOST"),
         "PORT": "5432",
     }
 }
