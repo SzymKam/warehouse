@@ -89,9 +89,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="ventilation_mask",
                         to="containers.container",
                     ),
@@ -152,9 +154,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="syringe",
                         to="containers.container",
                     ),
@@ -215,9 +219,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="sterile_gloves",
                         to="containers.container",
                     ),
@@ -280,9 +286,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="oxygen_mask",
                         to="containers.container",
                     ),
@@ -345,9 +353,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="oropharyngeal_tube",
                         to="containers.container",
                     ),
@@ -408,9 +418,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="needle",
                         to="containers.container",
                     ),
@@ -474,9 +486,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="nasopharyngeal_tube",
                         to="containers.container",
                     ),
@@ -522,9 +536,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="medical_equipment",
                         to="containers.container",
                     ),
@@ -585,9 +601,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="lt_tube",
                         to="containers.container",
                     ),
@@ -647,9 +665,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="laryngoscope_blade",
                         to="containers.container",
                     ),
@@ -708,9 +728,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="gloves",
                         to="containers.container",
                     ),
@@ -767,9 +789,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="gauze",
                         to="containers.container",
                     ),
@@ -831,9 +855,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="fluid",
                         to="containers.container",
                     ),
@@ -903,9 +929,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="endotracheal_tube",
                         to="containers.container",
                     ),
@@ -1042,9 +1070,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="drug",
                         to="containers.container",
                     ),
@@ -1106,9 +1136,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="cannula",
                         to="containers.container",
                     ),
@@ -1164,9 +1196,11 @@ class Migration(migrations.Migration):
                     "container",
                     models.ForeignKey(
                         blank=True,
-                        default=containers.models.get_main_container,
+                        default=containers.models.Container.get_main_container,
                         null=True,
-                        on_delete=models.SET(containers.models.get_main_container),
+                        on_delete=models.SET(
+                            containers.models.Container.get_main_container
+                        ),
                         related_name="big",
                         to="containers.container",
                     ),

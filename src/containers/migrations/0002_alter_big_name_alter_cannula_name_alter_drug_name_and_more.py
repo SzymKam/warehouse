@@ -2112,9 +2112,9 @@ class Migration(migrations.Migration):
             name="container",
             field=models.ForeignKey(
                 blank=True,
-                default=containers.models.get_main_container,
+                default=containers.models.Container.get_main_container,
                 null=True,
-                on_delete=models.SET(containers.models.get_main_container),
+                on_delete=models.SET(containers.models.Container.get_main_container),
                 related_name="medical_equipment",
                 to="containers.container",
             ),
