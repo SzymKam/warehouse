@@ -1,8 +1,10 @@
-from typing import Type
-from django.forms import modelformset_factory, ModelForm, BaseModelFormSet
 import inspect
-from containers import models
+from typing import Type
+
+from django.forms import modelformset_factory, ModelForm, BaseModelFormSet
 from django.forms.widgets import DateInput
+
+from containers import models
 
 
 class ContainerForm(ModelForm):
