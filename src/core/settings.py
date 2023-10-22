@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 env_file = os.path.join(BASE_DIR.parent, ".env")
-
 environ.Env.read_env(env_file)
 
 
@@ -29,8 +28,11 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "Warehouse-test-0410-env.eba-9mqbz3xu.eu-north-1.elasticbeanstalk.com",
+    ".localhost",
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -93,12 +95,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "warehouse_db",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("NAME"),
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
         "HOST": env("HOST"),
-        # "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }
@@ -159,26 +160,23 @@ LOGIN_URL = "login"
 AUTH_USER_MODEL = "staff.StaffModel"
 
 
-"""sending emails to app"""
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+"""sending email settings"""
 
-"""sending emails from server"""
+"""sending email from server"""
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.sendgrid.net"
-
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587  #  25, 587	(for unencrypted/TLS connections)
-
-# EMAIL_USE_SSL = True
-# EMAIL_PORT = 465          # 465	(for SSL connections)
+EMAIL_PORT = 587
 
 if (
     env("EMAIL_HOST_USER") is None
     and env("EMAIL_HOST_PASSWORD") is None
     and env("DEFAULT_FROM_EMAIL") is None
 ):
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    """sending emails to app"""
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
 
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
