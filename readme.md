@@ -116,16 +116,30 @@ Your Django project should now be accessible at [http://localhost:8000/].
 To enter into service you need to have user account. It's for safety reasons - information about some equipment and
 calendar access may be sensitive. In main page you have menu and information about Group calendar, links into social media (FB, Instagram).
 
+#### Main page
 ![Main page](readme_images/main_page.jpg)
 Main page - only users logged into Google account with permissions to calendar can see it.
 
-![Container page-1](readme_images/containers_view_1.jpg)
+#### Container page
+![Container page_1](readme_images/containers_view_1.jpg)
 Container list. From this page user can create new container, add equipment or downlnoad pdf list of containers.
 
-![Container page-1](readme_images/containers_view_2.jpg)
+![Container page_2](readme_images/containers_view_2.jpg)
 Creating new container. User can choose name form list and add own description.
 
+#### Equipment page
+![Equipment page_1](readme_images/equipment_1.jpg)
+Add new equipment from list
 
+![Equipment page_2](readme_images/equipment_2.jpg)
+![Equipment page_3](readme_images/equipment_3.jpg)
+Depends on name of equipment, creates different model - with specific fields.
+
+![Equipment page_4](readme_images/equipment_4.jpg)
+List of equipment from container. User can manage equipment and download equipment list of container.
+
+![Equipment page_5](readme_images/equipment_5.jpg)
+It's possible to get all equipment of all containers together.
 ## Database
 
 Overview of the database structure and models:
