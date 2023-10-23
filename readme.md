@@ -1,6 +1,5 @@
-
-
 # WAREHOUSE
+
 
 ## Table of Contents
 
@@ -36,6 +35,7 @@ app is staff management.
 - [Feature 4]: Staff - Diffrent groups of Staff - to manage containers and equipment or for staff management.
 - [Feature 5]: Save into pdf - every list (staff, containers, equipment, equipment in container) can be downloaded in pdf version.
 
+
 ## Prerequisites
 
 Ensure you have met the following requirements:
@@ -43,6 +43,7 @@ Ensure you have met the following requirements:
 - Python 3.11
 - Django 4.1.7
 - PostgreSQL 15
+
 
 ## Getting Started
 
@@ -110,6 +111,29 @@ For reset user password via email, connect to email service:
 Your Django project should now be accessible at [http://localhost:8000/].
 
 
+## Usage
+
+To enter into service you need to have user account. It's for safety reasons - information about some equipment and
+calendar access may be sensitive. In main page you have menu and information about Group calendar, links into social media (FB, Instagram).
+
+![Main page](readme_images/main_page.jpg)
+Main page - only users logged into Google account with permissions to calendar can see it.
+
+![Container page-1](readme_images/containers_view_1.jpg)
+Container list. From this page user can create new container, add equipment or downlnoad pdf list of containers.
+
+![Container page-1](readme_images/containers_view_2.jpg)
+Creating new container. User can choose name form list and add own description.
+
+
+## Database
+
+Overview of the database structure and models:
+
+- [Model 1]: UserModel -
+- [Model 2]: Container -
+
+
 
 ## Testing
 
@@ -122,7 +146,9 @@ python manage.py test
 For testing is used included in Django - Unit Test.
 Total test coverage is 99%, with 6466 Stmts and 45 Miss.
 
+
 ## Author
 
-Szymon Kamiński
+SzymKam
+
 https://github.com/SzymKam
