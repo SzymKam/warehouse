@@ -17,9 +17,7 @@ from .env import env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-env_file = os.path.join(BASE_DIR.parent, ".env")
-environ.Env.read_env(env_file)
+env.read_env(".env")
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -30,7 +28,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
     "Warehouse-test-0410-env.eba-9mqbz3xu.eu-north-1.elasticbeanstalk.com",
-    ".localhost",
+    "localhost",
     "127.0.0.1",
 ]
 
@@ -103,7 +101,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
