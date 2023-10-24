@@ -140,13 +140,21 @@ List of equipment from container. User can manage equipment and download equipme
 
 ![Equipment page_5](readme_images/equipment_5.jpg)
 It's possible to get all equipment of all containers together.
+
+![Equipment page_6](readme_images/pdf.jpg)
+List of all equipment in pdf.
 ## Database
 
 Overview of the database structure and models:
 
-- [Model 1]: UserModel -
-- [Model 2]: Container -
-
+- [Model 1]: Container - with fields: name and description. Default container is "Main warehouse" -
+auto-created when database migrate. Also, when delete other container, equipment is transferred into
+"Main warehouse".
+- [Model 2]: StaffUser - inherits from Django AbstractUser. Add additional fields (position, medical_qualifications, qualifications_expiration_date, image).
+This model is used as default AuthUserModel.
+- [Model 3]: BaseMedicalEquipment - base for medical equipment. It's not user separately. Other models inherit from it:
+Drug, MedicalEquipment, Fluid, Cannula, Needle, Syringe, BIG, LtTube, Gloves, SterileGloves, Gauze, NasopharyngealTube,
+OropharyngealTube, EndotrachealTube, LaryngoscopeBlade, OxygenMask, VentilationMask - each of them with specific fields.
 
 
 ## Testing
