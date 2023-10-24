@@ -152,7 +152,7 @@ auto-created when database migrate. Also, when delete other container, equipment
 "Main warehouse".
 - [Model 2]: StaffUser - inherits from Django AbstractUser. Add additional fields (position, medical_qualifications, qualifications_expiration_date, image).
 This model is used as default AuthUserModel.
-- [Model 3]: BaseMedicalEquipment - base for medical equipment. It's not user separately. Other models inherit from it:
+- [Model 3]: BaseMedicalEquipment - base for medical equipment. It's not used separately. Other models inherit from it:
 Drug, MedicalEquipment, Fluid, Cannula, Needle, Syringe, BIG, LtTube, Gloves, SterileGloves, Gauze, NasopharyngealTube,
 OropharyngealTube, EndotrachealTube, LaryngoscopeBlade, OxygenMask, VentilationMask - each of them with specific fields.
 
