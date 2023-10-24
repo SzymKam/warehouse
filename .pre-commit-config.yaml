@@ -2,20 +2,20 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
     hooks:
-#      - id: trailing-whitespace
-#      - id: end-of-file-fixer
-#        files: ^(?!\brequirements\.txt$)
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+        files: ^(?!\brequirements\.txt$)
       - id: check-yaml
-#      - id: check-added-large-files
-#  - repo: https://github.com/PyCQA/bandit
-#    rev: 1.7.5
-#    hooks:
-#      - id: bandit
-#  - repo: https://github.com/psf/black
-#    rev: 23.1.0
-#    hooks:
-#      - id: black
-#  - repo: https://github.com/pre-commit/mirrors-prettier
-#    rev: ""
-#    hooks:
-#      - id: prettier
+      - id: check-added-large-files
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: ""
+    hooks:
+      - id: prettier
