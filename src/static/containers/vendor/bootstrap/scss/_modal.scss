@@ -3,6 +3,7 @@
 // .modal-dialog    - positioning shell for the actual modal
 // .modal-content   - actual modal w/ bg and corners and stuff
 
+
 .modal-open {
   // Kill the scroll on the body
   overflow: hidden;
@@ -131,12 +132,8 @@
   background-color: $modal-backdrop-bg;
 
   // Fade for backdrop
-  &.fade {
-    opacity: 0;
-  }
-  &.show {
-    opacity: $modal-backdrop-opacity;
-  }
+  &.fade { opacity: 0; }
+  &.show { opacity: $modal-backdrop-opacity; }
 }
 
 // Modal header
@@ -152,8 +149,7 @@
   .close {
     padding: $modal-header-padding;
     // auto on the left force icon to the right even when there is no .modal-title
-    margin: (-$modal-header-padding-y) (-$modal-header-padding-x)
-      (-$modal-header-padding-y) auto;
+    margin: (-$modal-header-padding-y) (-$modal-header-padding-x) (-$modal-header-padding-y) auto;
   }
 }
 
@@ -229,9 +225,7 @@
     @include box-shadow($modal-content-box-shadow-sm-up);
   }
 
-  .modal-sm {
-    max-width: $modal-sm;
-  }
+  .modal-sm { max-width: $modal-sm; }
 }
 
 @include media-breakpoint-up(lg) {
@@ -242,7 +236,5 @@
 }
 
 @include media-breakpoint-up(xl) {
-  .modal-xl {
-    max-width: $modal-xl;
-  }
+  .modal-xl { max-width: $modal-xl; }
 }
