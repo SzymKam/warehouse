@@ -24,6 +24,7 @@ User can go by all containers in warehouse, create new containers
 and add equipment into containers. Project includes also pre-created
 list of equipment of different types of bags used in Group. 3rd part of
 app is staff management.
+All Create, Read, Update, Delete operations on models are available via API.
 
 ## Technologies:
 
@@ -73,6 +74,12 @@ It's possible to get all equipment of all containers together.
 
 ![Equipment page_6](readme_images/pdf.jpg)
 List of all equipment in pdf.
+
+![Api_1](readme_images/api_1.jpg)
+Example of API response of at "/api/containers/"
+
+![Api_2](readme_images/api_2.jpg)
+Example of API response of at "/api/equipment/"
 
 ## Features
 
