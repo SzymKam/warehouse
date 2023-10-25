@@ -3,13 +3,14 @@
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Technologies](#technologies)
+- [Usage](#usage)
 - [Features](#features)
-- [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Configuration](#configuration)
+  - [Run in Docker](#run-in-docker)
   - [Running the Development Server](#running-the-development-server)
-- [Usage](#usage)
 - [Database](#database)
 - [Testing](#testing)
 - [Author](#author)
