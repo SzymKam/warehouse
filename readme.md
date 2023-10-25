@@ -88,6 +88,7 @@ Example of API response of at "/api/equipment/"
 - [Feature 3]: Models - ready set of equipment. User can check what should be in, to make it in real.
 - [Feature 4]: Staff - Different groups of Staff - to manage containers and equipment or for staff management.
 - [Feature 5]: Save into pdf - every list (staff, containers, equipment, equipment in container) can be downloaded in pdf version.
+- [Feature 6]: API - CRUD operations on models are available via API.
 
 ## Getting Started
 
