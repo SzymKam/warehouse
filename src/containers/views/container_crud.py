@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 from django.views.generic import (
     ListView,
     DetailView,
@@ -6,8 +7,6 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
-from containers.models import Container
-from containers.forms import ContainerForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
@@ -30,7 +29,9 @@ from containers.models import (
     OxygenMask,
     VentilationMask,
 )
-from typing import Any
+
+from ..forms import ContainerForm
+from ..models import Container
 
 MODEL_LIST = [
     MedicalEquipment,
@@ -64,6 +65,7 @@ class ContainerView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "GRM Containers"
         context["subtitle"] = "Containers"
+        context["main"] = Container.get_main_container().id
         return context
 
 

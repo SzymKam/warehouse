@@ -1,24 +1,19 @@
-{% extends 'containers/base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %}
+{% block content %} {% if form %}
+<main>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Updating element: {{name}}
+      </h6>
+    </div>
+    <div class="card-body">
+      <form action="" method="POST">
+        {% csrf_token %} {{ form|crispy }}
+        <input type="submit" value="Update" />
+      </form>
+    </div>
+  </div>
+</main>
 
-    {% if form %}
-    <main>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Updating element: {{name}}</h6>
-            </div>
-            <div class="card-body">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                <input type="submit" value="Update">
-                </form>
-            </div>
-        </div>
-    </main>
-
-    {% endif %}
-
-
-{% endblock %}
+{% endif %} {% endblock %}

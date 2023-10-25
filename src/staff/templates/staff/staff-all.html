@@ -1,116 +1,110 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %}
+{% block content %}
 
-    <div class="container-fluid">
-        <!-- Page Heading -->
-        <p class="mb-4">List of staff.</a></p>
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <p class="mb-4">List of staff.</p>
 
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">All persons:</h6>
-            </div>
-            <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Surname</th>
-                                            <th>Nickname</th>
-                                            <th>Qualifications</th>
-                                            <th>Expiration date</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            {% if perms.staff.change_staffmodel %}
-                                            <th>Update</th>
-                                            {% endif %}
-                                            {% if perms.staff.delete_staffmodel %}
-                                            <th>Delete</th>
-                                            {% endif %}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for person in object_list %}
-                                        <tr>
-                                            {% if person.first_name %}
-                                                <td>{{ person.first_name }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.last_name %}
-                                                <td><b>{{ person.last_name }}</b></td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.username %}
-                                                <td>{{ person.username }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.medical_qualifications %}
-                                                <td>{{ person.medical_qualifications }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.qualifications_expiration_date %}
-                                                <td>{{ person.qualifications_expiration_date }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.position %}
-                                                <td>{{ person.position }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if person.email %}
-                                                <td>{{ person.email }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-
-                                            {% if perms.staff.change_staffmodel %}
-                                            <td>
-                                                <a href="{% url 'admin-update' pk=person.id %}" class="btn btn-info btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                <i class="fas fa-info-circle"></i>
-                                                </span>
-                                                <span class="text">Update</span>
-                                                </a>
-                                            </td>
-                                            {% endif %}
-                                            {% if perms.staff.delete_staffmodel %}
-                                            <td>
-                                                <a href="{% url 'delete-user' pk=person.id %}" class="btn btn-danger btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                <i class="fas fa-trash"></i>
-                                                </span>
-                                                <span class="text">Delete</span>
-                                                </a>
-                                            </td>
-                                            {% endif %}
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-
-
-                                </table>
-                            </div>
-            </div>
-            <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf-no-id' element='staff' %}" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-down"></i>
-                                        </span>
-                                        <span class="text">Save to PDF</span>
-                                    </a>
-        </div>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">All persons:</h6>
     </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Nickname</th>
+              <th>Qualifications</th>
+              <th>Expiration date</th>
+              <th>Position</th>
+              <th>Email</th>
+              {% if perms.staff.change_staffmodel %}
+              <th>Update</th>
+              {% endif %} {% if perms.staff.delete_staffmodel %}
+              <th>Delete</th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for person in object_list %}
+            <tr>
+              {% if person.first_name %}
+              <td>{{ person.first_name }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.last_name %}
+              <td><b>{{ person.last_name }}</b></td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.username %}
+              <td>{{ person.username }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.medical_qualifications %}
+              <td>{{ person.medical_qualifications }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.qualifications_expiration_date %}
+              <td>{{ person.qualifications_expiration_date }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.position %}
+              <td>{{ person.position }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if person.email %}
+              <td>{{ person.email }}</td>
+              {% else %}
+              <td></td>
+              {% endif %} {% if perms.staff.change_staffmodel %}
+              <td>
+                <a
+                  href="{% url 'admin-update' pk=person.id %}"
+                  class="btn btn-info btn-icon-split"
+                >
+                  <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                  <span class="text">Update</span>
+                </a>
+              </td>
+              {% endif %} {% if perms.staff.delete_staffmodel %}
+              <td>
+                <a
+                  href="{% url 'delete-user' pk=person.id %}"
+                  class="btn btn-danger btn-icon-split"
+                >
+                  <span class="icon text-white-50">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <span class="text">Delete</span>
+                </a>
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="my-2"></div>
+    <a
+      href="{% url 'save-pdf-no-id' element='staff' %}"
+      class="btn btn-secondary btn-icon-split"
+    >
+      <span class="icon text-white-50">
+        <i class="fas fa-arrow-down"></i>
+      </span>
+      <span class="text">Save to PDF</span>
+    </a>
+  </div>
+</div>
 {% endblock %}

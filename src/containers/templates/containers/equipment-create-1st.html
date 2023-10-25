@@ -1,32 +1,32 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %}
+{% block content %} {% if name_choices %}
 
-    {% if name_choices %}
-    <main>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Choose name of new element:</h6>
-            </div>
-            <div class="card-body">
-            <form action="" method="post">
-                <br>
-            {% csrf_token %}
-            <select name="name" id="name">
-                {% for choice in name_choices %}
-                    <optgroup label="{{choice.0}}">
-                        {% for element in choice.1 %}
-                            <option value="{{element.0}}">{{element.0}}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% endfor %}
-            </select>
-                <br><br>
-                <button type="submit">Choose</button>
-            </form>
-            </div>
-        </div>
-    {% endif %}
-    </main>
+<main>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Choose name of new element:
+      </h6>
+    </div>
+    <div class="card-body">
+      <form action="" method="post">
+        <br />
+        {% csrf_token %}
+        <select name="name" id="name">
+          {% for choice in name_choices %}
+          <optgroup label="{{choice.0}}">
+            {% for element in choice.1 %}
+            <option value="{{element.0}}">{{element.0}}</option>
+            {% endfor %}
+          </optgroup>
+          {% endfor %}
+        </select>
+        <br /><br />
+        <button type="submit">Choose</button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</main>
 
 {% endblock %}

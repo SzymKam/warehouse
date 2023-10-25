@@ -1,165 +1,172 @@
-{% extends 'containers/base.html' %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% block content %}
 <style>
- .exp {
-     color: black;
- }
+  .exp {
+    color: black;
+  }
 </style>
-    <main>
-        <!-- Begin Page Content -->
-                <div class="container-fluid">
+<main>
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <p class="mb-4">{{ container.description }}</p>
+    {% if perms.containers.add_medicalequipment %}
+    <ul>
+      <li>
+        <a
+          href="{% url 'equipment-create-1st' container=container.id %}"
+          class="btn btn-primary btn-icon-split"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-flag"></i>
+          </span>
+          <span class="text">Add equipment</span>
+        </a>
+      </li>
+      {% endif %} {% if container.name != "Main warehouse" %}
+      {% if perms.containers.change_container %}
+      <li>
+        <a
+          href="{% url 'containers-update' pk=container.id %} "
+          class="btn btn-warning btn-icon-split"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+          <span class="text">Update container</span>
+        </a>
+      </li>
+      {% endif %} {% if perms.containers.delete_container %}
+      <li>
+        <a
+          href="{% url 'containers-delete' pk=container.id %} "
+          class="btn btn-danger btn-icon-split"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-trash"></i>
+          </span>
+          <span class="text">Delete container</span>
+        </a>
+      </li>
+      {% endif %} {% endif %}
+    </ul>
 
-                    <!-- Page Heading -->
-                    <p class="mb-4">{{ container.description }}</a>.</p>
-                    {% if perms.containers.add_medicalequipment %}
-                    <ul>
-                        <li><a href="{% url 'equipment-create-1st' container=container.id %}" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-flag"></i>
-                                        </span>
-                                        <span class="text">Add equipment</span>
-                                    </a></li>
-                    {% endif %}
-                        {% if container.name != "Main warehouse" %}
-                            {% if perms.containers.change_container %}
-                            <li>  <a href="{% url 'containers-update' pk=container.id %} " class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </span>
-                                            <span class="text">Update container</span>
-                                        </a>
-                            </li>
-                            {% endif %}
-                             {% if perms.containers.delete_container %}
-                            <li><a href="{% url 'containers-delete' pk=container.id %} " class="btn btn-danger btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash"></i>
-                                            </span>
-                                            <span class="text">Delete container</span>
-                                        </a>
-                            </li>
-                        {% endif %}
-                        {% endif %}
-                    </ul>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+          Equipment list of: {{container.name}}
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size / Form</th>
+                <th>Amount</th>
+                <th>Expiration date</th>
+                <th>Expiration days</th>
+                <th>Description</th>
+                {% if perms.containers.change_medicalequipment %}
+                <th>Update element</th>
+                {% endif %} {% if perms.containers.delete_medicalequipment %}
+                <th>Delete element</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for queryset in equipment %} {% for element in queryset %}
+              <tr>
+                {% if element.name %}
+                <td><b>{{ element.name }}</b></td>
+                {% else %}
+                <td></td>
+                {% endif %} {% if element.dosage_form %}
+                <td>{{element.dosage_form}}</td>
+                {% elif element.volume %}
+                <td>{{element.volume}}</td>
+                {% elif element.size %}
+                <td>{{element.size}}</td>
+                {% elif element.type %}
+                <td>{{element.type}}</td>
+                {% else %}
+                <td></td>
+                {% endif %} {% if element.amount %}
+                <td>{{ element.amount }}</td>
+                {% else %}
+                <td></td>
+                {% endif %} {% if element.expiration_date %}
+                <td>{{ element.expiration_date }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
+                <td class="exp" bgcolor="yellow">
+                  {{ element.expiration_days }}
+                </td>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Equipment list of: {{container.name}}</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Size / Form</th>
-                                            <th>Amount</th>
-                                            <th>Expiration date</th>
-                                            <th>Expiration days</th>
-                                            <th>Description</th>
-                                            {% if perms.containers.change_medicalequipment %}
-                                            <th>Update element</th>
-                                            {% endif %}
-                                            {% if perms.containers.delete_medicalequipment %}
-                                            <th>Delete element</th>
-                                            {% endif %}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for queryset in equipment %}
-                                        {% for element in queryset %}
-                                        <tr>
-                                            {% if element.name %}
-                                                <td><b>{{ element.name }}</b></td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
+                {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
+                <td class="exp" bgcolor="orange">
+                  {{ element.expiration_days }}
+                </td>
 
-                                            {% if element.dosage_form %}
-                                                <td>{{element.dosage_form}}</td>
-                                            {% elif element.volume %}
-                                                <td>{{element.volume}}</td>
-                                            {% elif element.size %}
-                                                <td>{{element.size}}</td>
-                                            {% elif element.type %}
-                                                <td>{{element.type}}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
+                {% elif element.expiration_days < 0 %}
+                <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
 
-                                            {% if element.amount %}
-                                                <td>{{ element.amount }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if element.expiration_date %}
-                                                <td>{{ element.expiration_date }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if element.expiration_days <= 60 and element.expiration_days > 30 %}
-                                                <td class="exp" bgcolor="yellow">{{ element.expiration_days }}</td>
-
-                                            {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
-                                                <td class="exp" bgcolor="orange">{{ element.expiration_days }}</td>
-
-                                            {% elif element.expiration_days < 0 %}
-                                                <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
-
-                                            {% else %}
-                                                <td>{{ element.expiration_days }}</td>
-                                            {% endif %}
-
-                                            {% if element.description %}
-                                                <td>{{ element.description }}</td>
-                                            {% else %}
-                                                <td></td>
-                                            {% endif %}
-
-                                            {% if perms.containers.change_medicalequipment %}
-                                            <td>
-                                                <a href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}" class="btn btn-info btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                                        <span class="text">Update</span>
-                                    </a>
-                                            </td>
-                                             {% endif %}
-                                            {% if perms.containers.delete_medicalequipment %}
-                                            <td>
-                                                <a href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">Delete</span>
-                                    </a>
-                                            </td>
-                                        {% endif %}
-                                        {% endfor %}
-                                            {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                         <div class="my-2"></div>
-                                    <a href="{% url 'save-pdf' element='container' element_id=container.id %}" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-down"></i>
-                                        </span>
-                                        <span class="text">Save to PDF</span>
-                                    </a>
-                    </div>
-                    </div>
-
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-    </main>
-    {% endblock %}
+                {% else %}
+                <td>{{ element.expiration_days }}</td>
+                {% endif %}
+                {% if element.description %}
+                <td>{{ element.description }}</td>
+                {% else %}
+                <td></td>
+                {% endif %} {% if perms.containers.change_medicalequipment %}
+                <td>
+                  <a
+                    href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}"
+                    class="btn btn-info btn-icon-split"
+                  >
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Update</span>
+                  </a>
+                </td>
+                {% endif %} {% if perms.containers.delete_medicalequipment %}
+                <td>
+                  <a
+                    href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}"
+                    class="btn btn-danger btn-icon-split"
+                  >
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Delete</span>
+                  </a>
+                </td>
+                {% endif %} {% endfor %} {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="my-2"></div>
+      <a
+        href="{% url 'save-pdf' element='container' element_id=container.id %}"
+        class="btn btn-secondary btn-icon-split"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-down"></i>
+        </span>
+        <span class="text">Save to PDF</span>
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}

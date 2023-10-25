@@ -1,19 +1,17 @@
-{% extends 'containers/base.html' %}
-    {% load crispy_forms_tags %}
-    {% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %}
+{% block content %}
 
-    <main>
-        <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">New container</h6>
-                        </div>
-                        <div class="card-body">
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                {{ form|crispy }}
-                                <input type="submit">
-                            </form>
-                        </div>
-                    </div>
-    </main>
-    {% endblock %}
+<main>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">New container</h6>
+    </div>
+    <div class="card-body">
+      <form action="" method="POST">
+        {% csrf_token %} {{ form|crispy }}
+        <input type="submit" />
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import datetime
 from django.db import models
 from .constants import (
@@ -30,9 +31,9 @@ class Container(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-
-def get_main_container() -> Container:
-    return Container.objects.get(name="Main warehouse")
+    @staticmethod
+    def get_main_container() -> Container:
+        return Container.objects.get(name="Main warehouse")
 
 
 class BaseMedicalEquipment(models.Model):
@@ -43,9 +44,9 @@ class BaseMedicalEquipment(models.Model):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="base_medical_equipment",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
     amount = models.IntegerField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
@@ -73,9 +74,9 @@ class MedicalEquipment(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="medical_equipment",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -92,9 +93,9 @@ class Drug(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="drug",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -104,9 +105,9 @@ class Fluid(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="fluid",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -116,9 +117,9 @@ class Cannula(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="cannula",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -128,9 +129,9 @@ class Needle(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="needle",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -140,9 +141,9 @@ class Syringe(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="syringe",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -152,9 +153,9 @@ class BIG(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="big",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -164,9 +165,9 @@ class LtTube(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="lt_tube",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -176,9 +177,9 @@ class Gloves(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="gloves",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -188,9 +189,9 @@ class SterileGloves(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="sterile_gloves",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -200,9 +201,9 @@ class Gauze(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="gauze",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -212,9 +213,9 @@ class NasopharyngealTube(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="nasopharyngeal_tube",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -224,9 +225,9 @@ class OropharyngealTube(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="oropharyngeal_tube",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -236,9 +237,9 @@ class EndotrachealTube(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="endotracheal_tube",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -248,9 +249,9 @@ class LaryngoscopeBlade(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="laryngoscope_blade",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -261,9 +262,9 @@ class OxygenMask(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="oxygen_mask",
-        default=get_main_container,
+        default=Container.get_main_container,
     )
 
 
@@ -273,7 +274,7 @@ class VentilationMask(BaseMedicalEquipment):
         Container,
         blank=True,
         null=True,
-        on_delete=models.SET(get_main_container),
+        on_delete=models.SET(Container.get_main_container),
         related_name="ventilation_mask",
-        default=get_main_container,
+        default=Container.get_main_container,
     )

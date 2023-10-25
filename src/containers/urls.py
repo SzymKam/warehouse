@@ -85,4 +85,4 @@ urlpatterns = [
         StandardEquipment.als_backpack_standard,
         name="als-backpack-standard",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

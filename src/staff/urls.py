@@ -13,8 +13,6 @@ from staff.views.staff_management import (
     StaffDelete,
     AllStaff,
 )
-from django.conf.urls.static import static
-from django.conf import settings
 
 urlpatterns = [
     path("login/", StaffLogin.as_view(), name="login"),
@@ -40,4 +38,4 @@ urlpatterns = [
         MyPasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
