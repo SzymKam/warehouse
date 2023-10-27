@@ -31,9 +31,9 @@ All Create, Read, Update, Delete operations on models are available via API.
 the most important technologies used in the project:
 
 - Python 3.11
-- Django 4.1.7
+- Django 4.2.6
 - DjangoRestFramework 3.14.0
-- PostgreSQL 15
+- PostgreSQL 16
 - Docker 24.0.5
 - Pre-commit 3.2.0
 - Xhtml2pdf 0.2.11
