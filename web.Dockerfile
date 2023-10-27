@@ -11,6 +11,8 @@ RUN pip install --upgrade pip
 
 COPY requirements.txt .
 
+RUN mkdir -p /staticfiles
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ /src/
