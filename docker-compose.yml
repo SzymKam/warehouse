@@ -5,11 +5,11 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./src:/src
+      - static_volume:/src/staticfiles
+    expose:
+      - 8000
     depends_on:
       - db
     networks:
@@ -23,15 +23,29 @@ services:
       POSTGRES_DB: db_warehouse
       POSTGRES_USER: db_warehouse
       POSTGRES_PASSWORD: db_warehouse
-    #    ports:
-    #      - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
       - network_no_internet
 
+  nginx:
+    container_name: static_warehouse
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    volumes:
+      - static_volume:/staticfiles
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    networks:
+      - network_no_internet
+      - network_internet
+
 volumes:
   pg_data:
+  static_volume:
 
 networks:
   network_internet:
