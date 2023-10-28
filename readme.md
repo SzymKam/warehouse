@@ -35,6 +35,7 @@ the most important technologies used in the project:
 - DjangoRestFramework 3.14.0
 - PostgreSQL 16
 - Docker 24.0.5
+- Nginx 1.25
 - Pre-commit 3.2.0
 - Xhtml2pdf 0.2.11
 - Crispy-bootstrap4 2022.1
@@ -137,14 +138,6 @@ For reset user password via email, connect to email service:
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 
-### Run in Docker
-
-Make sure you have installed and running Docker engine. To run project:
-
-```bash
-docker compose up --build
-```
-
 ### Running the Development Server
 
 1. Run database migrations:
@@ -166,6 +159,24 @@ docker compose up --build
    ```
 
 Your Django project should now be accessible at [http://localhost:8000/].
+
+### Run in Docker
+
+Project includes pre-made files to run 3 docker containers: web app, database (PostgreSQL) and Nginx for staticfiles.
+Make sure you have installed and running Docker engine. To run project:
+
+```bash
+docker compose up --build
+```
+
+Your Django project should now be accessible at [http://localhost/].
+Don't forget to make migrations and createsuperuser.
+
+```bash
+docker-compose  exec web python manage.py migrate
+docker-compose  exec web python manage.py collectstatic
+docker-compose  exec web python manage.py createsuperuser
+```
 
 ## Database
 
