@@ -31,10 +31,11 @@ All Create, Read, Update, Delete operations on models are available via API.
 the most important technologies used in the project:
 
 - Python 3.11
-- Django 4.1.7
+- Django 4.2.6
 - DjangoRestFramework 3.14.0
-- PostgreSQL 15
+- PostgreSQL 16
 - Docker 24.0.5
+- Nginx 1.25
 - Pre-commit 3.2.0
 - Xhtml2pdf 0.2.11
 - Crispy-bootstrap4 2022.1
@@ -88,6 +89,7 @@ Example of API response of at "/api/equipment/"
 - [Feature 3]: Models - ready set of equipment. User can check what should be in, to make it in real.
 - [Feature 4]: Staff - Different groups of Staff - to manage containers and equipment or for staff management.
 - [Feature 5]: Save into pdf - every list (staff, containers, equipment, equipment in container) can be downloaded in pdf version.
+- [Feature 6]: API - CRUD operations on models are available via API.
 
 ## Getting Started
 
@@ -136,14 +138,6 @@ For reset user password via email, connect to email service:
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 
-### Run in Docker
-
-Make sure you have installed and running Docker engine. To run project:
-
-```bash
-docker compose up --build
-```
-
 ### Running the Development Server
 
 1. Run database migrations:
@@ -165,6 +159,24 @@ docker compose up --build
    ```
 
 Your Django project should now be accessible at [http://localhost:8000/].
+
+### Run in Docker
+
+Project includes pre-made files to run 3 docker containers: web app, database (PostgreSQL) and Nginx for staticfiles.
+Make sure you have installed and running Docker engine. To run project:
+
+```bash
+docker compose up --build
+```
+
+Your Django project should now be accessible at [http://localhost/].
+Don't forget to make migrations and createsuperuser.
+
+```bash
+docker-compose  exec web python manage.py migrate
+docker-compose  exec web python manage.py collectstatic
+docker-compose  exec web python manage.py createsuperuser
+```
 
 ## Database
 
