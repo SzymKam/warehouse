@@ -28,7 +28,7 @@ All Create, Read, Update, Delete operations on models are available via API.
 
 ## Technologies:
 
-the most important technologies used in the project:
+The most important technologies used in the project:
 
 - Python 3.11
 - Django 4.2.6
@@ -50,7 +50,8 @@ calendar access may be sensitive. In main page you have menu and information abo
 ![Main page](readme_images/main_page.jpg)
 Main page - only users logged into Google account with permissions to calendar can see it.
 
-#### Container page
+<details>
+<summary>Containers</summary>
 
 ![Container page_1](readme_images/containers_view_1.jpg)
 Container list. From this page user can create new container, add equipment or downlnoad pdf list of containers.
@@ -58,7 +59,10 @@ Container list. From this page user can create new container, add equipment or d
 ![Container page_2](readme_images/containers_view_2.jpg)
 Creating new container. User can choose name form list and add own description.
 
-#### Equipment page
+</details>
+
+<details>
+<summary>Equipment</summary>
 
 ![Equipment page_1](readme_images/equipment_1.jpg)
 Add new equipment from list
@@ -73,14 +77,25 @@ List of equipment from container. User can manage equipment and download equipme
 ![Equipment page_5](readme_images/equipment_5.jpg)
 It's possible to get all equipment of all containers together.
 
+</details>
+
+<details>
+<summary>Equipment - pdf doc</summary>
+
 ![Equipment page_6](readme_images/pdf.jpg)
 List of all equipment in pdf.
 
+</details>
+
+<details>
+<summary>API</summary>
 ![Api_1](readme_images/api_1.jpg)
 Example of API response of at "/api/containers/"
 
 ![Api_2](readme_images/api_2.jpg)
 Example of API response of at "/api/equipment/"
+
+</details>
 
 ## Features
 
