@@ -27,12 +27,19 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    "Warehouse-test-0410-env.eba-9mqbz3xu.eu-north-1.elasticbeanstalk.com",
+    "warehousesk.us-east-1.elasticbeanstalk.com",
+    "http://warehousesk.us-east-1.elasticbeanstalk.com",
+    "https://warehousesk.us-east-1.elasticbeanstalk.com",
     "localhost",
     "127.0.0.1",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "warehousesk.us-east-1.elasticbeanstalk.com",
+    "http://warehousesk.us-east-1.elasticbeanstalk.com"
+    "https://warehousesk.us-east-1.elasticbeanstalk.com",
+]
 
 # Application definition
 
