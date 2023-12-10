@@ -36,8 +36,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "warehousesk.us-east-1.elasticbeanstalk.com",
-    "http://warehousesk.us-east-1.elasticbeanstalk.com"
+    "http://warehousesk.us-east-1.elasticbeanstalk.com",
     "https://warehousesk.us-east-1.elasticbeanstalk.com",
 ]
 
@@ -61,7 +60,7 @@ INSTALLED_EXTENSIONS = [
     "api",
     "crispy_forms",
     "crispy_bootstrap4",
-    "weasyprint",
+    # "weasyprint",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
