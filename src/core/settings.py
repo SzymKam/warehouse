@@ -27,17 +27,17 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    "warehousesk.us-east-1.elasticbeanstalk.com",
-    "http://warehousesk.us-east-1.elasticbeanstalk.com",
-    "https://warehousesk.us-east-1.elasticbeanstalk.com",
+    "medwarehouse.us-east-1.elasticbeanstalk.com",
+    "http://medwarehouse.us-east-1.elasticbeanstalk.com",
+    "https://medwarehouse.us-east-1.elasticbeanstalk.com",
     "localhost",
     "127.0.0.1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://warehousesk.us-east-1.elasticbeanstalk.com",
-    "https://warehousesk.us-east-1.elasticbeanstalk.com",
+    "http://medwarehouse.us-east-1.elasticbeanstalk.com",
+    "https://medwarehouse.us-east-1.elasticbeanstalk.com",
 ]
 
 # Application definition
@@ -60,7 +60,6 @@ INSTALLED_EXTENSIONS = [
     "api",
     "crispy_forms",
     "crispy_bootstrap4",
-    # "weasyprint",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
