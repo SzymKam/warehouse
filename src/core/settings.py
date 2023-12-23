@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "uritemplate",
+    "storages",
 ]
 
 INSTALLED_EXTENSIONS = [
