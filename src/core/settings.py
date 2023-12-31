@@ -27,17 +27,17 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    "medwarehouse.us-east-1.elasticbeanstalk.com",
-    "http://medwarehouse.us-east-1.elasticbeanstalk.com",
-    "https://medwarehouse.us-east-1.elasticbeanstalk.com",
+    "warehouse.eu-central-1.elasticbeanstalk.com",
+    "http://warehouse.eu-central-1.elasticbeanstalk.com",
+    "https://warehouse.eu-central-1.elasticbeanstalk.com",
     "localhost",
     "127.0.0.1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://medwarehouse.us-east-1.elasticbeanstalk.com",
-    "https://medwarehouse.us-east-1.elasticbeanstalk.com",
+    "http://warehouse.eu-central-1.elasticbeanstalk.com",
+    "https://warehouse.eu-central-1.elasticbeanstalk.com",
 ]
 
 # Application definition
