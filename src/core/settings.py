@@ -98,17 +98,29 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+"""AWS RDS DB settings"""
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
+        "NAME": env("RDS_DB_NAME"),
+        "USER": env("RDS_USERNAME"),
+        "PASSWORD": env("RDS_PASSWORD"),
+        "HOST": env("RDS_HOSTNAME"),
         "PORT": "5432",
     }
 }
+
+"""alt settings for local DB"""
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": env("NAME"),
+#         "USER": env("USER"),
+#         "PASSWORD": env("PASSWORD"),
+#         "HOST": env("HOST"),
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
