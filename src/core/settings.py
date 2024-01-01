@@ -200,49 +200,26 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
-"""AWS settings for s3"""
-# *AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-# *AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+"""AWS settings for S3"""
+USE_S3 = env("USE_S3")
 
-# AWS_STORAGE_BUCKET_NAME = "warehouse-s3-bucket"
-# AWS_REGION_NAME = "eu-central-1"
-# AWS_S3_REGION_NAME = "eu-central-1"
+if USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    # s3 static settings
+    AWS_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+else:
+    STATIC_URL = "/staticfiles/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-# AWS_S3_OBJECT_PARAMETERS = {
-#     "CacheControl": "max-age=86400",
-# }
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-# AWS_LOCATION = "static"
-# DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
-# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-
-# settings.py
-
-# ...
-
-# Use Amazon S3 for storage for uploaded media files.
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
-# Amazon S3 settings.
-# AWS_ACCESS_KEY_ID = "AKIA5LQN75VHT4OOV5KT"
-# AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = "warehouse-s3-bucket"
-AWS_S3_REGION_NAME = "eu-central-1"
-
-# Optional: Set custom domain for serving static files directly from S3.
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-
-# Optional: Set folder for storing media files in S3 bucket.
-# MEDIAFILES_LOCATION = 'media'
-# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
-
-# Optional: Set folder for storing static files in S3 bucket.
-STATICFILES_LOCATION = "static"
-STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
-
-# ...
+MEDIA_URL = "/mediafiles/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
