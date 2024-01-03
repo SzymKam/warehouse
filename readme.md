@@ -156,6 +156,23 @@ For reset user password via email, connect to email service:
 - EMAIL_HOST_PASSWORD - password to email host
 - DEFAULT_FROM_EMAIL - email address to send mails
 
+If you want to connect project with your AWS S3 bucket or RDS database project is prepared.
+
+S3 bucket settings:
+
+- USE_RDS - set 'True' if you want to use RDS in project
+- RDS_DB_NAME - your RDS name
+- RDS_USERNAME - your RDS username
+- RDS_PASSWORD - your RDS password
+- RDS_HOSTNAME - your RDS host
+
+AWS S3 configuration
+
+- USE_S3 - set 'True' if you want to use S3 for static and media files in project
+  AWS_ACCESS_KEY_ID - your AWS access key id
+  AWS_SECRET_ACCESS_KEY - your AWS secret access key
+  AWS_STORAGE_BUCKET_NAME - your S3 bucket name
+
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 
 ### Running the Development Server
