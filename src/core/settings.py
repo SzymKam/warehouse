@@ -10,14 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
-import environ
 from pathlib import Path
 from .env import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env.read_env(".env")
+
+env.read_env(os.path.join(BASE_DIR.parent, ".env"))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -27,18 +27,17 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    "warehousesk.us-east-1.elasticbeanstalk.com",
-    "http://warehousesk.us-east-1.elasticbeanstalk.com",
-    "https://warehousesk.us-east-1.elasticbeanstalk.com",
+    "warehouse.eu-central-1.elasticbeanstalk.com",
+    "http://warehouse.eu-central-1.elasticbeanstalk.com",
+    "https://warehouse.eu-central-1.elasticbeanstalk.com",
     "localhost",
     "127.0.0.1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "warehousesk.us-east-1.elasticbeanstalk.com",
-    "http://warehousesk.us-east-1.elasticbeanstalk.com"
-    "https://warehousesk.us-east-1.elasticbeanstalk.com",
+    "http://warehouse.eu-central-1.elasticbeanstalk.com",
+    "https://warehouse.eu-central-1.elasticbeanstalk.com",
 ]
 
 # Application definition
@@ -53,6 +52,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "uritemplate",
+    "storages",
 ]
 
 INSTALLED_EXTENSIONS = [
@@ -61,7 +61,6 @@ INSTALLED_EXTENSIONS = [
     "api",
     "crispy_forms",
     "crispy_bootstrap4",
-    "weasyprint",
 ]
 
 INSTALLED_APPS += INSTALLED_EXTENSIONS
@@ -100,16 +99,31 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
-        "PORT": "5432",
+USE_RDS = env("USE_RDS")
+if USE_RDS:
+    """AWS RDS DB settings"""
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("RDS_DB_NAME"),
+            "USER": env("RDS_USERNAME"),
+            "PASSWORD": env("RDS_PASSWORD"),
+            "HOST": env("RDS_HOSTNAME"),
+            "PORT": "5432",
+        }
     }
-}
+else:
+    """alt settings for local DB"""
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("NAME"),
+            "USER": env("USER"),
+            "PASSWORD": env("PASSWORD"),
+            "HOST": env("HOST"),
+            "PORT": "5432",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -145,9 +159,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -157,8 +168,6 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
 
 LOGIN_REDIRECT_URL = "main-page"
 LOGOUT_REDIRECT_URL = "login"
@@ -188,3 +197,35 @@ if (
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+
+
+"""AWS settings for S3"""
+
+USE_S3 = env("USE_S3")
+
+if USE_S3:
+    # AWS settings
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+
+    # S3 static settings
+    STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
+
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
+    DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
+else:
+    STATIC_URL = "/staticfiles/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    MEDIA_URL = "/media/"
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

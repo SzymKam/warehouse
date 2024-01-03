@@ -25,6 +25,10 @@ and add equipment into containers. Project includes also pre-created
 list of equipment of different types of bags used in Group. 3rd part of
 app is staff management.
 All Create, Read, Update, Delete operations on models are available via API.
+Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files;
+RDS for PostgeSQL database.
+
+### URL: http://warehouse.eu-central-1.elasticbeanstalk.com/
 
 ## Technologies:
 
@@ -33,6 +37,7 @@ The most important technologies used in the project:
 - Python 3.11
 - Django 4.2.6
 - DjangoRestFramework 3.14.0
+- AWS: EB, EC2, S3, RDS
 - PostgreSQL 16
 - Docker 24.0.5
 - Nginx 1.25

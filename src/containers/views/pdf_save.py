@@ -1,6 +1,8 @@
 from django.shortcuts import HttpResponse
+
 from django.template.loader import get_template
-from weasyprint import HTML
+
+from xhtml2pdf import pisa
 from staff.models import StaffModel
 from datetime import date
 from containers.models import Container
@@ -49,13 +51,20 @@ def save_to_pdf(request, element, element_id=None) -> HttpResponse:
 
     template = get_template(map_elements[element]["template"])
     context = {"object_list": map_elements[element]["object_list"]}
+
     html = template.render(context)
 
-    pdf_file = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
-    response = HttpResponse(content_type="text/pdf")
-    response[
+    pdf_file = HttpResponse(content_type="application/pdf")
+    pdf_file[
         "Content-Disposition"
-    ] = f'attachment; filename="{element}-{date.today()}.pdf"'
-    response.write(pdf_file)
+    ] = f'attachment; filename="{element}-{date.today()}.pdf'
 
-    return response
+    base_url = request.build_absolute_uri("/")
+    pisa_status = pisa.CreatePDF(
+        html, dest=pdf_file, link_callback=lambda uri, _: f"{base_url}{uri}"
+    )
+
+    if pisa_status.err:
+        return HttpResponse("Error generating PDF", status=500)
+
+    return pdf_file
