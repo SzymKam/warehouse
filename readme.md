@@ -25,10 +25,16 @@ and add equipment into containers. Project includes also pre-created
 list of equipment of different types of bags used in Group. 3rd part of
 app is staff management.
 All Create, Read, Update, Delete operations on models are available via API.
-Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files;
-RDS for PostgeSQL database.
 
-### URL: http://warehouse.eu-central-1.elasticbeanstalk.com/
+Project is available on AWS cloud service EB EC2 supported by S3 bucket for static and media files;
+RDS for PostgeSQL database:
+
+#### URL: http://warehouse.eu-central-1.elasticbeanstalk.com/
+
+#### Demo account access:
+
+- Login: "DemoAccount"
+- Password: "43cPVy6CLZbKUjv"
 
 ## Technologies:
 
@@ -169,9 +175,9 @@ S3 bucket settings:
 AWS S3 configuration
 
 - USE_S3 - set 'True' if you want to use S3 for static and media files in project
-  AWS_ACCESS_KEY_ID - your AWS access key id
-  AWS_SECRET_ACCESS_KEY - your AWS secret access key
-  AWS_STORAGE_BUCKET_NAME - your S3 bucket name
+- AWS_ACCESS_KEY_ID - your AWS access key id
+- AWS_SECRET_ACCESS_KEY - your AWS secret access key
+- AWS_STORAGE_BUCKET_NAME - your S3 bucket name
 
 To help set local variables correctly, you can use ".env.dist" file. Copy this file as ".env" and set you variables values.
 
