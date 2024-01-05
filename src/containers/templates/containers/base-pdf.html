@@ -2,9 +2,9 @@
 <head>
   <meta charset="utf-8" />
   <style>
-    img {
+    th.img {
       width: auto;
-      height: 100px;
+      height: 110px;
     }
     h3 {
       text-align: center;
@@ -30,10 +30,31 @@
       vertical-align: middle;
       line-height: 1.5;
     }
+    .title {
+      border: none;
+      text-align: center;
+      font-size: 12px;
+      font-family: "Times New Roman";
+      color: black;
+      text-decoration: none;
+      vertical-align: middle;
+      height: 110px;
+    }
   </style>
 </head>
 <main>
-  <img src="{% static 'containers/grm_logo.jpg' %}" alt="logo" />
+  <table class="head">
+    <thead>
+      <tr>
+        <th class="title">
+          <img src="{% static 'containers/grm_logo.jpg' %}" alt="logo" />
+        </th>
+        <th class="title">
+          <h3>{{ title }}</h3>
+        </th>
+      </tr>
+    </thead>
+  </table>
   <hr />
   {% block content %} {% endblock %}
 </main>
