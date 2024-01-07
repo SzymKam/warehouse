@@ -58,16 +58,16 @@ calendar access may be sensitive. In main page you have menu and information abo
 
 #### Main page
 
-![Main page](readme_images/main_page.jpg)
+![Main page](docs/readme_images/main_page.jpg)
 Main page - only users logged into Google account with permissions to calendar can see it.
 
 <details>
 <summary>Containers</summary>
 
-![Container page_1](readme_images/containers_view_1.jpg)
+![Container page_1](docs/readme_images/containers_view_1.jpg)
 Container list. From this page user can create new container, add equipment or downlnoad pdf list of containers.
 
-![Container page_2](readme_images/containers_view_2.jpg)
+![Container page_2](docs/readme_images/containers_view_2.jpg)
 Creating new container. User can choose name form list and add own description.
 
 </details>
@@ -75,17 +75,17 @@ Creating new container. User can choose name form list and add own description.
 <details>
 <summary>Equipment</summary>
 
-![Equipment page_1](readme_images/equipment_1.jpg)
+![Equipment page_1](docs/readme_images/equipment_1.jpg)
 Add new equipment from list
 
-![Equipment page_2](readme_images/equipment_2.jpg)
-![Equipment page_3](readme_images/equipment_3.jpg)
+![Equipment page_2](docs/readme_images/equipment_2.jpg)
+![Equipment page_3](docs/readme_images/equipment_3.jpg)
 Depends on name of equipment, creates different model - with specific fields.
 
-![Equipment page_4](readme_images/equipment_4.jpg)
+![Equipment page_4](docs/readme_images/equipment_4.jpg)
 List of equipment from container. User can manage equipment and download equipment list of container.
 
-![Equipment page_5](readme_images/equipment_5.jpg)
+![Equipment page_5](docs/readme_images/equipment_5.jpg)
 It's possible to get all equipment of all containers together.
 
 </details>
@@ -93,7 +93,7 @@ It's possible to get all equipment of all containers together.
 <details>
 <summary>Equipment - pdf doc</summary>
 
-![Equipment page_6](readme_images/pdf.jpg)
+![Equipment page_6](docs/readme_images/pdf.jpg)
 List of all equipment in pdf.
 
 </details>
@@ -103,7 +103,7 @@ List of all equipment in pdf.
 ![Api_1](readme_images/api_1.jpg)
 Example of API response of at "/api/containers/"
 
-![Api_2](readme_images/api_2.jpg)
+![Api_2](docs/readme_images/api_2.jpg)
 Example of API response of at "/api/equipment/"
 
 </details>
