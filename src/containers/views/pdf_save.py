@@ -69,8 +69,7 @@ def save_to_pdf(request, element, element_id=None) -> HttpResponse:
         "Content-Disposition"
     ] = f'attachment; filename="{element}-{date.today()}.pdf'
 
-    # pisa_status = pisa.CreatePDF(
-    #     html, dest=pdf_file)
+    pisa_status = pisa.CreatePDF(html, dest=pdf_file)
 
     if pisa_status.err:
         return HttpResponse("Error generating PDF", status=500)
