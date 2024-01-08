@@ -21,9 +21,9 @@ services:
     container_name: db_warehouse
     image: postgres:16
     environment:
-      POSTGRES_DB: db_warehouse
-      POSTGRES_USER: db_warehouse
-      POSTGRES_PASSWORD: db_warehouse
+      POSTGRES_DB: ${NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
