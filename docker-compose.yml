@@ -12,7 +12,8 @@ services:
     expose:
       - 8000
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - network_no_internet
       - network_internet
@@ -26,6 +27,11 @@ services:
       POSTGRES_PASSWORD: ${PASSWORD}
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${USER}"]
+      interval: 5s
+      timeout: 30s
+      retries: 6
     networks:
       - network_no_internet
 
