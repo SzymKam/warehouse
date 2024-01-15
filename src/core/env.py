@@ -11,4 +11,11 @@ env = environ.Env(
     ),
     DEFAULT_FROM_EMAIL=(str, None),
     TEST_PASSWORD=(str, None),
+    USE_S3=(bool, False),
+    USE_RDS=(bool, False),
+    ENVIRONMENT=(str, None),
+    USER=(str, "db_warehouse"),
+    PASSWORD=(str, "db_warehouse"),
+    NAME=(str, "db_warehouse"),
+    HOST=(str, "db"),
 )
