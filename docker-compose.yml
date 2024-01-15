@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    command: poetry run gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/src/staticfiles
       - media_volume:/src/media
