@@ -7,6 +7,10 @@ WORKDIR src
 ENV PYTOHNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+COPY pyproject.toml .
+
+RUN mkdir -p /staticfiles
+
 RUN pip install --upgrade pip && pip install poetry && poetry install --no-cache
 
 RUN mkdir -p /staticfiles
