@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from containers.views.container_crud import (
     ContainerView,
     ContainerDetail,
@@ -19,9 +17,7 @@ from containers.views.equipment_standard import StandardEquipment
 from containers.views.main_page import main_page
 
 urlpatterns = [
-    # main page
     path("", main_page, name="main-page"),
-    # CRUD for containers
     path("containers/", ContainerView.as_view(), name="containers-home"),
     path(
         "containers/<int:pk>",

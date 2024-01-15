@@ -124,7 +124,7 @@ class ContainerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     queryset = Container.objects.all()
 
     def form_valid(self, form):
-        messages.success(self.request, "Container crated!")
+        messages.success(self.request, "Container created!")
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:

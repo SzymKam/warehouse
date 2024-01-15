@@ -1,5 +1,4 @@
-{% extends 'containers/base.html' %} {% load crispy_forms_tags %}
-{% block content %}
+{% extends 'containers/base.html' %} {% load crispy_forms_tags %} {% block content %}
 
 <style>
   .exp {
@@ -36,8 +35,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for list in object_list %} {% for query in list %}
-              {% for element in query %}
+              {% for list in object_list %} {% for query in list %} {% for element in query %}
               <tr>
                 {% if element.name %}
                 <td><b>{{ element.name }}</b></td>
@@ -66,8 +64,7 @@
                   {{ element.expiration_days }}
                 </td>
 
-                {% elif element.expiration_days <= 30 and
-                element.expiration_days > 0 %}
+                {% elif element.expiration_days <= 30 and element.expiration_days > 0 %}
                 <td class="exp" bgcolor="orange">
                   {{ element.expiration_days }}
                 </td>
