@@ -1,0 +1,39 @@
+name: Warehouse CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.11]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Poetry
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install poetry
+
+    - name: Install Dependencies
+      run: |
+        poetry install
+
+    - name: Run Tests
+      run: |
+        poetry run python src/manage.py test
+      env:
+        USE_RDS: ${{ secrets.USE_RDS }}
+        ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+        USE_S3: ${{ secrets.USE_S3 }}
