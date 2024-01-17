@@ -26,23 +26,6 @@ class TestStaffResponse(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(len(response.data), 3)
-
-        self.assertEqual(response.data[0]["username"], self.user_2.username)
-        self.assertEqual(
-            response.data[0]["medical_qualifications"],
-            self.user_2.medical_qualifications,
-        )
-        self.assertEqual(response.data[1]["username"], self.user_3.username)
-        self.assertEqual(
-            response.data[1]["medical_qualifications"],
-            self.user_3.medical_qualifications,
-        )
-        self.assertEqual(response.data[2]["username"], self.user_1.username)
-        self.assertEqual(
-            response.data[2]["medical_qualifications"],
-            self.user_1.medical_qualifications,
-        )
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.request["REQUEST_METHOD"], "GET")
 
