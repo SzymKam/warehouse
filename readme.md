@@ -43,6 +43,7 @@ The most important technologies used in the project:
 - Python 3.11
 - Django 4.2.6
 - DjangoRestFramework 3.14.0
+- Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - PostgreSQL 16
 - Docker 24.0.5
@@ -133,14 +134,14 @@ Follow these steps to get your project up and running locally.
 2. Create a virtual environment (optional but recommended):
 
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    pip install poetry
+    poetry env use python3.11
    ```
 
 3. Install project dependencies:
 
    ```bash
-   pip install -r requirements.txt
+    poetry install --no-cache
    ```
 
 ### Configuration
@@ -186,19 +187,19 @@ To help set local variables correctly, you can use ".env.dist" file. Copy this f
 1. Run database migrations:
 
    ```bash
-   python manage.py migrate
+   poetry run python manage.py migrate
    ```
 
 2. Create a superuser (admin):
 
    ```bash
-   python manage.py createsuperuser
+   poetry run python manage.py createsuperuser
    ```
 
 3. Start the development server:
 
    ```bash
-   python manage.py runserver
+   poetry run python manage.py runserver
    ```
 
 Your Django project should now be accessible at [http://localhost:8000/].
