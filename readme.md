@@ -128,7 +128,6 @@ Follow these steps to get your project up and running locally.
 
    ```bash
    git clone https://github.com/SzymKam/warehouse
-   cd src
    ```
 
 2. Create a virtual environment and install poetry (optional but recommended):
