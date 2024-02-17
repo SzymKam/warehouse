@@ -18,7 +18,7 @@
 ## Project Overview
 
 This project is created to manage warehouse of medical equipment.
-It is built using Django 4.1.7.
+It is built using Django 4.2.7.
 It is made especially for Medical Rescue Group of Polish Red Cross.
 User can go by all containers in warehouse, create new containers
 and add equipment into containers. Project includes also pre-created
