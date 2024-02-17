@@ -41,15 +41,15 @@ RDS for PostgeSQL database:
 The most important technologies used in the project:
 
 - Python 3.11
-- Django 4.2.6
+- Django 4.2.7
 - DjangoRestFramework 3.14.0
 - Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - PostgreSQL 16
 - Docker 24.0.5
 - Nginx 1.25
-- Pre-commit 3.2.0
-- Xhtml2pdf 0.2.11
+- Pre-commit 3.3.3
+- Xhtml2pdf 0.2.15
 - Crispy-bootstrap4 2022.1
 
 ## Usage
