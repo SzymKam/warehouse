@@ -1,7 +1,7 @@
-import environ
+from environ import Env
 from django.core.management.utils import get_random_secret_key
 
-env = environ.Env(
+env = Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, get_random_secret_key()),
     EMAIL_HOST_USER=(str, "apikey"),
