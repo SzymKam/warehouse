@@ -33,8 +33,7 @@ python-dateutil = "2.8.2"
 requests = "2.31.0"
 s3transfer = "0.10.0"
 uritemplate = "^4.1.1"
-xhtml2pdf = "^0.2.13"
-pycairo = "1.25.1"
+xhtml2pdf = "^0.2.15"
 
 
 [build-system]
