@@ -27,6 +27,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://warehouse.eu-central-1.elasticbeanstalk.com",
     "https://warehouse.eu-central-1.elasticbeanstalk.com",
+    "http://warehouse.eu-north-1.elasticbeanstalk.com/",
+    "https://warehouse.eu-north-1.elasticbeanstalk.com/",
 ]
 
 INSTALLED_APPS = [
