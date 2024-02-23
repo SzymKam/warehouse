@@ -30,6 +30,7 @@ Project is available on AWS cloud service EB EC2 supported by S3 bucket for stat
 RDS for PostgeSQL database:
 
 #### URL: http://warehouse.eu-central-1.elasticbeanstalk.com/
+#### 2nd URL http://warehouse.eu-north-1.elasticbeanstalk.com/
 
 #### Demo account access:
 
