@@ -11,10 +11,6 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    "warehouse.eu-central-1.elasticbeanstalk.com",
-    "http://warehouse.eu-central-1.elasticbeanstalk.com",
-    "https://warehouse.eu-central-1.elasticbeanstalk.com",
-
     "warehouse.eu-north-1.elasticbeanstalk.com",
     "http://warehouse.eu-north-1.elasticbeanstalk.com/",
     "https://warehouse.eu-north-1.elasticbeanstalk.com/",
@@ -25,8 +21,6 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://warehouse.eu-central-1.elasticbeanstalk.com",
-    "https://warehouse.eu-central-1.elasticbeanstalk.com",
     "http://warehouse.eu-north-1.elasticbeanstalk.com/",
     "https://warehouse.eu-north-1.elasticbeanstalk.com/",
 ]
