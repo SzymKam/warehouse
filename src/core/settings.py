@@ -14,6 +14,11 @@ ALLOWED_HOSTS = [
     "warehouse.eu-central-1.elasticbeanstalk.com",
     "http://warehouse.eu-central-1.elasticbeanstalk.com",
     "https://warehouse.eu-central-1.elasticbeanstalk.com",
+
+    "warehouse.eu-north-1.elasticbeanstalk.com",
+    "http://warehouse.eu-north-1.elasticbeanstalk.com/",
+    "https://warehouse.eu-north-1.elasticbeanstalk.com/",
+
     "localhost",
     "127.0.0.1",
 ]
