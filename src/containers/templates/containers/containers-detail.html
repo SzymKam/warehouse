@@ -9,7 +9,7 @@
   <div class="container-fluid">
     <!-- Page Heading -->
     <p class="mb-4">{{ container.description }}</p>
-    {% if perms.containers.add_medicalequipment %}
+    {% if perms.containers.add_drug %}
     <ul>
       <li>
         <a
@@ -73,9 +73,9 @@
                 <th>Expiration date</th>
                 <th>Expiration days</th>
                 <th>Description</th>
-                {% if perms.containers.change_medicalequipment %}
+                {% if perms.containers.change_drug %}
                 <th>Update element</th>
-                {% endif %} {% if perms.containers.delete_medicalequipment %}
+                {% endif %} {% if perms.containers.delete_drug %}
                 <th>Delete element</th>
                 {% endif %}
               </tr>
@@ -116,7 +116,7 @@
                   {{ element.expiration_days }}
                 </td>
 
-                {% elif element.expiration_days < 0 %}
+                {% elif element.expiration_days <= 0 %}
                 <td class="exp" bgcolor="red">{{ element.expiration_days }}</td>
 
                 {% else %}
@@ -126,7 +126,7 @@
                 <td>{{ element.description }}</td>
                 {% else %}
                 <td></td>
-                {% endif %} {% if perms.containers.change_medicalequipment %}
+                {% endif %} {% if perms.containers.change_drug %}
                 <td>
                   <a
                     href="{% url 'equipment-update' pk=element.id name=element.name container=container.id %}"
@@ -138,7 +138,7 @@
                     <span class="text">Update</span>
                   </a>
                 </td>
-                {% endif %} {% if perms.containers.delete_medicalequipment %}
+                {% endif %} {% if perms.containers.delete_drug %}
                 <td>
                   <a
                     href="{% url 'equipment-delete' pk=element.id name=element.name container=container.id %}"
