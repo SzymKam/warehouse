@@ -18,7 +18,7 @@
 ## Project Overview
 
 This project is created to manage warehouse of medical equipment.
-It is built using Django 4.1.7.
+It is built using Django 4.2.7.
 It is made especially for Medical Rescue Group of Polish Red Cross.
 User can go by all containers in warehouse, create new containers
 and add equipment into containers. Project includes also pre-created
@@ -41,15 +41,15 @@ RDS for PostgeSQL database:
 The most important technologies used in the project:
 
 - Python 3.11
-- Django 4.2.6
+- Django 4.2.7
 - DjangoRestFramework 3.14.0
 - Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - PostgreSQL 16
 - Docker 24.0.5
 - Nginx 1.25
-- Pre-commit 3.2.0
-- Xhtml2pdf 0.2.11
+- Pre-commit 3.3.3
+- Xhtml2pdf 0.2.15
 - Crispy-bootstrap4 2022.1
 
 ## Usage
@@ -128,7 +128,6 @@ Follow these steps to get your project up and running locally.
 
    ```bash
    git clone https://github.com/SzymKam/warehouse
-   cd src
    ```
 
 2. Create a virtual environment and install poetry (optional but recommended):
