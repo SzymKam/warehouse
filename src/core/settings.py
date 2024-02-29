@@ -79,40 +79,31 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 
-if env("ENVIRONMENT") == "ci":
-    """For ci use sqlite database"""
+USE_RDS = env("USE_RDS")
+if USE_RDS:
+    """AWS RDS DB settings"""
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": "sqlite3.db",
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("RDS_DB_NAME"),
+            "USER": env("RDS_USERNAME"),
+            "PASSWORD": env("RDS_PASSWORD"),
+            "HOST": env("RDS_HOSTNAME"),
+            "PORT": "5432",
         }
     }
 else:
-    USE_RDS = env("USE_RDS")
-    if USE_RDS:
-        """AWS RDS DB settings"""
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": env("RDS_DB_NAME"),
-                "USER": env("RDS_USERNAME"),
-                "PASSWORD": env("RDS_PASSWORD"),
-                "HOST": env("RDS_HOSTNAME"),
-                "PORT": "5432",
-            }
+    """alt settings for local DB"""
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST"),
+            "PORT": "5432",
         }
-    else:
-        """alt settings for local DB"""
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": env("NAME"),
-                "USER": env("USER"),
-                "PASSWORD": env("PASSWORD"),
-                "HOST": env("HOST"),
-                "PORT": "5432",
-            }
-        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -173,39 +164,32 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
-if env("ENVIRONMENT") == "ci":
+
+USE_S3 = env("USE_S3")
+
+if USE_S3:
+    """AWS settings"""
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+
+    """S3 static settings"""
+    STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
+
+    """s3 media settings"""
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
+    DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
+else:
     STATIC_URL = "/staticfiles/"
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     MEDIA_URL = "/media/"
-
-else:
-    USE_S3 = env("USE_S3")
-
-    if USE_S3:
-        """AWS settings"""
-        AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-        AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-        AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-        AWS_DEFAULT_ACL = None
-        AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-        AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-
-        """S3 static settings"""
-        STATIC_LOCATION = "static"
-        STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-        STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
-
-        """s3 media settings"""
-        PUBLIC_MEDIA_LOCATION = "media"
-        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-        DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
-    else:
-        STATIC_URL = "/staticfiles/"
-        STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-        MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-        MEDIA_URL = "/media/"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
