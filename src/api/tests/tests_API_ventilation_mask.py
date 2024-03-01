@@ -1,12 +1,11 @@
 import secrets
 
 from django.contrib.auth.models import Permission
-from django.test import TestCase, tag
+from django.test import TestCase
 from containers.models import VentilationMask, Container
 from staff.models import StaffModel
 from django.urls import reverse
 from rest_framework import status
-from core.env import env
 
 
 class TestVentilationMaskResponse(TestCase):
