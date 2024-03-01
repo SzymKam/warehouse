@@ -225,7 +225,7 @@ docker-compose  exec web python manage.py createsuperuser
 ## Database
 
 Overview of the database structure and models:
-g
+
 - [Model 1]: Container - with fields: name and description. Default container is "Main warehouse" -
   auto-created when database migrate. Also, when delete other container, equipment is transferred into
   "Main warehouse".
