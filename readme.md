@@ -18,7 +18,7 @@
 ## Project Overview
 
 This project is created to manage warehouse of medical equipment.
-It is built using Django 4.2.7.
+It is built using Django 5.0.2.
 It is made especially for Medical Rescue Group of Polish Red Cross.
 User can go by all containers in warehouse, create new containers
 and add equipment into containers. Project includes also pre-created
@@ -41,14 +41,14 @@ RDS for PostgeSQL database:
 The most important technologies used in the project:
 
 - Python 3.11
-- Django 4.2.7
+- Django 5.0.2
 - DjangoRestFramework 3.14.0
 - Poetry 1.7.1
 - AWS: EB, EC2, S3, RDS
 - PostgreSQL 16
 - Docker 24.0.5
 - Nginx 1.25
-- Pre-commit 3.3.3
+- Pre-commit 3.6.2
 - Xhtml2pdf 0.2.15
 - Crispy-bootstrap4 2022.1
 
@@ -151,10 +151,10 @@ Configure your project by setting up environment variables:
 
 Create local server of PostgreSQL, and set variables to connect:
 
-- USER - database user
-- PASSWORD - database user password
-- HOST - database host
-- NAME - database name
+- DB_USER - database user
+- DB_PASSWORD - database user password
+- DB_HOST - database host
+- DB_NAME - database name
 
 For reset user password via email, connect to email service:
 
@@ -186,6 +186,7 @@ To help set local variables correctly, you can use ".env.dist" file. Copy this f
 1. Run database migrations:
 
    ```bash
+   cd src
    poetry run python manage.py migrate
    ```
 
@@ -213,10 +214,10 @@ docker compose up --build
 ```
 
 Your Django project should now be accessible at [http://localhost/].
-Don't forget to make migrations and createsuperuser.
+Don't forget to make migrations, collect static files and createsuperuser.
 
 ```bash
-docker-compose  exec web python manage.py migrate
+docker-compose  exec web python manage.py migrate (migrations are also included, when docker-compose run)
 docker-compose  exec web python manage.py collectstatic
 docker-compose  exec web python manage.py createsuperuser
 ```
@@ -239,7 +240,7 @@ Overview of the database structure and models:
 To run the tests for this project, use the following command:
 
 ```bash
-python manage.py test
+poetry run python manage.py test
 ```
 
 For testing is used included in Django - Unit Test.
