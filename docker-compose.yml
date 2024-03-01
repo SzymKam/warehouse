@@ -5,7 +5,8 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-    command: poetry run gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    command: >
+      sh -c "poetry run python manage.py migrate && poetry run gunicorn core.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - static_volume:/src/staticfiles
       - media_volume:/src/media
@@ -22,13 +23,14 @@ services:
     container_name: db_warehouse
     image: postgres:16
     environment:
-      POSTGRES_DB: ${NAME}
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${USER}"]
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
       interval: 5s
       timeout: 30s
       retries: 6
